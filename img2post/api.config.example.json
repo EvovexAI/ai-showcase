@@ -1,0 +1,13 @@
+{
+  "_comment": "可选配置文件。不建此文件则用代码内置默认值；字段均可被请求体里的 override 逐次覆盖。改完重启 node server.cjs 生效。",
+  "dashscope": {
+    "apiBase": "https://dashscope.aliyuncs.com/api/v1",
+    "apiKey": "sk-替换成你的DashScope-Key",
+    "model": "wan2.7-image-pro"
+  },
+  "openai": {
+    "apiBase": "https://你的网关地址/v1",
+    "apiKey": "sk-替换成你的网关Key",
+    "model": "doubao-seed-2.1-turbo"
+  }
+}

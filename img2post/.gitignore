@@ -1,0 +1,13 @@
+# 配置文件（含密钥，绝不提交）
+api.config.json
+*.local.json
+.env
+.env.*
+
+# 运行产物
+node_modules/
+*.log
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db
