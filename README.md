@@ -2,18 +2,18 @@
 
 EvovexAI 的 AI 应用实战演示合集：小而完整、开箱即跑、无内置密钥。
 
-项目按编号组织：`ai-<编号>-<意义名>`。
+项目按编号组织：`ai-<意义名>-<编号>`。
 
 ## 项目列表
 
 | 编号 | 目录 | 项目 | 简介 |
 |---|---|---|---|
-| 001 | `ai-001-*` | （待添加） | |
-| 002 | `ai-002-ai-poster-editor` | [AI 海报编辑器](./ai-002-ai-poster-editor/) | 纯前端海报编辑器 + AI 生成（背景/绿幕素材/布局优化/一键成稿）+ 零依赖 REST API |
+| 001 | `ai-*-001` | （待添加） | |
+| 002 | `ai-poster-editor-002` | [AI 海报编辑器](./ai-poster-editor-002/) | 纯前端海报编辑器 + AI 生成（背景/绿幕素材/布局优化/一键成稿）+ 零依赖 REST API |
 
 ---
 
-### ai-002 — AI 海报编辑器（img2post）
+### ai-poster-editor-002 — AI 海报编辑器（img2post）
 
 展示如何把多种 AI 能力组合成一个可用的产品：
 
@@ -26,11 +26,11 @@ EvovexAI 的 AI 应用实战演示合集：小而完整、开箱即跑、无内�
 技术栈：Vanilla HTML/CSS/JS（零框架零构建）+ Node 内置模块（零依赖 API 服务）。
 
 ```bash
-cd ai-002-ai-poster-editor
+cd ai-poster-editor-002
 node server.cjs        # http://127.0.0.1:8899 — UI 与 REST API 同端口
 ```
 
-配置 API Key：见 [SETUP.md](./ai-002-ai-poster-editor/SETUP.md)；API 接口文档见 [API.md](./ai-002-ai-poster-editor/API.md)。
+配置 API Key：见 [SETUP.md](./ai-poster-editor-002/SETUP.md)；API 接口文档见 [API.md](./ai-poster-editor-002/API.md)。
 
 > ⚠️ 本仓库不包含任何 API Key 或内网地址，请使用自己的账号与服务。
 
@@ -39,7 +39,7 @@ node server.cjs        # http://127.0.0.1:8899 — UI 与 REST API 同端口
 - 每个项目尽量零依赖或极少依赖，克隆即跑
 - 不硬编码任何密钥、内网 IP、公司域名
 - 每个项目附 SETUP/使用文档
-- 目录命名：`ai-<编号>-<意义名>`，编号递增，不重用
+- 目录命名：`ai-<意义名>-<编号>`，编号递增，不重用
 
 ## License
 
