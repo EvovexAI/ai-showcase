@@ -14,7 +14,7 @@ export function generateMockReport(videoPath: string): DecomposeResult {
   // 确保目录存在
   fs.mkdirSync(scenesDir, { recursive: true });
 
-  // 生成模拟报告数据
+  // 生成扩展的分析报告数据（包含更多维度）
   const report = {
     generated_at: new Date().toISOString(),
     source_video: videoPath,
@@ -355,6 +355,119 @@ export function generateMockReport(videoPath: string): DecomposeResult {
     ],
 
     keyframe_mode: 'transcript',
+
+    // 新增：内容分析维度
+    content_analysis: {
+      main_topics: ['AI工具', '选择技巧', '生产力提升', '效率工具'],
+      keywords: [
+        { word: 'AI', frequency: 12, relevance: 0.95 },
+        { word: '工具', frequency: 8, relevance: 0.88 },
+        { word: '选择', frequency: 6, relevance: 0.82 },
+        { word: '新手', frequency: 5, relevance: 0.75 },
+        { word: '推荐', frequency: 4, relevance: 0.70 },
+      ],
+      sentiment: 'positive',
+      sentiment_score: 0.85,
+      tone: '专业、实用、友善',
+      content_type: '教程/讲解',
+      target_audience: '新手/初学者/职场人士',
+      complexity_level: 'medium',
+    },
+
+    // 新增：互动优化建议
+    engagement_suggestions: [
+      {
+        category: '开场优化',
+        priority: 'high',
+        suggestion: '开场Hook可以更加吸引眼球，尝试提出问题或悬念',
+        estimated_impact: '提高完播率15-25%',
+      },
+      {
+        category: '节奏优化',
+        priority: 'medium',
+        suggestion: '中段可以加入更多视觉变化或转场效果',
+        estimated_impact: '提高用户停留时间10%',
+      },
+      {
+        category: '互动号召',
+        priority: 'high',
+        suggestion: '结尾的互动号召可以更具体（如"评论你的答案"而非泛泛号召）',
+        estimated_impact: '提高评论率20%',
+      },
+      {
+        category: '字幕优化',
+        priority: 'medium',
+        suggestion: '关键词和重点信息需要用字幕突出',
+        estimated_impact: '提高理解度和分享意愿',
+      },
+    ],
+
+    // 新增：内容评分
+    content_scores: {
+      overall_score: 78,
+      originality: 72,
+      clarity: 85,
+      engagement_potential: 76,
+      seo_friendliness: 68,
+      production_quality: 80,
+      pacing: 74,
+      call_to_action: 70,
+    },
+
+    // 新增：SEO 和传播数据
+    seo_metadata: {
+      title: '从80个AI工具中如何选择 - 新手必看教程',
+      description: '完整讲解新手选择AI工具的方法论和实用建议，包括评估标准、工具对比和快速上手技巧',
+      recommended_hashtags: ['#AI', '#AI工具', '#效率提升', '#新手教程', '#职场技能'],
+      recommended_keywords: [
+        'AI工具选择',
+        '新手AI工具教程',
+        'AI工具对比',
+        '生产力工具',
+        '工作效率',
+      ],
+    },
+
+    // 新增：类似视频推荐
+    similar_videos: [
+      {
+        title: 'ChatGPT 新手快速上手指南',
+        similarity_score: 0.92,
+        expected_audience_overlap: 0.85,
+      },
+      {
+        title: '2024年最实用的5个AI工具评测',
+        similarity_score: 0.88,
+        expected_audience_overlap: 0.78,
+      },
+      {
+        title: '如何用AI提高工作效率50%',
+        similarity_score: 0.84,
+        expected_audience_overlap: 0.72,
+      },
+    ],
+
+    // 新增：发布建议
+    publication_recommendations: {
+      best_posting_time: '工作日下午2-4点',
+      recommended_platforms: ['抖音', 'YouTube', 'B站', '小红书'],
+      optimal_duration: '2-5分钟',
+      suggested_thumbnail_style: '人物特写+数字突出',
+      expected_ctr: '6-8%',
+      expected_completion_rate: '65-75%',
+    },
+
+    // 新增：字幕和文本优化
+    subtitle_optimization: {
+      current_coverage: '部分（仅关键词）',
+      recommended_coverage: '100%（全文字幕）',
+      emphasis_points: [
+        { time: '0:05-0:10', text: '新手如果从80个AI工具中选择', emphasis: '核心问题' },
+        { time: '0:15-0:25', text: '评估标准和选择方法', emphasis: '核心内容' },
+        { time: '0:85-0:90', text: '点赞、评论、关注', emphasis: 'CTA' },
+      ],
+      subtitle_style_recommendation: '白色字体，黑色或半透明背景，字号适中便于阅读',
+    },
   };
 
   // 保存报告到文件
