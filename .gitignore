@@ -16,6 +16,9 @@ data/_server.log
 # EvoFlow 本地索引
 .evoflow/code_index/
 
+# 历史内嵌仓库备份
+.git-embedded-backup/
+
 # 系统文件
 Thumbs.db
 .DS_Store

@@ -1,0 +1,609 @@
+{
+  "projects": [
+    {
+      "id": "prd_mvivtp0z_6ff33b",
+      "name": "杯子",
+      "category": "其他",
+      "description": "",
+      "platform": "taobao",
+      "language": "zh-CN",
+      "status": "draft",
+      "progress": 62,
+      "createdAt": "2026-10-22T01:48:27.251Z",
+      "updatedAt": "2026-10-22T01:57:57.140Z",
+      "assets": [
+        {
+          "id": "ast_mvivuzs2_f15031",
+          "name": "681a0f97d81c753c46889e86cbbaf53c.jpg",
+          "kind": "front",
+          "source": "local",
+          "mime": "image/jpeg",
+          "size": 1257740,
+          "url": "/uploads/1792633767833-abfd40-681a0f97d81c753c46889e86cbbaf53c.jpg",
+          "createdAt": "2026-10-22T01:49:27.842Z"
+        },
+        {
+          "id": "ast_mvivv1r8_47d8b4",
+          "name": "7f5a8818d0a6d01dea10ca2f98a35631.jpg",
+          "kind": "top",
+          "source": "local",
+          "mime": "image/jpeg",
+          "size": 1301971,
+          "url": "/uploads/1792633770397-5e07aa-7f5a8818d0a6d01dea10ca2f98a35631.jpg",
+          "createdAt": "2026-10-22T01:49:30.404Z"
+        },
+        {
+          "id": "ast_mvivv4s7_9f3c4a",
+          "name": "34f6ed740fb9c9470cda1db1b62910a9.jpg",
+          "kind": "side",
+          "source": "local",
+          "mime": "image/jpeg",
+          "size": 1294586,
+          "url": "/uploads/1792633774320-38fc50-34f6ed740fb9c9470cda1db1b62910a9.jpg",
+          "createdAt": "2026-10-22T01:49:34.327Z"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "out_mvivwh35_526569",
+          "kind": "image",
+          "name": "杯子-主图套装（旧结果·未参考素材）",
+          "url": "/generated/1792633792985-杯子-主图套装.png",
+          "createdAt": "2026-10-22T01:50:36.929Z",
+          "meta": {
+            "referenceStatus": "missing",
+            "ok": true,
+            "accepted": false,
+            "completed": true,
+            "job": {
+              "jobId": "4f420301-7cb0-4c2e-a80c-fd77198e564b",
+              "status": "succeeded",
+              "model": "G-image-2.5【稳定】",
+              "prompt": "为商品“杯子”创作淘宝/天猫电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：结构细节清晰、使用场景直观、规格信息易读。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+              "size": "1024x1024",
+              "resolution": "1K",
+              "quality": null,
+              "originalCost": 188,
+              "finalCost": 151,
+              "discountPercent": 80,
+              "balance": 1092536,
+              "workId": "bc8a59a0-a7b2-4825-8648-4a343ba337ba",
+              "requestId": "imgreq-6ea85881843342f3aa934b102ecc9262",
+              "resultUrl": "/api/storage/file/generated/images/gen_1792633830552_de181cc44157.png",
+              "error": null,
+              "createdAt": "2026-10-22T01:49:49.701216Z",
+              "completedAt": "2026-10-22T01:50:33.403808Z"
+            },
+            "outputPath": "C:\\Users\\sun\\Desktop\\1022项目\\generated\\1792633792985-杯子-主图套装.png"
+          }
+        }
+      ],
+      "jobs": [
+        {
+          "id": "quote_mvivvg7r_09f1c2",
+          "kind": "image",
+          "status": "succeeded",
+          "result": {
+            "ok": true,
+            "accepted": false,
+            "completed": true,
+            "job": {
+              "jobId": "4f420301-7cb0-4c2e-a80c-fd77198e564b",
+              "status": "succeeded",
+              "model": "G-image-2.5【稳定】",
+              "prompt": "为商品“杯子”创作淘宝/天猫电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：结构细节清晰、使用场景直观、规格信息易读。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+              "size": "1024x1024",
+              "resolution": "1K",
+              "quality": null,
+              "originalCost": 188,
+              "finalCost": 151,
+              "discountPercent": 80,
+              "balance": 1092536,
+              "workId": "bc8a59a0-a7b2-4825-8648-4a343ba337ba",
+              "requestId": "imgreq-6ea85881843342f3aa934b102ecc9262",
+              "resultUrl": "/api/storage/file/generated/images/gen_1792633830552_de181cc44157.png",
+              "error": null,
+              "createdAt": "2026-10-22T01:49:49.701216Z",
+              "completedAt": "2026-10-22T01:50:33.403808Z"
+            },
+            "outputPath": "C:\\Users\\sun\\Desktop\\1022项目\\generated\\1792633792985-杯子-主图套装.png"
+          }
+        }
+      ],
+      "insight": null,
+      "brief": {
+        "mainCount": 5,
+        "skuCount": 6,
+        "detailCount": 8,
+        "ratios": [
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "videoTypes": [
+          "主图视频",
+          "操作视频",
+          "营销视频"
+        ]
+      }
+    },
+    {
+      "id": "prd_mviudjje_2d93a5",
+      "name": "便携式无线榨汁杯",
+      "category": "厨房小家电",
+      "description": "高硼硅玻璃杯体，双击启动，适合通勤和健身人群",
+      "platform": "douyin",
+      "language": "zh-CN",
+      "status": "draft",
+      "progress": 62,
+      "createdAt": "2026-10-22T01:07:54.026Z",
+      "updatedAt": "2026-10-22T01:23:00.598Z",
+      "assets": [
+        {
+          "id": "ast_mviuds59_53395a",
+          "name": "dashboard.png",
+          "kind": "front",
+          "source": "local",
+          "mime": "image/png",
+          "size": 349731,
+          "url": "/uploads/1792631285172-1c43f7-dashboard.png",
+          "createdAt": "2026-10-22T01:08:05.181Z"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "out_mviuwz1x_90bcb8",
+          "kind": "image",
+          "name": "便携式无线榨汁杯-抖音主图测试",
+          "url": "/generated/便携式无线榨汁杯-抖音主图-1x1-v1.png",
+          "createdAt": "2026-10-22T01:23:00.597Z",
+          "meta": {
+            "size": "1024x1024",
+            "model": "G-image-2.5【稳定】",
+            "resolution": "1K",
+            "jobId": "90f47d56-21ce-4951-bf94-ca4bb4871f90",
+            "cost": 151
+          }
+        }
+      ],
+      "jobs": [],
+      "insight": {
+        "summary": "围绕“便携式无线榨汁杯”完成公开网页初步扫描。厨房小家电用户通常先看使用场景与核心收益，再比较材质、规格、维护成本与可信证据。",
+        "personas": [
+          {
+            "name": "效率导向用户",
+            "need": "快速判断是否适合自己的场景",
+            "concern": "功能是否夸大、使用是否复杂"
+          },
+          {
+            "name": "品质导向用户",
+            "need": "材质、工艺和细节证据",
+            "concern": "实物与图片是否一致"
+          },
+          {
+            "name": "价格敏感用户",
+            "need": "规格组合与长期使用价值",
+            "concern": "隐性成本和售后"
+          }
+        ],
+        "painPoints": [
+          "信息很多但看不出实际解决什么问题",
+          "缺少尺寸、材质和适配范围的直观参照",
+          "担心效果图与真实商品不一致",
+          "不知道如何使用、清洁或维护"
+        ],
+        "sellingPoints": [
+          "便携",
+          "性价比",
+          "真实材质与细节可视化",
+          "使用前后场景对照",
+          "规格与适配边界说清楚"
+        ],
+        "creativeDirections": [
+          {
+            "title": "一眼看懂",
+            "detail": "首图只保留商品、核心利益点和一处可信证据"
+          },
+          {
+            "title": "场景证明",
+            "detail": "用真实环境展示使用动作、尺寸和前后差异"
+          },
+          {
+            "title": "细节消疑",
+            "detail": "用微距、拆解或标注呈现材质与关键结构"
+          }
+        ],
+        "keywords": [
+          "便携式无线榨汁杯",
+          "厨房小家电",
+          "便携",
+          "性价比",
+          "测评",
+          "使用方法",
+          "怎么选"
+        ],
+        "sourceCount": 12,
+        "sources": [
+          {
+            "url": "https://baike.baidu.com/item/%E4%BE%BF%E6%90%BA/4185523",
+            "title": "便携_百度百科",
+            "snippet": "1.便携笔记本电脑。 2.如今各大音箱厂商推出了不少小巧 精致 的便携音箱。 3.有许多朋友认为，既然是便携式打印机，那肯定是越轻 …"
+          },
+          {
+            "url": "https://global.bing.com/dict/search?q=portable&amp;FORM=BDVSP6&amp;cc=cn",
+            "title": "portable - 搜索 词典",
+            "snippet": "必应词典为您提供portable的释义，美 [ˈpɔrtəb (ə)l]，英 [ˈpɔː (r)təb (ə)l]，adj. 便携式的；手提的；轻便的； n. 便携机；（尤指）手提 …"
+          },
+          {
+            "url": "https://www.hanyuguoxue.com/cidian/ci-614ab1bbf",
+            "title": "便携的意思_便携的解释-汉语国学",
+            "snippet": "便携的相关组词 fāng bi&#224;n 方便 常用 yǐ bi&#224;n 以便 常用 su&#237; bi&#224;n 随便 常用 b&#249; bi&#224;n 不便 常用 bi&#224;n y&#237; 便宜 常用 bi&#224;n l&#236; 便利 常用 xi&#233; d&#224;i  …"
+          },
+          {
+            "url": "https://baike.baidu.com/item/%E4%BE%BF%E6%90%BA%E5%BC%8F%E4%BA%A7%E5%93%81/15547773",
+            "title": "便携式产品_百度百科",
+            "snippet": "便携式产品种类日益繁多，包括加湿器、空气净化器、蓝牙扬声器、可穿戴空调、便携式储能电源、电动剃须刀、便携式风扇等。 其 …"
+          },
+          {
+            "url": "https://www.taobao.com/list/product/%E4%BE%BF%E6%90%BA.htm",
+            "title": "便携 - Top 10万件便携 - 2026年10月更新 - 淘宝Taobao｜天 ...",
+            "snippet": "淘宝Taobao/天猫Tmall为你精选了便携相关的热卖商品，海量便携好货任挑任选！ 淘宝官方物流可寄送至全球多地、支持外币支付多 …"
+          },
+          {
+            "url": "https://www.zhihu.com/tardis/bd/art/650427310",
+            "title": "2026年高性价比便携显示器选购指南（含高性价比便携屏推荐）",
+            "snippet": "2026年9月9日&ensp;&#0183;&ensp;便携屏最初的形态是皮套型便携屏，这种便携屏制作简单，因此卖的也便宜，但其实皮套型便携屏的缺点也很明显， …"
+          },
+          {
+            "url": "https://zhuanlan.zhihu.com/p/356939023",
+            "title": "2026年双十一值得购买的便携显示器推荐（认真花钱系列）",
+            "snippet": "5 天之前&ensp;&#0183;&ensp;便携显示器究竟该怎么选？ 便携显示器品牌有哪些？ 本文梳理了便携显示器的挑选要点，以及switch便携显示器推荐 …"
+          },
+          {
+            "url": "https://piracola.github.io/ChromiumPortable/",
+            "title": "Chrome / Edge / Helium 便携版下载 — 免安装绿色版 &#183; 每日 ...",
+            "snippet": "2026年10月7日&ensp;&#0183;&ensp;开源可复现的 Chromium 系便携版：Chrome、Edge、Helium Windows x64 免安装绿色版。 集成 Chrome++，每日 …"
+          },
+          {
+            "url": "https://baike.baidu.com/item/%E5%8E%A8%E6%88%BF/10069",
+            "title": "厨房（烹调食物的场所）_百度百科",
+            "snippet": "厨房，是指可在内准备食物并进行烹饪的房间，一个现代化的厨房通常有的设备包括炉具（瓦斯炉、电炉、微波炉或烤箱）、流理 …"
+          },
+          {
+            "url": "https://www.xiachufang.com/",
+            "title": "下厨房",
+            "snippet": "下厨房美食菜谱网倡导在家烹饪、健康的生活方式，提供有版权的实用菜谱做法与饮食知识，提供厨师和美食爱好者一个记录、分享 …"
+          },
+          {
+            "url": "https://zhuanlan.zhihu.com/p/28654337",
+            "title": "厨房装修看这一篇就够了（精华版） - 知乎",
+            "snippet": "2017年8月22日&ensp;&#0183;&ensp;做饭“目的”的改变导致厨房的使用功能演变成三个小功能： 1. 给孩子做饭. 2. 老人需要做饭. 3. 个人爱好，如烘焙等.  …"
+          },
+          {
+            "url": "https://zhuanlan.zhihu.com/p/59331642",
+            "title": "看完101个厨房布局，我推荐你厨房这样布置，面积能变大30 ...",
+            "snippet": "2019年3月15日&ensp;&#0183;&ensp;下面发现君就带你了解五种常见的厨房布局方式，帮你找到适宜的厨房布局。 01、 一字型厨房. “一字型”，顾名思 …"
+          }
+        ],
+        "generatedAt": "2026-10-22T01:08:26.370Z"
+      },
+      "brief": {
+        "mainCount": 5,
+        "skuCount": 6,
+        "detailCount": 8,
+        "ratios": [
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "videoTypes": [
+          "主图视频",
+          "操作视频",
+          "营销视频"
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "reasoning": {
+      "provider": "openai-compatible",
+      "endpoint": "",
+      "model": "",
+      "apiKey": ""
+    },
+    "search": {
+      "provider": "bing-public",
+      "endpoint": ""
+    },
+    "assetPublicBaseUrl": "",
+    "defaults": {
+      "imageModel": "",
+      "videoModel": "",
+      "language": "zh-CN"
+    }
+  },
+  "quotes": [
+    {
+      "id": "quote_mviuethx_3c8b97",
+      "kind": "image",
+      "projectId": "prd_mviudjje_2d93a5",
+      "idempotencyKey": "img_prd_mviudjje_2d93a5_mviuet4h_88a424",
+      "request": {
+        "model": "G-image-2.5【稳定】",
+        "ratio": "1:1",
+        "resolution": "1K",
+        "quality": "",
+        "prompt": "为商品“便携式无线榨汁杯”创作抖音电商电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：便携、性价比、真实材质与细节可视化、使用前后场景对照、规格与适配边界说清楚。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+        "projectId": "prd_mviudjje_2d93a5",
+        "referenceUrls": []
+      },
+      "quote": {
+        "ok": true,
+        "quote": {
+          "quoteId": "69d476dd-9d48-4f3c-b04f-4281ab7cd3e4",
+          "status": "prepared",
+          "model": "G-image-2.5【稳定】",
+          "prompt": "为商品“便携式无线榨汁杯”创作抖音电商电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：便携、性价比、真实材质与细节可视化、使用前后场景对照、规格与适配边界说清楚。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+          "size": "1024x1024",
+          "resolution": "1K",
+          "quality": null,
+          "originalCost": 188,
+          "finalCost": 151,
+          "discountPercent": 80,
+          "balance": 1094851,
+          "expiresAt": "2026-10-22T01:18:54.004855472Z",
+          "referenceImages": []
+        },
+        "sufficientBalance": true
+      },
+      "options": {
+        "id": "G-image-2.5【稳定】",
+        "name": "G-image-2.5【稳定】",
+        "parameters": {
+          "supportedRatios": [
+            "16:9",
+            "4:3",
+            "1:1",
+            "3:4",
+            "9:16"
+          ],
+          "supportedResolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "supportReferenceImage": true,
+          "maxReferenceImages": 10,
+          "defaults": {
+            "ratio": "16:9",
+            "resolution": "1K"
+          }
+        }
+      },
+      "status": "quoted",
+      "createdAt": "2026-10-22T01:08:53.589Z"
+    },
+    {
+      "id": "quote_mviuh0oy_79a7b3",
+      "kind": "image",
+      "projectId": "prd_mviudjje_2d93a5",
+      "idempotencyKey": "img_prd_mviudjje_2d93a5_mviuh0go_6574a3",
+      "request": {
+        "model": "G-image-2.5【稳定】",
+        "ratio": "1:1",
+        "resolution": "1K",
+        "quality": "",
+        "prompt": "为商品“便携式无线榨汁杯”创作抖音电商电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：便携、性价比、真实材质与细节可视化、使用前后场景对照、规格与适配边界说清楚。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+        "projectId": "prd_mviudjje_2d93a5",
+        "referenceUrls": []
+      },
+      "quote": {
+        "quoteId": "dbba4cc9-56aa-4304-9e07-b5f8a9e26378",
+        "status": "prepared",
+        "model": "G-image-2.5【稳定】",
+        "prompt": "为商品“便携式无线榨汁杯”创作抖音电商电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：便携、性价比、真实材质与细节可视化、使用前后场景对照、规格与适配边界说清楚。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+        "size": "1024x1024",
+        "resolution": "1K",
+        "quality": null,
+        "originalCost": 188,
+        "finalCost": 151,
+        "discountPercent": 80,
+        "balance": 1094851,
+        "expiresAt": "2026-10-22T01:20:36.688926382Z",
+        "referenceImages": []
+      },
+      "options": {
+        "id": "G-image-2.5【稳定】",
+        "name": "G-image-2.5【稳定】",
+        "parameters": {
+          "supportedRatios": [
+            "16:9",
+            "4:3",
+            "1:1",
+            "3:4",
+            "9:16"
+          ],
+          "supportedResolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "supportReferenceImage": true,
+          "maxReferenceImages": 10,
+          "defaults": {
+            "ratio": "16:9",
+            "resolution": "1K"
+          }
+        }
+      },
+      "status": "quoted",
+      "createdAt": "2026-10-22T01:10:36.226Z"
+    },
+    {
+      "id": "quote_mviumltr_7c7dcf",
+      "kind": "video",
+      "projectId": "prd_mviudjje_2d93a5",
+      "idempotencyKey": "vid_prd_mviudjje_2d93a5_mviumlhd_312bdd",
+      "request": {
+        "model": "seedance-mini-hd",
+        "duration": 10,
+        "ratio": "9:16",
+        "resolution": "720p",
+        "generateAudio": true,
+        "prompt": "商品：便携式无线榨汁杯。目标平台：抖音电商。保持商品外形、颜色、材质、结构稳定，不出现文字乱码、品牌变形、肢体畸形、物体穿模或空间跳变。\n0-2秒：商品在干净场景中快速亮相，相机轻推近，环境声自然。\n2-6秒：用三个连续微距镜头展示便携、性价比、真实材质与细节可视化，每个镜头动作简洁。\n6-9秒：展示一次真实使用结果，主体始终清晰。\n9-10秒：定格商品英雄镜头，画面留出标题安全区。",
+        "projectId": "prd_mviudjje_2d93a5"
+      },
+      "quote": {
+        "quoteId": "e1034d37-cac6-4a01-bba2-e4459028dd50",
+        "status": "prepared",
+        "model": "seedance-mini-hd",
+        "prompt": "商品：便携式无线榨汁杯。目标平台：抖音电商。保持商品外形、颜色、材质、结构稳定，不出现文字乱码、品牌变形、肢体畸形、物体穿模或空间跳变。\n0-2秒：商品在干净场景中快速亮相，相机轻推近，环境声自然。\n2-6秒：用三个连续微距镜头展示便携、性价比、真实材质与细节可视化，每个镜头动作简洁。\n6-9秒：展示一次真实使用结果，主体始终清晰。\n9-10秒：定格商品英雄镜头，画面留出标题安全区。",
+        "duration": 10,
+        "ratio": "9:16",
+        "resolution": "720p",
+        "generateAudio": true,
+        "originalCost": 6000,
+        "cost": 4800,
+        "discountPercent": 80,
+        "currentBalance": 1094851,
+        "expiresAt": "2026-10-22T01:19:57.163654Z"
+      },
+      "options": {
+        "ok": true,
+        "model": "seedance-mini-hd",
+        "parameters": {
+          "supportedRatios": [
+            "adaptive",
+            "21:9",
+            "16:9",
+            "4:3",
+            "1:1",
+            "3:4",
+            "9:16"
+          ],
+          "supportedResolutions": [
+            "480p",
+            "720p",
+            "1080p",
+            "4k"
+          ],
+          "supportedDurations": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "supportTextToVideo": true,
+          "supportGenerateAudio": true,
+          "defaults": {
+            "ratio": "16:9",
+            "resolution": "720p",
+            "duration": 4,
+            "generateAudio": true
+          }
+        },
+        "executionSupport": "partial",
+        "supportedExecutionModes": [
+          "text-to-video"
+        ],
+        "unsupportedExecutionModes": [
+          "image-to-video",
+          "reference-video",
+          "pipeline"
+        ]
+      },
+      "status": "quoted",
+      "createdAt": "2026-10-22T01:14:56.895Z"
+    },
+    {
+      "id": "quote_mvivvg7r_09f1c2",
+      "kind": "image",
+      "projectId": "prd_mvivtp0z_6ff33b",
+      "idempotencyKey": "img_prd_mvivtp0z_6ff33b_mvivvg0v_e042e4",
+      "request": {
+        "model": "G-image-2.5【稳定】",
+        "ratio": "1:1",
+        "resolution": "1K",
+        "quality": "",
+        "prompt": "为商品“杯子”创作淘宝/天猫电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：结构细节清晰、使用场景直观、规格信息易读。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+        "projectId": "prd_mvivtp0z_6ff33b",
+        "referenceUrls": [],
+        "assetIds": []
+      },
+      "quote": {
+        "quoteId": "4f420301-7cb0-4c2e-a80c-fd77198e564b",
+        "status": "prepared",
+        "model": "G-image-2.5【稳定】",
+        "prompt": "为商品“杯子”创作淘宝/天猫电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：结构细节清晰、使用场景直观、规格信息易读。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+        "size": "1024x1024",
+        "resolution": "1K",
+        "quality": null,
+        "originalCost": 188,
+        "finalCost": 151,
+        "discountPercent": 80,
+        "balance": 1092687,
+        "expiresAt": "2026-10-22T01:59:49.757829841Z",
+        "referenceImages": []
+      },
+      "options": {
+        "id": "G-image-2.5【稳定】",
+        "name": "G-image-2.5【稳定】",
+        "parameters": {
+          "supportedRatios": [
+            "16:9",
+            "4:3",
+            "1:1",
+            "3:4",
+            "9:16"
+          ],
+          "supportedResolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "supportReferenceImage": true,
+          "maxReferenceImages": 10,
+          "defaults": {
+            "ratio": "16:9",
+            "resolution": "1K"
+          }
+        }
+      },
+      "status": "succeeded",
+      "createdAt": "2026-10-22T01:49:49.143Z",
+      "result": {
+        "ok": true,
+        "accepted": false,
+        "completed": true,
+        "job": {
+          "jobId": "4f420301-7cb0-4c2e-a80c-fd77198e564b",
+          "status": "succeeded",
+          "model": "G-image-2.5【稳定】",
+          "prompt": "为商品“杯子”创作淘宝/天猫电商视觉，商品外观、结构、材质和品牌文字必须与参考素材一致；真实商业摄影质感，画面干净高级，主体突出，光影自然；内容语言：简体中文。核心卖点：结构细节清晰、使用场景直观、规格信息易读。避免极限词、虚假承诺、错别字、乱码、水印和无关品牌。\n生成主图套装中的一张：一个清晰主题、一个主卖点、一处证据型标注，留出合理文案安全区。",
+          "size": "1024x1024",
+          "resolution": "1K",
+          "quality": null,
+          "originalCost": 188,
+          "finalCost": 151,
+          "discountPercent": 80,
+          "balance": 1092536,
+          "workId": "bc8a59a0-a7b2-4825-8648-4a343ba337ba",
+          "requestId": "imgreq-6ea85881843342f3aa934b102ecc9262",
+          "resultUrl": "/api/storage/file/generated/images/gen_1792633830552_de181cc44157.png",
+          "error": null,
+          "createdAt": "2026-10-22T01:49:49.701216Z",
+          "completedAt": "2026-10-22T01:50:33.403808Z"
+        },
+        "outputPath": "C:\\Users\\sun\\Desktop\\1022项目\\generated\\1792633792985-杯子-主图套装.png"
+      }
+    }
+  ]
+}

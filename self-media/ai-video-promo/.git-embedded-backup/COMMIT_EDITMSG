@@ -1,9 +1,0 @@
-feat: create promo production system with TTS and EvoFlow integration
-
-- Extract production and TTS modules from ai-video-decompose
-- Volcengine TTS client and configuration management
-- EvoFlow production pipeline integration
-- Workbench API for project management
-- Complete documentation and setup guide
-
-Co-authored-by: Cursor <cursoragent@cursor.com>
