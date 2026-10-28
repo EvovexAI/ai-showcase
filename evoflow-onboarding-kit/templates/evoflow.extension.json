@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "my-project-id",
+  "name": "我的应用名",
+  "version": "1.0.0",
+  "description": "一句话:这个应用做什么、怎么用、端口多少。",
+  "icon": "./icon.svg",
+  "nav": {
+    "title": "面板侧栏标题",
+    "group": "extensions",
+    "order": 62
+  },
+  "ui": {
+    "kind": "webview",
+    "entry": "http://127.0.0.1:8790",
+    "sandbox": ["allow-scripts", "allow-same-origin", "allow-forms", "allow-popups"]
+  },
+  "permissions": ["embed"],
+  "service": {
+    "mode": "managed",
+    "cwd": ".",
+    "link": true,
+    "hint": "启动说明(依赖、首次准备等),会显示给用户",
+    "start": {
+      "windows": ["node", "server.js"],
+      "default": ["node", "server.js"]
+    },
+    "healthcheck": {
+      "url": "http://127.0.0.1:8790/api/health",
+      "timeout_ms": 30000
+    },
+    "stop": "port",
+    "ports": [8790]
+  },
+  "bridge": {
+    "origin_allowlist": [
+      "http://127.0.0.1:8790",
+      "http://localhost:8790"
+    ]
+  }
+}

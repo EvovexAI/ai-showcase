@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "douyin-blogger-analyzer",
+  "name": "抖音博主分析器",
+  "version": "1.1.0",
+  "description": "抖音博主账号数据看板：采集公开数据，做数据看板/内容分析/标题钩子分析/多账号对比，并自动生成分析报告（可同步进知识库）。全程本地运行，端口 8787。",
+  "icon": "./icon.svg",
+  "nav": {
+    "title": "抖音博主分析",
+    "group": "extensions",
+    "order": 61
+  },
+  "ui": {
+    "kind": "webview",
+    "entry": "http://127.0.0.1:8787",
+    "sandbox": [
+      "allow-scripts",
+      "allow-same-origin",
+      "allow-forms",
+      "allow-popups"
+    ]
+  },
+  "permissions": [
+    "embed"
+  ],
+  "service": {
+    "mode": "managed",
+    "cwd": ".",
+    "link": true,
+    "hint": "启动本地抖音博主分析服务（端口 8787）。零依赖，需本机装有 Node 18+。",
+    "start": {
+      "windows": ["node", "server.js"],
+      "default": ["node", "server.js"]
+    },
+    "healthcheck": {
+      "url": "http://127.0.0.1:8787/api/health",
+      "timeout_ms": 30000
+    },
+    "stop": "port",
+    "ports": [8787]
+  },
+  "bridge": {
+    "origin_allowlist": [
+      "http://127.0.0.1:8787",
+      "http://localhost:8787"
+    ]
+  }
+}

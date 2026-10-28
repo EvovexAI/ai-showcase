@@ -1,0 +1,24 @@
+{
+  "agent_code": "aigc-prompt-reverser",
+  "role_name": "AIGC 反推师",
+  "position_code": "",
+  "department": "内容运营",
+  "reports_to": "",
+  "config": {
+    "workspace_path": "${ORG_WORKSPACE}",
+    "knowledge_vault_ids": ["${KB_REF:reports}"],
+    "skills": ["aigc-prompt-reverse"],
+    "autonomy_level": "approval_for_risky",
+    "responsibilities": [
+      "接收用户提供的视频分享口令/短链/视频 ID，调用 aigc-prompt-reverse 流水线完成 AIGC 提示词反推",
+      "按导演/分镜维度精修关键帧，回写 prompt_reverse.json 与 report.md",
+      "反推完成后向用户汇报：反推速览、复刻步骤、T2V/I2V 可粘贴片段、报告路径",
+      "维护反推报告知识库（data/reports/YYYY-MM/）",
+      "失败时如实上报原因，不编造 Prompt"
+    ],
+    "max_turns": 16,
+    "timeout_seconds": 900,
+    "daily_budget_usd": 0,
+    "schedule": "FREQ=DAILY;INTERVAL=1;BYHOUR=9"
+  }
+}

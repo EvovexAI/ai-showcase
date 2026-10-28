@@ -1,0 +1,29 @@
+{
+  "id": "s2",
+  "title": "自媒体：拆解师查知识库再写开场",
+  "persona": "自媒体运营",
+  "story": "知识库里已沉淀爆款钩子案例。派员工时要求必须先检索知识库，再给出 3 条同款开场——员工 + 知识库。",
+  "business": ["employees", "knowledge"],
+  "industry": "自媒体",
+  "when_to_use": "要复用历史拆解/钩子资产，而不是每次从零想",
+  "steps_human": [
+    "确认演示知识库存在且可搜索命中样例",
+    "确认拆解师已绑定该知识库",
+    "派工：必须检索知识库后再写 3 条开场",
+    "对照 search 结果与派工是否成功"
+  ],
+  "inputs": {
+    "agent_code": { "label": "拆解师编码", "from_seed": "employee_code" },
+    "kb_id": { "label": "知识库 ID", "from_seed": "kb_id" },
+    "goal": {
+      "label": "派工目标",
+      "default": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。"
+    },
+    "search_query": { "label": "知识库检索词", "default": "短视频钩子 开场" }
+  },
+  "acceptance": [
+    "员工 knowledge_vault_ids 非空",
+    "POST /api/knowledge/owned/bases/{kb_id}/search 命中 ≥1",
+    "POST …/dispatch 返回 ok"
+  ]
+}

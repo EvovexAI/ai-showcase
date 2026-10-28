@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "kind": "team",
+  "id": "douyin-blogger-analyzer-pack",
+  "name": "抖音博主分析场景包",
+  "version": "1.0.0",
+  "description": "1005 博主分析全套：面板扩展（folder-link）+ 博主分析师员工 + 采集技能（folder-link）+ 博主报告知识库。一次导入即可装配。",
+  "workspace": {
+    "path": "${ORG_ROOT}/workspace",
+    "name": "抖音博主分析工作区",
+    "create_if_missing": true
+  },
+  "primitives": {
+    "knowledge": [
+      {
+        "ref": "reports",
+        "name": "抖音博主报告库",
+        "description": "博主账号分析报告（data/reports）",
+        "import_folder": "./data/reports",
+        "upsert": true,
+        "prune_missing": false
+      }
+    ],
+    "skills": [
+      { "path": "./skills/douyin-blogger-analysis", "link": true }
+    ],
+    "agents": [
+      { "from": "./agents/douyin-blogger-analyst.yaml" }
+    ],
+    "extensions": [
+      { "from": "./", "link": true }
+    ]
+  },
+  "team": {
+    "employees": [
+      { "from": "./employees/douyin-blogger-analyst.json" }
+    ]
+  }
+}

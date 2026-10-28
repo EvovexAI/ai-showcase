@@ -1,0 +1,65 @@
+{
+  "ok": false,
+  "scenario": "s3",
+  "app_id": "App_20261020165401_87219f",
+  "run_id": "",
+  "parameters": {
+    "product": "便携榨汁杯",
+    "selling_points": "无线便携、30 秒出汁、可洗刀头",
+    "audience": "上班族 / 健身党"
+  },
+  "final_status": null,
+  "log": [
+    {
+      "step": "apps.get",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "GET",
+          "path": "/api/apps/App_20261020165401_87219f",
+          "url": "http://127.0.0.1:8070/api/apps/App_20261020165401_87219f",
+          "body": null,
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "apps.run",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "POST",
+          "path": "/api/apps/App_20261020165401_87219f/run",
+          "url": "http://127.0.0.1:8070/api/apps/App_20261020165401_87219f/run",
+          "body": {
+            "parameters": {
+              "product": "便携榨汁杯",
+              "selling_points": "无线便携、30 秒出汁、可洗刀头",
+              "audience": "上班族 / 健身党"
+            },
+            "run_kind": "debug",
+            "trigger_kind": "manual"
+          },
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "apps.run_status",
+      "run_id": "",
+      "result": {
+        "ok": false,
+        "error": "no run_id"
+      }
+    }
+  ],
+  "acceptance": {
+    "published": false,
+    "has_run_id": false,
+    "status_readable": false
+  }
+}

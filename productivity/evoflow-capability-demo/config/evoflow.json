@@ -1,0 +1,10 @@
+{
+  "base_url": "http://127.0.0.1:8070",
+  "api_key": "",
+  "timeout_seconds": 180,
+  "default_employee_code": "demo-1007-analyst",
+  "default_app_id": "App_20261020165401_87219f",
+  "default_kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+  "dry_run": false,
+  "require_live_for_accept": true
+}

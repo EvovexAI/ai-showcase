@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抖音博主分析器</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --border: #e7e9ef;
+    --text: #17181c;
+    --muted: #7a8194;
+    --accent: #e0284f;
+    --accent-soft: #fdecf0;
+    --teal: #0e9f94;
+    --teal-soft: #e6f6f4;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 6px 20px rgba(16,24,40,.06);
+    --shadow-hover: 0 2px 4px rgba(16,24,40,.06), 0 12px 32px rgba(16,24,40,.10);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+  .header-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 14px 24px; }
+  header h1 { font-size: 17px; font-weight: 700; letter-spacing: .5px; cursor: pointer; }
+  header h1 span { color: var(--accent); }
+  header .tagline { font-size: 12px; color: var(--muted); }
+  header .spacer { flex: 1; }
+  button { background: #fff; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 8px 16px; cursor: pointer; font-size: 13px; transition: all .15s; }
+  button:hover { border-color: #c9cdd8; box-shadow: var(--shadow); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.primary:hover { background: #c91f43; }
+  button.ghost { border: none; background: transparent; color: var(--muted); }
+  button.ghost:hover { color: var(--accent); box-shadow: none; }
+  button.back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); border: none; background: transparent; padding: 6px 10px 6px 0; }
+  button.back:hover { color: var(--text); box-shadow: none; }
+  input, textarea { background: #fff; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; font-size: 13px; font-family: inherit; }
+  textarea { width: 100%; min-height: 220px; resize: vertical; font-family: Consolas, monospace; font-size: 12px; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 24px 60px; }
+
+  /* ===== 首页 ===== */
+  .page-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .page-sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .acc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 36px; }
+  .acc-card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all .18s; box-shadow: var(--shadow); position: relative; }
+  .acc-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: #d6d9e2; }
+  .acc-card .top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .avatar { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; background: linear-gradient(135deg, var(--accent), #ff7a90); flex-shrink: 0; }
+  .avatar.t2 { background: linear-gradient(135deg, var(--teal), #4cc9b8); }
+  .acc-card .name { font-size: 16px; font-weight: 700; }
+  .acc-card .idline { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .acc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .acc-stats .st { background: var(--bg); border-radius: 10px; padding: 8px 10px; }
+  .acc-stats .st .l { font-size: 11px; color: var(--muted); }
+  .acc-stats .st .v { font-size: 15px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .acc-card .foot { margin-top: 12px; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+  .enter-hint { color: var(--accent); font-weight: 600; font-size: 12px; }
+  .metric-note { font-size: 11px; color: var(--muted); background: var(--bg); border-radius: 6px; padding: 2px 8px; }
+
+  .section-title { font-size: 15px; font-weight: 700; margin: 0 0 14px; display: flex; align-items: baseline; gap: 10px; }
+  .section-title small { color: var(--muted); font-weight: 400; font-size: 12px; }
+
+  /* ===== 详情页 ===== */
+  .hero { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; margin-bottom: 20px; }
+  .hero .row1 { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .hero .avatar { width: 60px; height: 60px; font-size: 26px; border-radius: 16px; }
+  .hero .h-name { font-size: 21px; font-weight: 800; }
+  .hero .h-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .chip { font-size: 12px; padding: 5px 12px; border-radius: 999px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+  .chip b { color: var(--text); font-variant-numeric: tabular-nums; }
+  .chip.hl { background: var(--accent-soft); border-color: #f6c6d1; color: var(--accent); }
+  .chip.hl b { color: var(--accent); }
+  .hero .bio { margin-top: 14px; font-size: 13px; color: #4a4f5e; line-height: 1.8; white-space: pre-wrap; }
+  .hero .actions { margin-left: auto; display: flex; gap: 8px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .tabs button { border-radius: 999px; padding: 9px 20px; font-size: 13px; background: #fff; }
+  .tabs button.active { background: var(--text); border-color: var(--text); color: #fff; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .card .label { font-size: 12px; color: var(--muted); }
+  .card .value { font-size: 21px; font-weight: 800; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .card .value.accent { color: var(--accent); }
+
+  .panel-box { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+  .panel-box h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+  .panel-box h3 small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 12px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; white-space: nowrap; font-size: 12px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:hover td { background: #fafafc; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 999px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); margin-right: 4px; }
+  .badge.hot { color: var(--accent); border-color: #f3b7c5; background: var(--accent-soft); }
+  .bar-cell { position: relative; min-width: 110px; }
+  .bar-cell .bar { height: 14px; border-radius: 5px; background: linear-gradient(90deg, var(--accent), #ff8298); opacity: .85; }
+
+  .hook-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .hook-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .hook-card .h-name { font-weight: 700; font-size: 14px; }
+  .hook-card .h-stats { font-size: 12px; color: var(--muted); margin: 7px 0; }
+  .hook-card .h-avg { font-weight: 800; }
+  .hook-card .h-best { font-size: 12px; line-height: 1.6; color: #4a4f5e; }
+  .up { color: var(--accent); font-weight: 700; }
+  .down { color: var(--muted); }
+
+  .chart-wrap svg { width: 100%; height: auto; display: block; }
+  .muted { color: var(--muted); font-size: 12px; }
+  details summary { cursor: pointer; padding: 8px 0; font-size: 13px; }
+  .empty { text-align: center; color: var(--muted); padding: 80px 0; line-height: 2.2; font-size: 14px; }
+
+  .dialog-mask { position: fixed; inset: 0; background: rgba(23,24,28,.35); backdrop-filter: blur(2px); display: none; align-items: center; justify-content: center; z-index: 50; }
+  .dialog-mask.show { display: flex; }
+  .dialog { background: #fff; border-radius: 16px; padding: 22px 24px; width: min(720px, 92vw); max-height: 88vh; overflow: auto; box-shadow: 0 20px 60px rgba(16,24,40,.2); }
+  .dialog h2 { font-size: 16px; margin-bottom: 8px; }
+  .dialog .row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+  .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; padding: 11px 22px; border-radius: 12px; font-size: 13px; display: none; z-index: 99; box-shadow: var(--shadow-hover); }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1 onclick="goHome()" style="user-select:none">📺 抖音博主<span>分析器</span></h1>
+    <span class="tagline">数据存储于本地 data/accounts.json · 不会丢失</span>
+    <div class="spacer"></div>
+    <button id="btn-add" class="primary">+ 添加 / 更新账号</button>
+    <button id="btn-export">导出备份</button>
+    <button id="btn-import">导入备份</button>
+  </div>
+</header>
+
+<div class="wrap" id="content"></div>
+
+<div class="dialog-mask" id="dlg-mask">
+  <div class="dialog">
+    <h2>添加 / 更新账号数据</h2>
+    <p class="muted" style="margin-bottom:10px">粘贴采集到的 JSON(格式:<code>{ "account": {...}, "works": [...] }</code>),相同账号会覆盖更新。</p>
+    <textarea id="dlg-json" placeholder='{
+  "account": { "name": "博主名", "douyinId": "xxx", "location": "xx", "bio": "...", "profileUrl": "...", "stats": { "followers": 0, "totalLikes": 0 }, "metric": "likes" },
+  "works": [ { "id": "视频ID", "title": "标题", "likes": 12345, "publishedAt": "2026-01-01", "pinned": false } ]
+}'></textarea>
+    <div class="row">
+      <button id="dlg-template">填入模板</button>
+      <button id="dlg-cancel">取消</button>
+      <button id="dlg-save" class="primary">保存到本地</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 工具函数 ================= */
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const fmtWan = (n) => n == null ? "—" : n >= 10000 ? (n/10000).toFixed(n >= 100000 ? 0 : 1) + "万" : String(n);
+const fmtDate = (d) => d ? String(d).slice(0,10) : "—";
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+function toast(msg, ok=true) {
+  const t = $("#toast"); t.textContent = msg; t.style.display = "block";
+  if (!ok) t.style.background = "#b3261e";
+  setTimeout(() => t.style.display = "none", 2600);
+}
+async function api(path, opts) { const r = await fetch(path, opts); const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || r.status); return j; }
+/* 抖音视频ID高32位 ≈ 发布时间(unix秒),已在两条真实数据上验证 */
+function dateFromId(id) {
+  const n = Number(id);
+  if (!n || n < 6e18) return null;
+  const ms = Math.floor(n / 4294967296) * 1000;
+  const d = new Date(ms);
+  if (isNaN(d) || d.getFullYear() < 2016 || d.getFullYear() > 2035) return null;
+  return d.toISOString().slice(0, 10);
+}
+function workDate(w) { return w.publishedAt || dateFromId(w.id) || null; }
+function metricOf(acc, w) {
+  if (acc.metric === "plays") return w.plays ?? w.likes ?? null;
+  return w.likes ?? w.plays ?? null;
+}
+const metricLabel = (acc) => acc.metric === "plays" ? "播放" : "点赞";
+
+/* ================= 钩子分类 ================= */
+const HOOK_RULES = [
+  ["利益/机会", /(变现|赚钱|吃上饭|收入|副业|商单|涨粉|接单|红利|风口|铁饭碗|远程打工|打工|营收|分账|薅|赚回|翻身|逆天改命)/],
+  ["数字诱惑", /(\d+(\.\d+)?(万|千|亿|刀|元|粉|个|条|种|招|年|小时)|时薪|年薪|月薪|万八千)/],
+  ["教程/干货", /(教程|指南|攻略|拆解|开源|扫盲|入门|保姆级|心得|方法|怎么用|如何|心法|避坑|工作流|流水线|实操)/],
+  ["疑问/悬念", /(？|\?|为什么|凭什么|到底是|究竟|谁能|会不会)/],
+  ["恐惧/风险", /(骗局|失业|危险|别再|千万不要|警告|风险|暴跌|逼死|破产|亏钱|烧钱|割韭菜|陷阱)/],
+  ["反常识/揭秘", /(竟|居然|没想到|揭秘|真相|其实|白了很多|却|为什么不让|真正的|隐藏|隐蔽)/],
+  ["人物/故事", /(马斯克|黄仁勋|贾跃亭|孙宇晨|王自如|刘慈欣|Tim|富豪|首富|小镇青年|帝国|至暗|逆天|历险记)/],
+  ["测评/开箱", /(测评|体验|首发|开箱|深度|对比|锐评|盘点|扫一遍|测了一遍)/],
+];
+function classifyHook(title) {
+  for (const [name, re] of HOOK_RULES) if (re.test(title)) return name;
+  return "其他/直述";
+}
+const HOOK_COLOR = {
+  "利益/机会": "#e0284f", "数字诱惑": "#d97706", "教程/干货": "#0e9f94", "疑问/悬念": "#7c5cd6",
+  "恐惧/风险": "#ea580c", "反常识/揭秘": "#16a34a", "人物/故事": "#db2777", "测评/开箱": "#2563eb", "其他/直述": "#9ca3af",
+};
+
+/* ================= 路由状态 ================= */
+let accountList = [];
+let current = null;
+let currentTab = "dash";
+
+function goHome() { location.hash = "#/"; }
+function openAccount(id) { location.hash = "#/account/" + encodeURIComponent(id); }
+window.addEventListener("hashchange", route);
+
+async function route() {
+  const h = location.hash || "#/";
+  if (h.startsWith("#/account/")) {
+    const id = decodeURIComponent(h.slice("#/account/".length));
+    try {
+      current = await api("/api/accounts/" + encodeURIComponent(id));
+      currentTab = currentTab || "dash";
+      renderAccount();
+    } catch (e) { goHome(); }
+  } else {
+    current = null;
+    await refreshList();
+    renderHome();
+  }
+}
+
+async function refreshList() {
+  accountList = await api("/api/accounts");
+}
+
+/* ================= 统计计算 ================= */
+function computeStats(acc) {
+  const vals = acc.works.map(w => metricOf(acc, w)).filter(v => v != null).sort((a,b)=>a-b);
+  const sum = vals.reduce((a,b)=>a+b, 0);
+  const n = vals.length;
+  const sorted = [...acc.works].sort((a,b) => (metricOf(acc,b)??0) - (metricOf(acc,a)??0));
+  const dates = acc.works.map(workDate).filter(Boolean).sort();
+  const monthMap = {};
+  for (const d of dates) { const k = d.slice(0,7); monthMap[k] = (monthMap[k]||0)+1; }
+  const uniqDates = [...new Set(dates)];
+  let gapAvg = null;
+  if (uniqDates.length > 2) {
+    let totalGap = 0;
+    for (let i=1;i<uniqDates.length;i++) totalGap += (new Date(uniqDates[i]) - new Date(uniqDates[i-1])) / 86400000;
+    gapAvg = totalGap / (uniqDates.length - 1);
+  }
+  const hot = vals.filter(v => v >= 10000).length;
+  return {
+    vals, count: n, sum, avg: n ? Math.round(sum/n) : null,
+    median: n ? vals[Math.floor(n/2)] : null, max: n ? vals[n-1] : null,
+    top10: sorted.slice(0, 10), hot, hotRate: n ? hot/n : 0,
+    monthMap, dateRange: dates.length ? [dates[0], dates[dates.length-1]] : null,
+    gapAvg, activeMonths: Object.keys(monthMap).length,
+    perMonth: uniqDates.length > 1 && dates.length
+      ? (dates.length / Math.max(1, (new Date(dates[dates.length-1]) - new Date(dates[0])) / (86400000*30.4))).toFixed(1)
+      : null,
+  };
+}
+function hashtagStats(acc) {
+  const map = {};
+  for (const w of acc.works) {
+    const tags = (w.title.match(/#[^\s#,，。;；@]+/g) || []).map(t => t.trim());
+    for (const t of tags) {
+      const key = t.toLowerCase();
+      map[key] = map[key] || { tag: t, count: 0, likes: [], best: null };
+      map[key].count++;
+      const v = metricOf(acc, w);
+      if (v != null) {
+        map[key].likes.push(v);
+        if (!map[key].best || v > metricOf(acc, map[key].best)) map[key].best = w;
+      }
+    }
+  }
+  return Object.values(map).sort((a,b) => b.count - a.count);
+}
+
+/* ================= 首页(账号列表 + 总体对比) ================= */
+async function renderHome() {
+  const box = $("#content");
+  if (!accountList.length) {
+    box.innerHTML = `<div class="empty">还没有账号数据<br>点右上角「+ 添加 / 更新账号」粘贴 JSON,或让 AI 助手自动采集导入</div>`;
+    return;
+  }
+  const full = await Promise.all(accountList.map(a => api("/api/accounts/" + encodeURIComponent(a.id)).catch(() => null)));
+  const rows = full.filter(Boolean).map(acc => {
+    const s = computeStats(acc);
+    const hooks = {};
+    for (const w of acc.works) { const h = classifyHook(w.title); hooks[h] = (hooks[h]||0)+1; }
+    const topHook = Object.entries(hooks).sort((a,b)=>b[1]-a[1])[0];
+    return { acc, s, topHook };
+  }).sort((a,b) => (b.acc.stats.followers||0) - (a.acc.stats.followers||0));
+
+  box.innerHTML = `
+    <div class="page-title">账号总览</div>
+    <div class="page-sub">点击账号卡片,进入该账号的完整数据分析(看板 · 内容 · 钩子)</div>
+
+    <div class="acc-grid">
+      ${rows.map(({acc, s}, i) => `
+        <div class="acc-card" onclick="openAccount('${esc(acc.id)}')">
+          <div class="top">
+            <div class="avatar ${i % 2 ? "t2" : ""}">${esc([...acc.name.trim()][0] || "?")}</div>
+            <div>
+              <div class="name">${esc(acc.name)}</div>
+              <div class="idline">抖音号: ${esc(acc.douyinId || "—")} · ${esc(acc.location || "")}</div>
+            </div>
+          </div>
+          <div class="acc-stats">
+            <div class="st"><div class="l">粉丝</div><div class="v">${fmtWan(acc.stats.followers)}</div></div>
+            <div class="st"><div class="l">作品</div><div class="v">${acc.works.length}</div></div>
+            <div class="st"><div class="l">平均${metricLabel(acc)}</div><div class="v">${fmtWan(s.avg)}</div></div>
+          </div>
+          <div class="foot">
+            <span>采集于 ${fmtDate(acc.collectedAt)}</span>
+            <span class="enter-hint">进入分析 →</span>
+          </div>
+        </div>`).join("")}
+    </div>
+
+    <div class="panel-box">
+      <div class="section-title">⚖️ 多账号横向对比 <small>总体概览 · 不同账号指标口径可能不同(自己主页为播放量)</small></div>
+      <table>
+        <thead><tr><th>账号</th><th class="num">粉丝</th><th class="num">作品</th><th class="num">平均</th><th class="num">中位数</th><th class="num">爆款率</th><th class="num">月均发布</th><th>主打钩子</th><th>定位</th></tr></thead>
+        <tbody>
+        ${rows.map(({acc, s, topHook}) => `
+          <tr style="cursor:pointer" onclick="openAccount('${esc(acc.id)}')">
+            <td><b>${esc(acc.name)}</b><br><span class="muted">${esc(acc.location || "")} ${acc.metric==="plays"?"(播放量口径)":""}</span></td>
+            <td class="num">${fmtWan(acc.stats.followers)}</td>
+            <td class="num">${s.count}</td>
+            <td class="num">${fmtWan(s.avg)}</td>
+            <td class="num">${fmtWan(s.median)}</td>
+            <td class="num">${(s.hotRate*100).toFixed(0)}%</td>
+            <td class="num">${s.perMonth || "—"}</td>
+            <td>${topHook ? `<span class="badge" style="color:${HOOK_COLOR[topHook[0]]}">${topHook[0]} ×${topHook[1]}</span>` : "—"}</td>
+            <td class="muted" style="max-width:220px">${esc((acc.bio || "").split("\n")[0].slice(0, 30))}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+/* ================= 详情页 ================= */
+function tabsHtml() {
+  return `<div class="tabs">
+    ${[["dash","📊 数据看板"],["content","🧩 内容分析"],["hook","🪝 钩子分析"]]
+      .map(([k,l]) => `<button data-tab="${k}" class="${currentTab===k?"active":""}">${l}</button>`).join("")}
+  </div>`;
+}
+
+function renderAccount() {
+  const acc = current;
+  const box = $("#content");
+  box.innerHTML = `
+    <button class="back" onclick="goHome()">← 返回账号列表</button>
+    <div class="hero">
+      <div class="row1">
+        <div class="avatar">${esc(acc.name.slice(0,1))}</div>
+        <div>
+          <div class="h-name">${esc(acc.name)}</div>
+          <div class="h-sub">抖音号 ${esc(acc.douyinId || "—")} · ${esc(acc.gender||"")} ${esc(acc.age||"")} ${esc(acc.location || "")} ${acc.ipLocation ? "· IP " + esc(acc.ipLocation) : ""} · 采集于 ${fmtDate(acc.collectedAt)}</div>
+        </div>
+        <div class="actions">
+          <a href="/api/accounts/${encodeURIComponent(acc.id)}/report.md" target="_blank" rel="noopener"><button>MD报告 ↓</button></a>
+          ${acc.profileUrl ? `<a href="${esc(acc.profileUrl)}" target="_blank" rel="noopener"><button>抖音主页 ↗</button></a>` : ""}
+          <button class="ghost" onclick="deleteAccount()">删除</button>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="chip hl">粉丝 <b>${fmtWan(acc.stats.followers)}</b></div>
+        <div class="chip hl">获赞(主页) <b>${fmtWan(acc.stats.totalLikes)}</b></div>
+        <div class="chip">作品 <b>${acc.works.length}</b></div>
+        <div class="chip">数据口径 <b>${metricLabel(acc)}</b></div>
+        ${acc.stats.followersText && acc.stats.followers == null ? `<div class="chip">粉丝(原文) <b>${esc(acc.stats.followersText)}</b></div>` : ""}
+      </div>
+      ${acc.bio ? `<div class="bio">${esc(acc.bio)}</div>` : ""}
+    </div>
+    <div id="tab-body"></div>`;
+  renderTab();
+}
+
+function renderTab() {
+  $$(".tabs button").forEach(b => b.classList.toggle("active", b.dataset.tab === currentTab));
+  const body = $("#tab-body");
+  if (!body) return;
+  const acc = current;
+  if (currentTab === "dash") renderDash(body, acc);
+  else if (currentTab === "content") renderContent(body, acc);
+  else if (currentTab === "hook") renderHook(body, acc);
+}
+
+/* --- 图表 --- */
+function barChartSVG(data, { width=640, height=210, color="#e0284f" } = {}) {
+  if (!data.length) return `<p class="muted">暂无数据</p>`;
+  const maxV = Math.max(...data.map(d => d.v), 1);
+  const gap = (width - 40) / data.length;
+  const bw = Math.min(46, gap - 6);
+  let svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<line x1="20" y1="${height-30}" x2="${width-10}" y2="${height-30}" stroke="#e7e9ef"/>`;
+  data.forEach((d, i) => {
+    const h = Math.max(2, (d.v / maxV) * (height - 56));
+    const x = 20 + i * gap + (gap - bw) / 2;
+    const y = height - 30 - h;
+    svg += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="5" fill="${color}" opacity="0.9"><title>${esc(d.k)}: ${fmtWan(d.v)}</title></rect>`;
+    svg += `<text x="${x + bw/2}" y="${y - 6}" font-size="10" fill="#7a8194" text-anchor="middle">${d.v >= 10000 ? (d.v/10000).toFixed(1)+"万" : d.v}</text>`;
+    const axis = /^\d{4}-/.test(String(d.k)) ? String(d.k).slice(2) : String(d.k);
+    svg += `<text x="${x + bw/2}" y="${height - 13}" font-size="10" fill="#7a8194" text-anchor="middle">${esc(axis)}</text>`;
+  });
+  return svg + "</svg>";
+}
+
+function worksTable(acc, works, { showPinned = true } = {}) {
+  const vals = acc.works.map(w => metricOf(acc, w)).filter(v => v != null);
+  const maxV = Math.max(...vals, 1);
+  return `<table>
+    <thead><tr><th>#</th><th>标题(含钩子)</th><th>标签</th><th class="num">${metricLabel(acc)}</th><th style="width:120px"></th><th>发布</th></tr></thead>
+    <tbody>
+    ${works.map((w, i) => {
+      const v = metricOf(acc, w);
+      const tags = (w.title.match(/#[^\s#,，。;；@]+/g) || []).slice(0, 3).map(t => `<span class="badge">${esc(t)}</span>`).join("");
+      return `<tr>
+        <td class="num">${i+1}</td>
+        <td><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title.length > 46 ? w.title.slice(0,46)+"…" : w.title)}</a>
+          ${showPinned && w.pinned ? '<span class="badge hot">置顶</span>' : ""}
+          ${w.visibility && w.visibility !== "public" ? `<span class="badge">${w.visibility}</span>` : ""}</td>
+        <td>${tags}</td>
+        <td class="num">${fmtWan(v)}</td>
+        <td class="bar-cell"><div class="bar" style="width:${v ? Math.max(3, v/maxV*100) : 0}%"></div></td>
+        <td class="muted">${fmtDate(workDate(w))}</td>
+      </tr>`;
+    }).join("")}
+    </tbody>
+  </table>`;
+}
+
+/* --- 看板 --- */
+function renderDash(box, acc) {
+  const s = computeStats(acc);
+  const monthData = Object.entries(s.monthMap).sort().map(([k, v]) => ({ k, v }));
+  const buckets = [[0,500,"<500"],[500,2000,"0.5k-2k"],[2000,5000,"2k-5k"],[5000,10000,"5k-1万"],[10000,30000,"1-3万"],[30000,60000,"3-6万"],[60000,Infinity,"6万+"]];
+  const hist = buckets.map(([lo, hi, label]) => ({ k: label, v: s.vals.filter(v => v >= lo && v < hi).length }));
+  const recent = [...acc.works].sort((a,b) => (workDate(b)||"").localeCompare(workDate(a)||"")).slice(0, 12);
+
+  box.innerHTML = tabsHtml() + `
+    <div class="cards">
+      ${[
+        [`单条平均${metricLabel(acc)}`, fmtWan(s.avg), true],
+        [`${metricLabel(acc)}中位数`, fmtWan(s.median), false],
+        ["爆款率(≥1万)", (s.hotRate*100).toFixed(0) + "%", false],
+        ["最高单条", fmtWan(s.max), false],
+        ["月均发布", s.perMonth ? s.perMonth + " 条" : "—", false],
+        ["平均间隔", s.gapAvg ? s.gapAvg.toFixed(1) + " 天" : "—", false],
+        ["活跃月份", s.activeMonths + " 个月", false],
+        ["时间跨度", s.dateRange ? fmtDate(s.dateRange[0]) + " ~ " + fmtDate(s.dateRange[1]).slice(2) : "—", false],
+      ].map(([l, v, hl]) => `<div class="card"><div class="label">${l}</div><div class="value ${hl?"accent":""}">${v}</div></div>`).join("")}
+    </div>
+    <div class="panel-box chart-wrap"><h3>每月发布条数 <small>更新频率与坚持度一目了然</small></h3>
+      ${barChartSVG(monthData)}</div>
+    <div class="panel-box chart-wrap"><h3>${metricLabel(acc)}分布 <small>各区间作品条数</small></h3>
+      ${barChartSVG(hist, { color: "#0e9f94" })}</div>
+    <div class="panel-box"><h3>🏆 TOP10 作品</h3>${worksTable(acc, s.top10)}</div>
+    <div class="panel-box"><h3>🆕 最近发布</h3>${worksTable(acc, recent)}</div>`;
+  bindTabs();
+}
+
+/* --- 内容分析 --- */
+function renderContent(box, acc) {
+  const tags = hashtagStats(acc).slice(0, 15);
+  const maxTag = tags[0]?.count || 1;
+  const pinned = acc.works.filter(w => w.pinned);
+  const titleLens = acc.works.map(w => w.title.replace(/#[^\s#,，。;；@]+/g, "").trim().length);
+  const avgLen = Math.round(titleLens.reduce((a,b)=>a+b,0) / (titleLens.length||1));
+  const episodeCount = acc.works.filter(w => /第\d+集/.test(w.title)).length;
+
+  box.innerHTML = tabsHtml() + `
+    <div class="cards">
+      ${[
+        ["话题标签(去重)", new Set(acc.works.flatMap(w => w.title.match(/#[^\s#,，。;；@]+/g) || []).map(t=>t.toLowerCase())).size],
+        ["正文平均字数(去标签)", avgLen + " 字"],
+        ["置顶作品", pinned.length],
+        ["连续剧式标题(第N集)", episodeCount],
+      ].map(([l, v]) => `<div class="card"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("")}
+    </div>
+    <div class="panel-box"><h3>#️⃣ 话题标签使用频率 <small>使用越多 = 绑定越深的平台流量计划</small></h3>
+      <table><thead><tr><th>标签</th><th class="num">次数</th><th style="width:150px"></th><th class="num">平均${metricLabel(acc)}</th><th>代表作品</th></tr></thead><tbody>
+      ${tags.map(t => `<tr>
+        <td>${esc(t.tag)}</td><td class="num">${t.count}</td>
+        <td class="bar-cell"><div class="bar" style="width:${t.count/maxTag*100}%;background:linear-gradient(90deg,#0e9f94,#4cc9b8)"></div></td>
+        <td class="num">${t.likes.length ? fmtWan(Math.round(t.likes.reduce((a,b)=>a+b,0)/t.likes.length)) : "—"}</td>
+        <td class="muted">${t.best ? esc(t.best.title.slice(0,30)) : ""}</td>
+      </tr>`).join("")}</tbody></table></div>
+    ${pinned.length ? `<div class="panel-box"><h3>📌 置顶作品 <small>人设与转化位</small></h3>${worksTable(acc, pinned)}</div>` : ""}
+    <div class="panel-box"><h3>📝 全部作品清单 <small>按${metricLabel(acc)}降序 · 点击标题可跳转原视频</small></h3>
+      ${worksTable(acc, [...acc.works].sort((a,b)=>(metricOf(acc,b)??0)-(metricOf(acc,a)??0)), { showPinned: false })}</div>`;
+  bindTabs();
+}
+
+/* --- 钩子分析 --- */
+function renderHook(box, acc) {
+  const groups = {};
+  for (const w of acc.works) {
+    const h = classifyHook(w.title);
+    groups[h] = groups[h] || { name: h, works: [] };
+    groups[h].works.push(w);
+  }
+  const arr = Object.values(groups).map(g => {
+    const vals = g.works.map(w => metricOf(acc, w)).filter(v => v != null);
+    const avg = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+    const best = [...g.works].sort((a,b)=>(metricOf(acc,b)??0)-(metricOf(acc,a)??0))[0];
+    return { ...g, count: g.works.length, avg, best };
+  }).sort((a,b) => b.avg - a.avg);
+  const overall = computeStats(acc).avg || 1;
+
+  box.innerHTML = tabsHtml() + `
+    <div class="panel-box">
+      <h3>🪝 标题钩子类型分析 <small>按平均${metricLabel(acc)}排序 · 观察什么钩子对这个博主最有效</small></h3>
+      <div class="hook-grid">
+        ${arr.map(g => `
+          <div class="hook-card" style="border-top:3px solid ${HOOK_COLOR[g.name] || "#999"}">
+            <div class="h-name" style="color:${HOOK_COLOR[g.name] || "#555"}">${g.name}</div>
+            <div class="h-stats">使用 ${g.count} 条 · 平均 <span class="h-avg" style="color:${HOOK_COLOR[g.name]}">${fmtWan(Math.round(g.avg))}</span>
+              ${g.avg > overall ? ` <span class="up">↑ 高于均值 ${((g.avg/overall-1)*100).toFixed(0)}%</span>` : g.name !== "其他/直述" ? ' <span class="down">↓ 低于均值</span>' : ""}</div>
+            <div class="h-best">最佳: <a href="${esc(g.best.url)}" target="_blank" rel="noopener">${esc(g.best.title.slice(0, 40))}</a> (${fmtWan(metricOf(acc, g.best))})</div>
+          </div>`).join("")}
+      </div>
+    </div>
+    <div class="panel-box"><h3>🪝 各钩子类型作品明细</h3>
+      ${arr.map(g => `
+        <details><summary><b style="color:${HOOK_COLOR[g.name]}">${g.name}</b> · ${g.count} 条 · 平均 ${fmtWan(Math.round(g.avg))}</summary>
+          <div style="padding:6px 0 12px">${worksTable(acc, [...g.works].sort((a,b)=>(metricOf(acc,b)??0)-(metricOf(acc,a)??0)))}</div>
+        </details>`).join("")}
+    </div>`;
+  bindTabs();
+}
+
+function bindTabs() {
+  $$(".tabs button").forEach(b => b.onclick = () => { currentTab = b.dataset.tab; renderTab(); });
+}
+
+/* ================= 事件 ================= */
+$("#btn-add").onclick = () => { $("#dlg-mask").classList.add("show"); $("#dlg-json").focus(); };
+$("#dlg-cancel").onclick = () => $("#dlg-mask").classList.remove("show");
+$("#dlg-template").onclick = () => {
+  $("#dlg-json").value = JSON.stringify({
+    account: { name: "博主名", douyinId: "抖音号", gender: "", location: "", ipLocation: "", bio: "", profileUrl: "",
+      metric: "likes", stats: { following: null, followers: null, followersText: "", totalLikes: null, totalLikesText: "", workCount: 0 } },
+    works: [ { id: "76xxxxxxxxxxxxxxxxxx", title: "标题 #标签", likes: 12345, publishedAt: "2026-01-01", pinned: false, url: "https://www.douyin.com/video/..." } ],
+  }, null, 2);
+};
+$("#dlg-save").onclick = async () => {
+  try {
+    const body = JSON.parse($("#dlg-json").value);
+    const r = await api("/api/accounts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    toast(`已保存: ${r.name}(${r.works} 条作品)`);
+    $("#dlg-mask").classList.remove("show");
+    openAccount(r.id);
+  } catch (e) { toast("保存失败: " + e.message, false); }
+};
+async function deleteAccount() {
+  if (!current) return;
+  if (!confirm(`确定删除「${current.name}」的全部本地数据?此操作不可恢复(可先导出备份)。`)) return;
+  try {
+    await api("/api/accounts/" + encodeURIComponent(current.id), { method: "DELETE" });
+    toast("已删除");
+    goHome();
+  } catch (e) { toast("删除失败: " + e.message, false); }
+}
+$("#btn-export").onclick = () => location.href = "/api/export";
+$("#btn-import").onclick = () => {
+  const inp = document.createElement("input");
+  inp.type = "file"; inp.accept = ".json";
+  inp.onchange = async () => {
+    try {
+      const text = await inp.files[0].text();
+      const r = await api("/api/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: text });
+      toast(`导入成功,共 ${r.total} 个账号`);
+      goHome();
+    } catch (e) { toast("导入失败: " + e.message, false); }
+  };
+  inp.click();
+};
+$("#dlg-mask").onclick = (e) => { if (e.target === $("#dlg-mask")) $("#dlg-mask").classList.remove("show"); };
+
+route();
+</script>
+</body>
+</html>

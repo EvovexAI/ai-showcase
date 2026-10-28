@@ -1,0 +1,27 @@
+{
+  "id": "s1",
+  "title": "自媒体：派拆解师拆一条抖音",
+  "persona": "自媒体运营",
+  "story": "你有一条对标视频链接，只想让「拆解师」员工拆完给出钩子建议——这是最简单的员工调用。",
+  "business": "employees",
+  "industry": "自媒体",
+  "when_to_use": "单人岗位、一件事派出去就行",
+  "steps_human": [
+    "列出在岗员工，确认有拆解师",
+    "把抖音链接写进派工目标并派发",
+    "看员工是否忙碌",
+    "打开工作台确认任务已进岗"
+  ],
+  "inputs": {
+    "agent_code": { "label": "拆解师编码", "from_seed": "employee_code" },
+    "goal": {
+      "label": "派工目标",
+      "default": "请拆解这条抖音，用三条要点写出开场钩子与可抄结构：https://v.douyin.com/WmUD_EkHqT0/"
+    }
+  },
+  "acceptance": [
+    "GET /api/proactive/roles 成功",
+    "POST …/dispatch 返回 ok",
+    "GET …/busy 可读取 busy 字段"
+  ]
+}

@@ -1,0 +1,994 @@
+{
+  "ok": false,
+  "scenario": "s2",
+  "agent_code": "demo-1007-analyst",
+  "kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+  "knowledge_vault_ids": [
+    "kb_77e358602f904e20aea3c4ba8efaf8f8"
+  ],
+  "search_hits": 3,
+  "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+  "log": [
+    {
+      "step": "employees.get",
+      "result": {
+        "agent_code": "demo-1007-analyst",
+        "role_name": "拆解师",
+        "agent_name": "演示拆解师",
+        "agent_description": "1007 live demo employee",
+        "department": "自媒体",
+        "system_front_desk": false,
+        "config": {
+          "responsibilities": [
+            "拆解对标短视频",
+            "检索知识库爆款钩子",
+            "输出开场句"
+          ],
+          "workspace_path": "",
+          "knowledge_vault_ids": [
+            "kb_77e358602f904e20aea3c4ba8efaf8f8"
+          ],
+          "kpis": [],
+          "autonomy_level": "approval_for_all",
+          "max_initiatives_per_cycle": 3,
+          "risk_threshold": "medium",
+          "approval_channels": [
+            "desktop"
+          ],
+          "approval_timeout_minutes": 30,
+          "soul_md": "你是自媒体拆解师，回答要短、可执行，优先引用知识库。",
+          "think_mode": "agent_loop",
+          "model_name": "",
+          "max_turns": 10,
+          "timeout_seconds": 0,
+          "tool_groups": [],
+          "skills": [
+            "evoflow-assets",
+            "deep-research",
+            "article-writer"
+          ],
+          "work_schedule_enabled": true,
+          "work_start_hour": 9,
+          "work_end_hour": 20,
+          "approval_timeout_by_type": {},
+          "daily_budget_usd": 0.0,
+          "per_run_budget_usd": 0.0,
+          "budget_exceed_policy": "skip_patrol",
+          "auto_patrol_suspended": false,
+          "reports_to": "",
+          "memory_enabled": true,
+          "thinking_enabled": null,
+          "inject_user_profile": null,
+          "inject_skills": null,
+          "inject_kb": null,
+          "inject_soul": null,
+          "feishu_binding": {
+            "bound": false,
+            "app_id": "",
+            "open_id": "",
+            "bound_at": "",
+            "intro_sent_at": ""
+          },
+          "wecom_bot_id": "",
+          "wecom_secret": "",
+          "wecom_bound_at": ""
+        },
+        "reports_to": "",
+        "feishu_binding": {
+          "bound": false,
+          "app_id": "",
+          "open_id": "",
+          "bound_at": "",
+          "intro_sent_at": ""
+        },
+        "wecom_bot_id": "",
+        "wecom_secret": "",
+        "wecom_bound_at": "",
+        "heartbeat_rrule": "FREQ=DAILY;INTERVAL=1;BYHOUR=9,11,13,15,17,19",
+        "heartbeat_schedule": "0 9-19/2 * * *",
+        "schedule_summary": "每 2 小时（9–19 点）",
+        "status": "active",
+        "auto_patrol_suspended": false,
+        "within_work_hours": false,
+        "last_heartbeat_at": "2026-10-20T16:55:01.451013+08:00",
+        "next_heartbeat_at": "2026-10-20T17:00:00.000000+08:00",
+        "created_at": "2026-10-20T16:53:54.078384+08:00",
+        "updated_at": "2026-10-20T16:55:01.451013+08:00",
+        "recent_initiatives": [],
+        "org": {
+          "org_key": "",
+          "self": {
+            "agent_code": "demo-1007-analyst",
+            "role_name": "拆解师",
+            "department": "自媒体",
+            "reports_to": ""
+          },
+          "manager": null,
+          "direct_reports": [],
+          "peers": [
+            {
+              "agent_code": "project-debugger",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "marketing-social-media-operation",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "project-architect",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "xiaomi",
+              "role_name": "小V",
+              "department": "用户办公室",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "evoflow-marketing-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "video-analyst",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-short-video-copy",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "pm-lead",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "dev-backend",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "eval-engineer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "news-searcher",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "evoflow-fullstack-lead",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "promo-finisher",
+              "role_name": "讲解片·修片导出",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "promo-composer",
+              "role_name": "讲解片·制片",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-video-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-screenwriter",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-storyboard-design",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-visual-planner",
+              "role_name": "视觉策划",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-artist",
+              "role_name": "AI美术",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-video-editing",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-post",
+              "role_name": "成片后期",
+              "department": "创意广告部门",
+              "reports_to": "media-video-director",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-voice-director",
+              "role_name": "配音导演",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "media-script-breakdown",
+              "role_name": "脚本拆解",
+              "department": "创意广告部门",
+              "reports_to": "media-video-director",
+              "is_self": false
+            },
+            {
+              "agent_code": "hf-director",
+              "role_name": "HyperFrames·导演",
+              "department": "讲解片部门",
+              "reports_to": "promo-composer",
+              "is_self": false
+            },
+            {
+              "agent_code": "hf-visual-designer",
+              "role_name": "HyperFrames·视觉设计",
+              "department": "讲解片部门",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "hf-developer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "hf-renderer",
+              "role_name": "HyperFrames·后期",
+              "department": "讲解片部门",
+              "reports_to": "promo-composer",
+              "is_self": false
+            },
+            {
+              "agent_code": "project-planner",
+              "role_name": "项目·计划",
+              "department": "研发部",
+              "reports_to": "rd-director",
+              "is_self": false
+            },
+            {
+              "agent_code": "project-implementer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "project-reviewer",
+              "role_name": "项目·审查",
+              "department": "研发部",
+              "reports_to": "rd-director",
+              "is_self": false
+            },
+            {
+              "agent_code": "project-qa",
+              "role_name": "项目·验收",
+              "department": "研发部",
+              "reports_to": "rd-director",
+              "is_self": false
+            },
+            {
+              "agent_code": "qa-engineer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "finance-compliance",
+              "role_name": "财务·合规校验",
+              "department": "财务部",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "finance-intake",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "finance-ledger",
+              "role_name": "财务·科目汇总",
+              "department": "财务部",
+              "reports_to": "finance-compliance",
+              "is_self": false
+            },
+            {
+              "agent_code": "finance-risk",
+              "role_name": "财务·风控识别",
+              "department": "财务部",
+              "reports_to": "finance-compliance",
+              "is_self": false
+            },
+            {
+              "agent_code": "knowledge-curator",
+              "role_name": "知识整理",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "knowledge-retriever",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "rd-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "report-assistant",
+              "role_name": "报表小助手",
+              "department": "用户办公室",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "customer-service",
+              "role_name": "客服",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "auto-insurance-quoter",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "smart-customer-service",
+              "role_name": "智能客服",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "douyin-analyst",
+              "role_name": "抖音拆解师",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "douyin-blogger-analyst",
+              "role_name": "抖音账号分析师",
+              "department": "内容运营",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "topic-planner",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "hotspot-scout",
+              "role_name": "热点情报员",
+              "department": "内容运营",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "pr-maintainer",
+              "role_name": "PR 维护员",
+              "department": "",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "lark-kb-officer",
+              "role_name": "云雀咖啡知识官",
+              "department": "知识支持",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "manju-kb-officer",
+              "role_name": "漫剧工具包知识官",
+              "department": "知识支持",
+              "reports_to": "",
+              "is_self": false
+            },
+            {
+              "agent_code": "demo-1007-analyst",
+              "role_name": "拆解师",
+              "department": "自媒体",
+              "reports_to": "",
+              "is_self": true
+            }
+          ],
+          "forest": [
+            {
+              "agent_code": "auto-insurance-quoter",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "dev-backend",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "eval-engineer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "evoflow-fullstack-lead",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "evoflow-marketing-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "finance-intake",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "hf-developer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "knowledge-retriever",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "marketing-social-media-operation",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-screenwriter",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-short-video-copy",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-storyboard-design",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-video-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": [
+                {
+                  "agent_code": "media-post",
+                  "role_name": "成片后期",
+                  "department": "创意广告部门",
+                  "reports_to": "media-video-director",
+                  "status": "active",
+                  "children": []
+                },
+                {
+                  "agent_code": "media-script-breakdown",
+                  "role_name": "脚本拆解",
+                  "department": "创意广告部门",
+                  "reports_to": "media-video-director",
+                  "status": "active",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "agent_code": "media-video-editing",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "news-searcher",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "pm-lead",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "project-architect",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "project-debugger",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "project-implementer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "qa-engineer",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "rd-director",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": [
+                {
+                  "agent_code": "project-reviewer",
+                  "role_name": "项目·审查",
+                  "department": "研发部",
+                  "reports_to": "rd-director",
+                  "status": "archived",
+                  "children": []
+                },
+                {
+                  "agent_code": "project-planner",
+                  "role_name": "项目·计划",
+                  "department": "研发部",
+                  "reports_to": "rd-director",
+                  "status": "archived",
+                  "children": []
+                },
+                {
+                  "agent_code": "project-qa",
+                  "role_name": "项目·验收",
+                  "department": "研发部",
+                  "reports_to": "rd-director",
+                  "status": "archived",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "agent_code": "topic-planner",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "video-analyst",
+              "role_name": "",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-artist",
+              "role_name": "AI美术",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "hf-visual-designer",
+              "role_name": "HyperFrames·视觉设计",
+              "department": "讲解片部门",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "pr-maintainer",
+              "role_name": "PR 维护员",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "lark-kb-officer",
+              "role_name": "云雀咖啡知识官",
+              "department": "知识支持",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "customer-service",
+              "role_name": "客服",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "xiaomi",
+              "role_name": "小V",
+              "department": "用户办公室",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "douyin-analyst",
+              "role_name": "抖音拆解师",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "douyin-blogger-analyst",
+              "role_name": "抖音账号分析师",
+              "department": "内容运营",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "report-assistant",
+              "role_name": "报表小助手",
+              "department": "用户办公室",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "demo-1007-analyst",
+              "role_name": "拆解师",
+              "department": "自媒体",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "smart-customer-service",
+              "role_name": "智能客服",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "manju-kb-officer",
+              "role_name": "漫剧工具包知识官",
+              "department": "知识支持",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "hotspot-scout",
+              "role_name": "热点情报员",
+              "department": "内容运营",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "knowledge-curator",
+              "role_name": "知识整理",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "media-visual-planner",
+              "role_name": "视觉策划",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "promo-finisher",
+              "role_name": "讲解片·修片导出",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            },
+            {
+              "agent_code": "promo-composer",
+              "role_name": "讲解片·制片",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": [
+                {
+                  "agent_code": "hf-renderer",
+                  "role_name": "HyperFrames·后期",
+                  "department": "讲解片部门",
+                  "reports_to": "promo-composer",
+                  "status": "archived",
+                  "children": []
+                },
+                {
+                  "agent_code": "hf-director",
+                  "role_name": "HyperFrames·导演",
+                  "department": "讲解片部门",
+                  "reports_to": "promo-composer",
+                  "status": "active",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "agent_code": "finance-compliance",
+              "role_name": "财务·合规校验",
+              "department": "财务部",
+              "reports_to": "",
+              "status": "active",
+              "children": [
+                {
+                  "agent_code": "finance-ledger",
+                  "role_name": "财务·科目汇总",
+                  "department": "财务部",
+                  "reports_to": "finance-compliance",
+                  "status": "active",
+                  "children": []
+                },
+                {
+                  "agent_code": "finance-risk",
+                  "role_name": "财务·风控识别",
+                  "department": "财务部",
+                  "reports_to": "finance-compliance",
+                  "status": "active",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "agent_code": "media-voice-director",
+              "role_name": "配音导演",
+              "department": "",
+              "reports_to": "",
+              "status": "active",
+              "children": []
+            }
+          ]
+        },
+        "_trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst",
+          "body": null,
+          "dry_run": false
+        },
+        "ok": true
+      }
+    },
+    {
+      "step": "knowledge.search",
+      "kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+      "result": {
+        "items": [
+          {
+            "chunkId": "chk_d5ded28349c84fca8c3ea685f6b54375",
+            "docId": "doc_9eac50ad04ec41dc8d929f0c6fcd028f",
+            "kbId": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+            "content": "# 爆款钩子：对比反差\n\n开场句示例：同款榨汁杯，有人拍成说明书，有人拍成上班族30秒早餐。\n\n适用：电商短视频。",
+            "contextHeader": "",
+            "chunkKind": "text",
+            "title": "钩子·对比反差",
+            "fileName": "钩子·对比反差.md",
+            "folderPath": "",
+            "tags": [],
+            "rrfScore": 0.010483870967741936,
+            "vectorScore": 0.5281146361355261,
+            "keywordScore": null,
+            "source": "vector",
+            "assets": []
+          },
+          {
+            "chunkId": "chk_11ce0e89851546f689712c1036dc4fd6",
+            "docId": "doc_553b2bda4811439781df4ae9fce26f5a",
+            "kbId": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+            "content": "# 爆款钩子：先抛结果\n\n开场句示例：普通人用 AI 做副业，第一周就出了第一条播放过万的口播。\n\n适用：自媒体起号。",
+            "contextHeader": "",
+            "chunkKind": "text",
+            "title": "钩子·先抛结果",
+            "fileName": "钩子·先抛结果.md",
+            "folderPath": "",
+            "tags": [],
+            "rrfScore": 0.010655737704918034,
+            "vectorScore": 0.5347115670292494,
+            "keywordScore": null,
+            "source": "vector",
+            "assets": []
+          },
+          {
+            "chunkId": "chk_8a0a32cf883d472c88bc92080077a16b",
+            "docId": "doc_8280b6f112b8497c8913eb3a21dfe004",
+            "kbId": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+            "content": "# 爆款钩子：痛点反问\n\n开场句示例：还在熬夜剪一条抖音？其实 3 个模板就够你发一周。\n\n适用：工具效率类。",
+            "contextHeader": "",
+            "chunkKind": "text",
+            "title": "钩子·痛点反问",
+            "fileName": "钩子·痛点反问.md",
+            "folderPath": "",
+            "tags": [],
+            "rrfScore": 0.010317460317460317,
+            "vectorScore": 0.5271065043671642,
+            "keywordScore": null,
+            "source": "vector",
+            "assets": []
+          }
+        ],
+        "total": 3,
+        "mode": "hybrid",
+        "degraded": false,
+        "kgBoosted": false,
+        "tags": [],
+        "_trace": {
+          "method": "POST",
+          "path": "/api/knowledge/owned/bases/kb_77e358602f904e20aea3c4ba8efaf8f8/search",
+          "url": "http://127.0.0.1:8070/api/knowledge/owned/bases/kb_77e358602f904e20aea3c4ba8efaf8f8/search",
+          "body": {
+            "query": "短视频钩子 开场",
+            "mode": "hybrid",
+            "topK": 5
+          },
+          "dry_run": false
+        },
+        "ok": true
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "result": {
+        "ok": false,
+        "error": "HTTP 409",
+        "detail": "{\"detail\":\"该员工正在执行任务，请稍候或打开工作轨迹查看进度\"}",
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-1007-analyst/dispatch",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/dispatch",
+          "body": {
+            "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+            "description": "1007·S2 员工+知识库",
+            "priority": "normal",
+            "source": "demo-1007"
+          },
+          "dry_run": false
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "employee_has_kb": true,
+    "search_hits_ge_1": true,
+    "dispatch_ok": false
+  }
+}

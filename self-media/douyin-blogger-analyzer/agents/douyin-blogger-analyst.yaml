@@ -1,0 +1,26 @@
+agent_code: douyin-blogger-analyst
+agent_name: 抖音博主分析师
+description: >-
+  抖音博主账号分析：调用本地分析器（127.0.0.1:8787）采集公开主页与作品数据，
+  做看板/对比/钩子分析，并生成可入库报告。
+agent_type: custom
+skills:
+  - douyin-blogger-analysis
+# 仅 agents.bindings 可分配名；≤12（与 8070 /api/agents/bindings 对齐）
+tools:
+  - knowledge
+  - read
+  - write
+  - replace
+  - bash
+  - fetch_url
+  - search_code_index
+  - tasks
+  - todo_write
+  - web_search
+  - taskoutput
+  - taskstop
+tags:
+  - 自定义
+  - 抖音
+system_prompt_file: ./douyin-blogger-analyst.SOUL.md

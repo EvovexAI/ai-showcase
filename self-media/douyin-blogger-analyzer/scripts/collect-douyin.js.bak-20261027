@@ -1,0 +1,251 @@
+#!/usr/bin/env node
+/**
+ * 抖音博主采集脚本(跨平台版)
+ * 任何能跑 Node 的 Agent 平台(Codex / Claude Code / Cursor / 人)都能用:
+ *
+ *   node collect-douyin.js <博主主页URL> [--no-post]
+ *
+ * 前置(一次性):
+ *   1. npm install                          (装 playwright-core,不下载浏览器)
+ *   2. 用带调试端口的方式启动 Chrome/Edge,并登录一次抖音(会话保存在独立目录):
+ *      chrome.exe --remote-debugging-port=9222 --user-data-dir="D:\dev\github\evo\edu\ai-demos\1005\.chrome-profile"
+ *   3. 本地分析器在跑(node server.js)——默认采集完自动 POST 入库
+ *
+ * 环境变量:
+ *   DOUYIN_CDP    Chrome 调试端口地址,默认 http://127.0.0.1:9222
+ *   ANALYZER_API  分析器地址,默认 http://127.0.0.1:8787
+ */
+const fs = require("fs");
+const path = require("path");
+const { chromium } = require("playwright-core");
+
+const CDP = process.env.DOUYIN_CDP || "http://127.0.0.1:9222";
+const API = process.env.ANALYZER_API || "http://127.0.0.1:8787";
+const profileUrl = process.argv[2];
+const noPost = process.argv.includes("--no-post");
+const allowGuest = process.argv.includes("--allow-guest");
+
+if (!profileUrl || !profileUrl.includes("douyin.com/user/")) {
+  console.error("用法: node collect-douyin.js <博主主页URL> [--no-post]");
+  console.error("示例: node collect-douyin.js https://www.douyin.com/user/MS4wLjABAAAA....");
+  process.exit(1);
+}
+
+const toNum = (v) =>
+  v == null ? null : v.endsWith("万") ? Math.round(parseFloat(v) * 10000) : parseInt(v, 10);
+const slug = (s) =>
+  String(s || "account").replace(/[^\w\u4e00-\u9fa5-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+
+(async () => {
+  // 1. 连接用户的 Chrome(带登录态)
+  let browser;
+  try {
+    browser = await chromium.connectOverCDP(CDP);
+  } catch (e) {
+    console.error(`✗ 连不上 Chrome 调试端口(${CDP})。请先用调试端口启动 Chrome 并登录抖音:`);
+    console.error(`  chrome.exe --remote-debugging-port=9222 --user-data-dir="D:\\dev\\douyin-analyzer\\.chrome-profile"`);
+    process.exit(2);
+  }
+  const context = browser.contexts()[0];
+  const page = await context.newPage();
+
+  // 2. 打开主页
+  console.log("→ 打开主页:", profileUrl);
+  await page.goto(profileUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.waitForTimeout(3500);
+
+  // 2.5 登录与风控预检
+  const pre = await page.evaluate(() => ({
+    loggedIn: !!document.querySelector('a[href*="/user/self"]'),
+    verify: !!document.querySelector('#uc-second-verify, [class*="second_verify"]'),
+  }));
+  if (pre.verify) {
+    console.error("✗ 触发抖音风控验证(second_verify 遮罩)。请在浏览器窗口里人工完成滑块/验证,");
+    console.error("  等 1-2 分钟后重跑本脚本。不要硬重试,会加重风控。");
+    process.exit(4);
+  }
+  if (!pre.loggedIn && !allowGuest) {
+    console.error("⚠ 当前浏览器未登录抖音:未登录时作品列表会被截断、中途还会弹登录框。");
+    console.error('  请在刚打开的浏览器窗口点右上角"登录"扫码(登录态保存在 .chrome-profile,以后免登录),');
+    console.error("  登录后重跑本脚本。执意要采未登录数据可加参数 --allow-guest(数据大概率不全)。");
+    process.exit(5);
+  }
+
+  // 3. 基础信息:页头 DOM 优先(永远是主页主人本人),内嵌 JSON 兜底(完整简介等)
+  //    注意:内嵌 JSON 同时含"登录用户"和"主页主人"两份数据,
+  //    必须用 URL 里的 secUid 定位主页主人的数据段,直接全局搜 nickname 会抓到登录号!
+  const info = await page.evaluate(() => {
+    const scripts = [...document.querySelectorAll("script")].map((s) => s.textContent).join("");
+    const unq = (m) => (m ? JSON.parse('"' + m[1] + '"') : "");
+    const out = {};
+    const head = (document.body.innerText || "").slice(0, 4000);
+    const h1 = (document.querySelector("h1") || {}).textContent || "";
+
+    // 用 URL 的 secUid 定位主页主人的数据段(把整段转义 JSON 还原成正常形态再匹配)
+    const secUidUrl = (location.href.match(/user\/(MS4wLjAB[A-Za-z0-9_-]+)/) || [])[1] || "";
+    let seg = "";
+    if (secUidUrl) {
+      const i = scripts.indexOf(secUidUrl);
+      if (i >= 0) seg = scripts.slice(Math.max(0, i - 8000), i + 16000).split('\\"').join('"');
+    }
+    const segNum = (re) => { const m = seg.match(re); return m ? Number(m[1] || m[2]) : null; };
+
+    // --- DOM(页头)优先 ---
+    out.name = h1.trim();
+    const idm = head.match(/抖音号[:：]\s*([A-Za-z0-9_.\-]{2,30})/);
+    out.douyinId = idm ? idm[1] : "";
+    const hm = head.match(/关注\s*(\d+(\.\d+)?万?)[\s\S]{0,30}?粉丝\s*(\d+(\.\d+)?万?)[\s\S]{0,30}?获赞\s*(\d+(\.\d+)?万?)/);
+    if (hm) { out.followingText = hm[1]; out.followersText = hm[3]; out.totalLikesText = hm[5]; }
+    const ip = head.match(/IP属地[:：]\s*(\S{1,12})/); out.ipLocation = ip ? ip[1] : "";
+    const loc = head.match(/(北京|上海|天津|重庆|河北|山西|辽宁|吉林|黑龙江|江苏|浙江|安徽|福建|江西|山东|河南|湖北|湖南|广东|海南|四川|贵州|云南|陕西|甘肃|青海|台湾|内蒙古|广西|西藏|宁夏|新疆|香港|澳门)·(\S{1,12})/);
+    out.location = loc ? loc[0] : "";
+    const age = head.match(/(\d{2})岁/); out.age = age ? age[1] + "岁" : "";
+    const wm = head.match(/作品\s*(\d+)/); if (!out.awemeCount && wm) out.awemeCount = Number(wm[1]);
+
+    // --- 定位段 JSON 兜底 ---
+    if (!out.name) { const m = seg.match(/"nickname":"((?:[^"\\]|\\.)*)"/); out.name = unq(m); }
+    // bio:在昵称出现位置的窗口里挖 desc(转义 JSON 里 desc 可能含 \n),DOM 截断文本最后兜底
+    if (out.name) {
+      for (let p = scripts.indexOf(out.name); p >= 0 && !out.bio; p = scripts.indexOf(out.name, p + 1)) {
+        const w = scripts.slice(Math.max(0, p - 2000), p + 4000).split('\\"').join('"');
+        const dm = w.match(/"desc":"((?:[^"\\]|\\.)*)"/);
+        if (dm && dm[1]) out.bio = unq(dm);
+      }
+    }
+    if (!out.bio) {
+      const bm = head.match(/([\s\S]{5,200}?)\n?更多\n/);
+      if (bm) out.bio = bm[1].trim().replace(/^.*?\n(?=[^\n]*$)/, "");
+    }
+    if (!out.douyinId) {
+      const m = seg.match(/"shortId":"([^"]*)"/) || seg.match(/"uniqueId":"([^"]*)"/);
+      out.douyinId = m ? m[1] : "";
+    }
+    out.secUid = secUidUrl;
+    if (!out.awemeCount) out.awemeCount = segNum(/"awemeCount":(\d+)/);
+    out.followersJson = segNum(/"follower_count":(\d+)|"followerCount":(\d+)/);
+    out.totalLikesJson = segNum(/"totalFavorited":(\d+)/);
+    out.followingJson = segNum(/"followingCount":(\d+)/);
+    out.gender = /"gender":1/.test(seg) ? "男" : /"gender":2/.test(seg) ? "女" : "";
+    return out;
+  });
+  if (!info.name) { console.error("✗ 没抓到昵称,页面可能没加载完或需要登录"); process.exit(3); }
+  console.log(`→ 博主: ${info.name} (抖音号 ${info.douyinId || "?"})`);
+
+  // 4. 滚动加载全部作品,DOM 直采卡片
+  console.log("→ 滚动加载作品…");
+  const seen = new Map();
+  for (let r = 0; r < 25; r++) {
+    const cards = await page.evaluate(() => {
+      const out = [];
+      for (const a of document.querySelectorAll('a[href*="/video/"]')) {
+        const id = (a.getAttribute("href").match(/\/video\/(\d+)/) || [])[1];
+        if (!id || out.some((x) => x.id === id)) continue;
+        const label = a.getAttribute("aria-label") || "";
+        const spans = [...a.querySelectorAll("span,div")].map((e) => e.textContent.trim());
+        const like = spans.find((t) => /^\d+(\.\d+)?万?$/.test(t));
+        const dur = spans.find((t) => /^\d{2}:\d{2}$/.test(t));
+        const p = a.querySelector("p");
+        const badge = spans.find((t) => t === "置顶" || t === "专属会员") || "";
+        out.push({
+          id,
+          label,
+          title: p ? p.textContent.trim() : (label.split("：")[1] || label).slice(0, 120),
+          likes: like || null,
+          duration: dur || null,
+          pinned: badge === "置顶" || label.includes("Tag: 置顶"),
+          members: badge === "专属会员",
+        });
+      }
+      return out;
+    });
+    for (const c of cards) if (!seen.has(c.id)) seen.set(c.id, c);
+    const st = await page.evaluate(() => ({
+      end: document.body.innerText.includes("暂时没有更多了"),
+      verify: !!document.querySelector('#uc-second-verify, [class*="second_verify"]'),
+      loginModal: /扫码登录|验证码登录|短信登录/.test((document.body.innerText || "").slice(0, 9000)),
+    }));
+    if (st.verify) {
+      console.error("✗ 滚动过程中触发风控验证。请人工完成浏览器里的滑块/验证后重跑(本次已采部分已留档)。");
+      process.exit(4);
+    }
+    if (st.loginModal && !pre.loggedIn) {
+      console.error("✗ 弹出了登录框(未登录刷太深)。请登录后重跑。");
+      process.exit(5);
+    }
+    if (st.end) break;
+    await page.mouse.wheel(0, 2200);
+    await page.waitForTimeout(750);
+  }
+  console.log(`→ 采集到 ${seen.size} 条作品`);
+
+  // 5. 组装
+  const works = [...seen.values()].map((c) => {
+    const ts = Math.floor(Number(c.id) / 4294967296);
+    return {
+      id: c.id,
+      url: "https://www.douyin.com/video/" + c.id,
+      title: c.title,
+      likes: toNum(c.likes),
+      duration: c.duration,
+      pinned: c.pinned,
+      visibility: c.members ? "members" : "public",
+      publishedAt: new Date(ts * 1000).toISOString().slice(0, 10),
+    };
+  });
+  const payload = {
+    account: {
+      name: info.name,
+      douyinId: info.douyinId,
+      secUid: info.secUid,
+      gender: info.gender,
+      age: info.age || "",
+      location: info.location,
+      ipLocation: info.ipLocation,
+      bio: info.bio,
+      profileUrl: profileUrl,
+      metric: "likes",
+      notes: `主页计数 ${info.awemeCount ?? "?"} 条,公开展示 ${works.length} 条${allowGuest ? " | ⚠ guest模式(未登录),数据可能不全" : ""}`,
+      stats: {
+        following: toNum(info.followingText) ?? info.followingJson ?? null,
+        followers: toNum(info.followersText) ?? info.followersJson ?? null,
+        followersText: info.followersText || "",
+        totalLikes: toNum(info.totalLikesText) ?? info.totalLikesJson ?? null,
+        totalLikesText: info.totalLikesText || "",
+        workCount: works.length,
+      },
+      collectedAt: new Date().toISOString().slice(0, 10),
+    },
+    works,
+  };
+
+  // 6. 本地留档
+  const outDir = path.join(__dirname, "..", "data");
+  const file = path.join(outDir, `_collect-${slug(info.name)}-${Date.now().toString(36)}.json`);
+  fs.writeFileSync(file, JSON.stringify(payload, null, 2));
+  console.log("→ 已留档:", file);
+
+  // 7. 入库
+  if (!noPost) {
+    try {
+      const res = await fetch(API + "/api/accounts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const j = await res.json();
+      console.log(`✓ 已入库: ${j.name} (${j.works} 条作品) → ${API}/#/account/${encodeURIComponent(j.id)}`);
+    } catch (e) {
+      console.error("! 入库失败(分析器没开?):", e.message, "— 数据已留档,可稍后手动 POST");
+    }
+  }
+
+  // 摘要
+  const nums = works.map((w) => w.likes).filter((x) => x != null).sort((a, b) => a - b);
+  if (nums.length) {
+    const sum = nums.reduce((a, b) => a + b, 0);
+    console.log("\n—— 摘要 ——");
+    console.log(`作品 ${works.length} | 平均赞 ${Math.round(sum / nums.length)} | 中位数 ${nums[Math.floor(nums.length / 2)]} | 最高 ${nums[nums.length - 1]}`);
+  }
+  await page.close();
+  await browser.close();
+})().catch((e) => { console.error("✗", e); process.exit(9); });

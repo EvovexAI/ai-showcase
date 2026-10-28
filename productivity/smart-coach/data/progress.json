@@ -1,0 +1,22 @@
+{
+  "course_title": "陪练师上手：把资料变成自己的知识",
+  "percent": 40,
+  "next_focus": "验证：知识库检索与回写闭环",
+  "last_session_at": "2026-10-27T19:06:07",
+  "weak_points": [
+    "把进度百分比当掌握度",
+    "回写顺序（先写摘要再改档位）",
+    "知识库「陪练资料库」检索为空"
+  ],
+  "mastery": {
+    "n1": "practicing",
+    "n2": "practicing",
+    "n3": "practicing",
+    "n4": "practicing",
+    "n5": "practicing",
+    "n6": "practicing",
+    "n7": "practicing",
+    "n8": "practicing"
+  },
+  "notes": "2026-10-27 班次：8759/8769 清掉 3 个残留监听后重启；诊断出 PUT/POST 非 UTF-8 body 会抛 UnicodeDecodeError 空回复；n7 真源边界答对改 practicing；新增 n8 验证节点并练完一轮。PUT mastery 浅覆盖需带全量。"
+}

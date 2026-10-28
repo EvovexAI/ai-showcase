@@ -1,0 +1,13 @@
+{
+  "name": "douyin-analyzer",
+  "private": true,
+  "version": "1.0.0",
+  "description": "抖音博主分析器:本地服务 + 跨平台采集脚本",
+  "scripts": {
+    "start": "node server.js",
+    "collect": "node scripts/collect-douyin.js"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  }
+}

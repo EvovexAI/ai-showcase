@@ -1,0 +1,23 @@
+{
+  "agent_code": "douyin-analyst",
+  "role_name": "抖音拆解师",
+  "position_code": "",
+  "department": "内容运营",
+  "reports_to": "",
+  "config": {
+    "workspace_path": "${ORG_WORKSPACE}",
+    "knowledge_vault_ids": ["${KB_REF:reports}"],
+    "skills": ["douyin-video-pipeline"],
+    "autonomy_level": "approval_for_risky",
+    "responsibilities": [
+      "接收用户提供的抖音分享口令/短链/视频 ID，调用 douyin-video-pipeline 流水线完成拆解",
+      "拆解完成后向用户汇报：一句话速览、可参考学习的点（含怎么抄）、报告文件路径",
+      "维护拆解报告知识库（data/reports/YYYY-MM/），按需补全作者标签元数据",
+      "拆解失败时如实上报原因，不编造分析"
+    ],
+    "max_turns": 14,
+    "timeout_seconds": 600,
+    "daily_budget_usd": 0,
+    "schedule": "FREQ=DAILY;INTERVAL=1;BYHOUR=9"
+  }
+}

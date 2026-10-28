@@ -1,0 +1,99 @@
+{
+  "ok": false,
+  "scenario": "s4",
+  "agent_code": "demo-1007-analyst",
+  "app_id": "App_20261020165401_87219f",
+  "dispatch_id": null,
+  "run_id": "",
+  "topic": "便携榨汁杯 · 上班族早餐场景",
+  "log": [
+    {
+      "step": "employees.wait_idle_before_dispatch",
+      "result": {
+        "ok": false,
+        "error": "ConnectionResetError",
+        "detail": "[WinError 10054] 远程主机强迫关闭了一个现有的连接。",
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst/busy",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/busy",
+          "body": null,
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "agent_code": "demo-1007-analyst",
+      "result": {
+        "ok": false,
+        "error": "connection_failed",
+        "detail": "[WinError 10061] 由于目标计算机积极拒绝，无法连接。",
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-1007-analyst/dispatch",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/dispatch",
+          "body": {
+            "goal": "围绕「便携榨汁杯」整理 3 条竞品短视频钩子手法，并各给一句可套用开场，输出简洁简报。",
+            "description": "1007·S4 调研简报",
+            "priority": "normal",
+            "source": "demo-1007"
+          },
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "employees.wait_idle",
+      "result": {
+        "ok": false,
+        "error": "connection_failed",
+        "detail": "[WinError 10061] 由于目标计算机积极拒绝，无法连接。",
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst/busy",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/busy",
+          "body": null,
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "apps.run",
+      "result": {
+        "ok": false,
+        "error": "connection_failed",
+        "detail": "[WinError 10061] 由于目标计算机积极拒绝，无法连接。",
+        "trace": {
+          "method": "POST",
+          "path": "/api/apps/App_20261020165401_87219f/run",
+          "url": "http://127.0.0.1:8070/api/apps/App_20261020165401_87219f/run",
+          "body": {
+            "parameters": {
+              "product": "便携榨汁杯",
+              "topic": "便携榨汁杯 · 上班族早餐场景",
+              "audience": "上班族",
+              "brief": "[调研派工摘要] 围绕「便携榨汁杯」整理 3 条竞品短视频钩子手法，并各给一句可套用开场，输出简洁简报。",
+              "selling_points": "见调研简报"
+            },
+            "run_kind": "debug",
+            "trigger_kind": "manual"
+          },
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "apps.run_status",
+      "run_id": "",
+      "result": {
+        "ok": false,
+        "error": "no run_id"
+      }
+    }
+  ],
+  "acceptance": {
+    "has_dispatch": false,
+    "has_run_id": false
+  }
+}

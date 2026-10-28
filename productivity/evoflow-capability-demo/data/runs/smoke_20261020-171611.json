@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "live": true,
+  "accepted_as_live": false,
+  "rows": [
+    {
+      "check": "health",
+      "ok": false,
+      "elapsed_ms": 83843.8,
+      "detail": "ready"
+    }
+  ],
+  "error": "网关探活/ready 失败，阻断调通验收",
+  "note": "存在失败项，禁止写「已调通」",
+  "elapsed_ms": 83843.8
+}

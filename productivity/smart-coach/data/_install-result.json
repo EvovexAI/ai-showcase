@@ -1,0 +1,28 @@
+{
+  "org_instance_id": "org_smart-coach-pack_20261025080440448",
+  "pack_id": "smart-coach-pack",
+  "pack_version": "1.0.0",
+  "kind": "team",
+  "workspace_path": "${ORG_ROOT}/workspace",
+  "status": "active",
+  "installed_at": "2026-10-25T16:04:40.448218+08:00",
+  "artifacts": {
+    "agents": [
+      "smart-coach"
+    ],
+    "employees": [
+      "smart-coach"
+    ],
+    "skills": [
+      "smart-coach"
+    ],
+    "knowledge": [
+      "kb_9ddba9d2f6e84de4a50a2622c3e6b1c4"
+    ]
+  },
+  "warnings": [
+    "knowledge base '陪练资料库' ready (created)",
+    "skill 'smart-coach' installed as folder-link (non-portable; source=D:\\dev\\github\\evo\\edu\\ai-demos\\1009-smart-coach\\skills\\smart-coach)",
+    "extension skipped: 目录内未找到 evoflow.extension.json: ."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "douyin-video-pipeline",
+  "name": "视频拆解工作台",
+  "version": "1.0.0",
+  "description": "内容拆解（起号）工作台：粘贴链接 → 下载、口播转写、关键帧、章节与洞察（钩子/人群/黄金句/节奏/结构）。AIGC 反推请用 1008（:8768）。全程本地，端口 8765。",
+  "icon": "./icon.svg",
+  "nav": {
+    "title": "内容拆解",
+    "group": "extensions",
+    "order": 60
+  },
+  "ui": {
+    "kind": "webview",
+    "entry": "http://127.0.0.1:8765",
+    "sandbox": [
+      "allow-scripts",
+      "allow-same-origin",
+      "allow-forms",
+      "allow-popups"
+    ]
+  },
+  "permissions": [
+    "embed"
+  ],
+  "service": {
+    "mode": "managed",
+    "cwd": ".",
+    "link": true,
+    "hint": "启动本地视频分析服务（端口 8765）。首次运行需先装依赖：python -m pip install -r requirements.txt，并确保 ffmpeg 已加入 PATH。",
+    "start": {
+      "windows": ["python", "scripts/web_server.py"],
+      "default": ["python", "scripts/web_server.py"]
+    },
+    "healthcheck": {
+      "url": "http://127.0.0.1:8765",
+      "timeout_ms": 60000
+    },
+    "stop": "port",
+    "ports": [8765]
+  },
+  "bridge": {
+    "origin_allowlist": [
+      "http://127.0.0.1:8765",
+      "http://localhost:8765"
+    ]
+  }
+}

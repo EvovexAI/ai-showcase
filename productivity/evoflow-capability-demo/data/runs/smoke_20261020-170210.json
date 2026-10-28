@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "live": true,
+  "accepted_as_live": false,
+  "rows": [
+    {
+      "check": "health",
+      "ok": false,
+      "elapsed_ms": 23685.6,
+      "detail": "ConnectionResetError"
+    }
+  ],
+  "error": "网关探活失败，阻断调通验收",
+  "elapsed_ms": 23685.6
+}

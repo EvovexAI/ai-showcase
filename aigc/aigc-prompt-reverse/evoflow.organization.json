@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "kind": "team",
+  "id": "aigc-prompt-reverse-pack",
+  "name": "AIGC 反推提示词场景包",
+  "version": "1.0.0",
+  "description": "1008 AIGC 反推全套：UI 扩展（folder-link）+ AIGC 反推师 + 反推技能 + 反推报告知识库。与 1004 内容拆解工作台分离。",
+  "workspace": {
+    "path": "${ORG_ROOT}/workspace",
+    "name": "AIGC 反推工作区",
+    "create_if_missing": true
+  },
+  "primitives": {
+    "knowledge": [
+      {
+        "ref": "reports",
+        "name": "AIGC 反推报告库",
+        "description": "AIGC 提示词反推报告库，来自 1008 data/reports",
+        "import_folder": "./data/reports",
+        "upsert": true,
+        "prune_missing": false
+      }
+    ],
+    "skills": [
+      { "path": "./skills/aigc-prompt-reverse", "link": true },
+      { "path": "./skills/evoflow-onboarding", "link": true }
+    ],
+    "agents": [
+      { "from": "./agents/aigc-prompt-reverser.yaml" }
+    ],
+    "extensions": [
+      { "from": "./", "link": true }
+    ]
+  },
+  "team": {
+    "employees": [
+      { "from": "./employees/aigc-prompt-reverser.json" }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "id": "smart-coach",
+  "name": "智能陪练（学员）",
+  "version": "1.0.0",
+  "description": "学员向智能陪练面板：看进度、上传资料、看最近陪练摘要。梳大纲/开练/答疑由 EvoFlow 员工「陪练师」完成。端口 8769。",
+  "icon": "./icon.svg",
+  "nav": {
+    "title": "智能陪练",
+    "group": "extensions",
+    "order": 63
+  },
+  "ui": {
+    "kind": "webview",
+    "entry": "http://127.0.0.1:8769",
+    "sandbox": [
+      "allow-scripts",
+      "allow-same-origin",
+      "allow-forms",
+      "allow-popups"
+    ]
+  },
+  "permissions": ["embed"],
+  "service": {
+    "mode": "managed",
+    "cwd": ".",
+    "link": true,
+    "hint": "启动本地智能陪练面板（端口 8769）。零依赖，系统 Python 即可。",
+    "start": {
+      "windows": ["python", "scripts/web_server.py"],
+      "default": ["python", "scripts/web_server.py"]
+    },
+    "healthcheck": {
+      "url": "http://127.0.0.1:8769/api/health",
+      "timeout_ms": 30000
+    },
+    "stop": "port",
+    "ports": [8769]
+  },
+  "bridge": {
+    "origin_allowlist": [
+      "http://127.0.0.1:8769",
+      "http://localhost:8769"
+    ]
+  }
+}

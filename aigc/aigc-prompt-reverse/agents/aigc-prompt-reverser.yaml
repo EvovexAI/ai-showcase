@@ -1,0 +1,26 @@
+agent_code: aigc-prompt-reverser
+agent_name: AIGC 反推师
+description: >-
+  短视频 AIGC 提示词反推：调用本地反推流水线（127.0.0.1:8768），
+  把抖音/B站等分享链接反推成 T2V/I2V 可粘贴 Prompt（即梦 / Seedance / 可灵等），
+  并按导演/分镜维度精修关键帧后回写报告。
+agent_type: custom
+skills:
+  - aigc-prompt-reverse
+# 仅 agents.bindings 可分配名；≤12（与 8070 /api/agents/bindings 对齐）
+tools:
+  - knowledge
+  - read
+  - write
+  - replace
+  - bash
+  - fetch_url
+  - search_code_index
+  - tasks
+  - todo_write
+  - web_search
+  - taskoutput
+  - taskstop
+tags:
+  - 自定义
+system_prompt_file: ./aigc-prompt-reverser.SOUL.md

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目介绍 · EvoFlow 业务场景台</title>
+<!--
+  ══════════════════════════════════════════════════════════════
+  项目介绍页模板 · 使用说明
+  1. 复制本文件到你的项目目录，重命名为 intro.html（或 简介.html）
+  2. 全局搜索「✏️」逐处替换为你的项目内容（示例文案来自
+     self-media/douyin-video-pipeline，可直接参考改写）
+  3. 顶部黄条是给填写者看的，改完后整段删除
+  4. 所有区块可按需删减，但建议保留：定位 / 上手 / 提示词
+  ══════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#fafafa; --line:#e8e8ec; --line2:#f0f0f3;
+    --txt:#111114; --sub:#52525e; --mut:#9ca0ab;
+    --acc:#2563eb; --acc-weak:#eff4ff;
+    --ok:#16a34a; --pain:#dc2626;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);
+    font-family:-apple-system,"SF Pro Text","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+    font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  ::selection{background:#dce7ff}
+
+  .ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;
+    stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .ic.lg{width:24px;height:24px}
+
+  /* ── 填写者提示条 ── */
+  .tpl-note{background:#fffbeb;border-bottom:1px solid #f3e8c8;color:#8a6d1a;
+    padding:8px 24px;font-size:12.5px;text-align:center}
+
+  /* ── 导航 ── */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:2px;align-items:center;max-width:1120px;margin:0 auto;padding:0 28px;height:56px;overflow-x:auto}
+  nav .brand{font-weight:650;color:var(--txt);margin-right:28px;font-size:15px;letter-spacing:-.2px;white-space:nowrap}
+  nav a{color:var(--sub);text-decoration:none;font-size:13.5px;padding:0 14px;height:56px;
+    display:inline-flex;align-items:center;white-space:nowrap;position:relative;transition:color .15s}
+  nav a:hover{color:var(--txt)}
+  nav a.active{color:var(--txt);font-weight:600}
+  nav a.active::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:var(--acc)}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+  section{padding:88px 0 12px}
+  .sec-head{display:flex;gap:22px;align-items:flex-start;margin-bottom:12px}
+  .sec-no{font-size:44px;font-weight:650;color:#e4e5ea;line-height:1;letter-spacing:-1px;
+    font-variant-numeric:tabular-nums;flex:none;margin-top:4px}
+  h2{font-size:26px;font-weight:650;letter-spacing:-.3px;line-height:1.3}
+  .sec-sub{color:var(--sub);font-size:14.5px;margin-top:6px}
+  .sec-body{margin-top:36px}
+
+  /* ── Hero ── */
+  .hero{padding:96px 0 72px;border-bottom:1px solid var(--line2)}
+  .badges{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+  .badge{font-size:12.5px;color:var(--sub);display:inline-flex;align-items:center;gap:7px}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:none}
+  .badge.ok .dot{background:var(--ok)}
+  .badge.mut .dot{background:#c9ccd4}
+  .hero h1{font-size:52px;font-weight:700;letter-spacing:-1.2px;line-height:1.15;max-width:720px}
+  .hero .tagline{font-size:17px;color:var(--sub);margin:22px 0 0;max-width:620px;line-height:1.75}
+  .spec{display:flex;flex-wrap:wrap;margin-top:44px;border-top:1px solid var(--line2)}
+  .spec .m{padding:20px 36px 4px 0;margin-right:36px;min-width:140px}
+  .spec .m small{display:block;font-size:12px;color:var(--mut);letter-spacing:.4px;margin-bottom:4px}
+  .spec .m b{font-size:15px;font-weight:600;color:var(--txt)}
+  .spec .m b code{font-size:13px;font-weight:500}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:8px;font-size:14.5px;
+    text-decoration:none;font-weight:550;transition:.15s;cursor:pointer;border:1px solid transparent}
+  .btn.primary{background:var(--acc);color:#fff}
+  .btn.primary:hover{background:#1d4fc4}
+  .btn.ghost{background:var(--bg);color:var(--txt);border-color:var(--line)}
+  .btn.ghost:hover{border-color:#c9ccd4;background:var(--bg2)}
+
+  /* ── 通用卡片 ── */
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;transition:border-color .2s}
+  .card:hover{border-color:#d4d6dd}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card .ic{color:var(--acc);margin-bottom:14px}
+  .card h3{font-size:16px;font-weight:600;margin-bottom:8px;letter-spacing:-.2px}
+  .card p{color:var(--sub);font-size:14px}
+  .card ul{list-style:none;margin-top:4px}
+  .card ul li{padding:7px 0 7px 24px;position:relative;color:var(--sub);font-size:14px;
+    border-bottom:1px solid var(--line2)}
+  .card ul li:last-child{border-bottom:none}
+  .card ul li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:12px;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2316a34a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>') no-repeat center/contain}
+
+  /* ── 定位 ── */
+  .pos{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+  @media(max-width:760px){.pos{grid-template-columns:1fr}}
+  .pos .lead{font-size:16.5px;line-height:1.9;color:var(--txt)}
+  .pos .lead b{color:var(--acc);font-weight:600}
+  .kw{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .kw span{font-size:12.5px;padding:3px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--sub)}
+
+  /* ── 痛点→方案 ── */
+  .prob-table{border-top:1px solid var(--line)}
+  .prob-row{display:grid;grid-template-columns:1fr 40px 1fr;align-items:stretch;
+    border-bottom:1px solid var(--line2);padding:20px 0}
+  @media(max-width:760px){.prob-row{grid-template-columns:1fr}.prob-row .arrow{transform:rotate(90deg);justify-content:center;padding:6px 0}}
+  .prob{font-size:14.5px;line-height:1.75;padding:2px 0 2px 18px;position:relative}
+  .prob::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2.5px;border-radius:2px}
+  .prob.pain::before{background:var(--pain)}
+  .prob.gain::before{background:var(--ok)}
+  .prob .tag{display:block;font-size:11.5px;font-weight:650;letter-spacing:1.2px;margin-bottom:4px}
+  .prob.pain .tag{color:var(--pain)}
+  .prob.gain .tag{color:var(--ok)}
+  .prob.pain{color:var(--sub)}
+  .prob-row .arrow{display:flex;align-items:center;justify-content:center;color:var(--mut)}
+  .prob-row .arrow .ic{width:18px;height:18px}
+
+  /* ── 组合流程 ── */
+  .combo{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:28px 30px;margin-bottom:16px}
+  .combo h3{font-size:16.5px;font-weight:600;letter-spacing:-.2px}
+  .combo h3 em{font-style:normal;color:var(--mut);font-weight:450;margin-left:10px;font-size:13.5px}
+  .combo .who{color:var(--mut);font-size:13px;margin:4px 0 24px}
+  .flow{display:flex;flex-wrap:wrap;gap:36px 44px}
+  .step{flex:1;min-width:180px;position:relative;padding-top:16px;border-top:1px solid var(--line)}
+  .step::before{content:"";position:absolute;top:-4.5px;left:0;width:8px;height:8px;border-radius:50%;
+    background:var(--acc);box-shadow:0 0 0 3px var(--acc-weak)}
+  .step .n{font-size:11.5px;font-weight:650;letter-spacing:1px;color:var(--acc);text-transform:uppercase}
+  .step b{display:block;font-size:14.5px;margin:5px 0 4px;font-weight:600}
+  .step small{color:var(--sub);font-size:13px;line-height:1.65;display:block}
+  .step:not(:last-child)::after{content:"";position:absolute;top:2px;right:-30px;width:16px;height:16px;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23c9ccd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>') no-repeat center/contain}
+  @media(max-width:900px){.step:not(:last-child)::after{display:none}}
+
+  /* ── 闭环回环 ── */
+  .loop-back{margin-top:20px;padding-top:16px;border-top:1px dashed var(--line);
+    text-align:center;font-size:13px;color:var(--sub);display:flex;align-items:center;justify-content:center;gap:8px}
+  .loop-back .ic{width:15px;height:15px;color:var(--acc)}
+
+  /* ── 提示条 / 前置 ── */
+  .callout{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 22px;font-size:14px;color:var(--sub);display:flex;gap:14px;margin-bottom:28px}
+  .callout .ic{color:var(--acc);margin-top:3px}
+  .callout .t{display:block;font-weight:600;color:var(--txt);margin-bottom:4px;font-size:14px}
+  .callout b{color:var(--txt);font-weight:600}
+
+  /* ── 上手步骤 ── */
+  .qs .q{display:grid;grid-template-columns:44px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid var(--line2)}
+  .qs .q:last-child{border-bottom:none}
+  .qs .n{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--acc);
+    font-variant-numeric:tabular-nums}
+  .qs h4{font-size:16px;font-weight:600;margin-bottom:6px;letter-spacing:-.2px}
+  .qs p{color:var(--sub);font-size:14px}
+  .qs b{color:var(--txt);font-weight:600}
+
+  /* ── 代码块 ── */
+  .code{position:relative;background:#0d1117;color:#c9d1d9;border-radius:var(--radius);padding:16px 88px 16px 20px;
+    font-family:"SF Mono",Consolas,"JetBrains Mono",monospace;font-size:13px;margin-top:14px;overflow-x:auto;line-height:1.8}
+  .code .c{color:#6e7681}
+  .code .ok{color:#3fb950}
+  .copy{position:absolute;top:10px;right:10px;background:#161b22;border:1px solid #30363d;color:#8b949e;
+    border-radius:6px;padding:4px 12px;font-size:12px;cursor:pointer;transition:.15s}
+  .copy:hover{color:#fff;border-color:#8b949e}
+  .copy.done{color:#3fb950;border-color:#3fb950}
+
+  /* ── 提示词区 ── */
+  .prompt-wrap{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .prompt-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;
+    border-bottom:1px solid var(--line);flex-wrap:wrap;gap:8px}
+  .prompt-head b{font-size:14.5px;font-weight:600}
+  .prompt-head small{color:var(--mut);font-size:12.5px}
+  .prompt-body{padding:24px 26px;font-family:"SF Mono",Consolas,"JetBrains Mono",monospace;font-size:13px;line-height:1.95;
+    color:#3f3f46;white-space:pre-wrap;max-height:440px;overflow-y:auto;background:var(--bg2)}
+  .prompt-body .ph{background:#dbe7ff;color:#1d4ed8;border-radius:4px;padding:1px 5px}
+  .prompt-body .cm{color:#a0a3ad}
+  .prompt-foot{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end}
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+  .tip{border-top:2px solid var(--line);padding-top:14px;font-size:13.5px;color:var(--sub)}
+  .tip b{color:var(--txt);display:block;margin-bottom:5px;font-weight:600;font-size:14px}
+
+  /* ── FAQ ── */
+  .faq{border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line2)}
+  details summary{padding:18px 4px;cursor:pointer;font-size:15px;font-weight:550;list-style:none;
+    display:flex;justify-content:space-between;align-items:center;transition:color .15s}
+  details summary:hover{color:var(--acc)}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--mut);font-size:20px;font-weight:400;line-height:1}
+  details[open] summary::after{content:"–"}
+  details .a{padding:0 4px 20px;color:var(--sub);font-size:14px;max-width:760px}
+
+  footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 28px 48px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    color:var(--mut);font-size:13px;max-width:1120px;margin-left:auto;margin-right:auto}
+  footer a{color:var(--sub);text-decoration:none}
+  footer a:hover{color:var(--acc)}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:.5s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  code{background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:1px 7px;
+    font-family:"SF Mono",Consolas,monospace;font-size:12.5px;color:var(--acc)}
+  .spec code, h1 code{background:none;border:none;padding:0}
+</style>
+</head>
+<body>
+
+<!-- SVG 图标库 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8.5v7L12 21l-9-5.5v-7L12 3l9 5.5z"/><path d="M12 21v-8M3.5 6 12 11l8.5-5"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H13L13 2z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/><path d="M8 9h8M8 12.5h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5v-7z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M17 2v6h-6M7 22v-6h6"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16M3 12a9 9 0 0 1 15.5-6.4L21 8"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0V8zM12 18v4"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">AI Showcase</span>
+    <a href="#pos">定位</a>
+    <a href="#goal">目标</a>
+    <a href="#who">使用对象</a>
+    <a href="#prob">解决问题</a>
+    <a href="#combo">配合使用</a>
+    <a href="#daily">日常使用</a>
+    <a href="#start">快速上手</a>
+    <a href="#prompt">0→1 提示词</a>
+  </div>
+</nav>
+
+<!-- ═══════════ Hero ═══════════ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="badges">
+      <span class="badge"><span class="dot"></span>个人效率</span>
+      <span class="badge ok"><span class="dot"></span>可用（实网需 api_key）</span>
+      <span class="badge mut"><span class="dot"></span>S1–S4 场景演示</span>
+    </div>
+    <h1>EvoFlow 业务场景台</h1>
+    <p class="tagline">一场景一页的演示台：种子员工/知识库/编排后跑通 S1–S4（拆解师、KB 钩子、电商短视频编排、调研+成片大纲）。dry-run 只预览，真调通以 smoke_check --live 为准。</p>
+    <div class="spec"><div class="m"><small>端口</small><b>8877</b></div><div class="m"><small>技术栈</small><b>EvoFlow Gateway API · scenario JSON</b></div><div class="m"><small>启动方式</small><b><code>py -3.12 scripts/web_server.py</code></b></div><div class="m"><small>核心产出</small><b>S1–S4 场景演示与验证</b></div></div>
+    <div class="cta">
+      <a class="btn primary" href="#start">三步上手<svg class="ic" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
+      <a class="btn ghost" href="#prompt">我要从 0 做一个</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ═══════════ 1 项目定位 ═══════════ -->
+<section id="pos" class="reveal">
+  <div class="sec-head"><span class="sec-no">01</span><div><h2>项目定位</h2><p class="sec-sub">它是什么、不是什么，一句话说清边界。</p></div></div>
+  <div class="sec-body">
+<div class="card"><p class="lead">这是 EvoFlow 能力的<b>「一场景一页」演示台</b>：每个场景一个页面，种子员工 + 知识库 + 编排跑给你看——S1 拆解师、S2 KB 钩子、S3 电商短视频编排、S4 调研+成片大纲。离线可 dry-run 预览流程，实网真调用以 <code>smoke_check --live</code> 通过为准，不糊弄。</p><div class="kw"><span>#业务场景</span><span>#种子员工</span><span>#编排演示</span><span>#dry-run / live</span><span>#smoke 验证</span></div></div><div class="card"><svg class="ic lg"><use href="#i-box"/></svg><h3>交付物</h3><ul><li>S1–S4 四个场景演示页（scenarios/）</li><li>种子数据脚本（seed_demo.py）</li><li>smoke_check 离线/实网双模式验证</li><li>运行记录 JSON（data/runs/）</li></ul></div>
+  </div>
+</section>
+
+<!-- ═══════════ 2 目标 ═══════════ -->
+<section id="goal" class="reveal">
+  <div class="sec-head"><span class="sec-no">02</span><div><h2>目标</h2><p class="sec-sub">做这个项目想达成什么，按「给谁省什么」来写。</p></div></div>
+  <div class="sec-body">
+<div class="grid g3"><div class="card"><svg class="ic lg"><use href="#i-zap"/></svg><h3>能力看得见</h3><p>员工/知识库/编排不是概念，一页一个场景跑给你看。</p></div><div class="card"><svg class="ic lg"><use href="#i-layers"/></svg><h3>接入有标准</h3><p>smoke_check --live 是真调通的唯一标准，验收不扯皮。</p></div><div class="card"><svg class="ic lg"><use href="#i-db"/></svg><h3>演示可复现</h3><p>seed 脚本一键铺底，任何时候能重演。</p></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 使用对象 ═══════════ -->
+<section id="who" class="reveal">
+  <div class="sec-head"><span class="sec-no">03</span><div><h2>使用对象</h2><p class="sec-sub">三类人，各自拿它干什么。</p></div></div>
+  <div class="sec-body">
+<div class="grid g3"><div class="card"><svg class="ic lg"><use href="#i-user"/></svg><h3>给客户/领导演示的人</h3><p>几页页面把 EvoFlow 能力讲清楚。</p></div><div class="card"><svg class="ic lg"><use href="#i-pen"/></svg><h3>EvoFlow 接入开发者</h3><p>照场景学编排写法，照 smoke 学验收。</p></div><div class="card"><svg class="ic lg"><use href="#i-cpu"/></svg><h3>培训讲师</h3><p>学员第一步先跑场景台建立体感。</p></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 4 解决什么问题 ═══════════ -->
+<section id="prob" class="reveal">
+  <div class="sec-head"><span class="sec-no">04</span><div><h2>解决什么问题</h2><p class="sec-sub">左边是现状的痛，右边是用了之后的变。</p></div></div>
+  <div class="sec-body">
+<div class="prob-table"><div class="prob-row"><div class="prob pain"><span class="tag">之前</span>平台能力文档一大堆，看完还是不知道能干嘛</div><div class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></div><div class="prob gain"><span class="tag">之后</span>四个真实业务场景直接跑，看完就有体感</div></div><div class="prob-row"><div class="prob pain"><span class="tag">之前</span>「接好了」全靠嘴说，出问题互相甩锅</div><div class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></div><div class="prob gain"><span class="tag">之后</span>smoke_check --live 一跑便知，通过才算数</div></div><div class="prob-row"><div class="prob pain"><span class="tag">之前</span>演示环境难复原</div><div class="arrow"><svg class="ic"><use href="#i-arrow"/></svg></div><div class="prob gain"><span class="tag">之后</span>seed 一键铺种子数据，dry-run 离线也能演</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 推荐怎么配合使用 ═══════════ -->
+<section id="combo" class="reveal">
+  <div class="sec-head"><span class="sec-no">05</span><div><h2>推荐怎么配合使用</h2><p class="sec-sub">单点是工具，串起来才是流水线。最常用的组合打法：</p></div></div>
+  <div class="sec-body">
+<div class="combo"><h3>组合一 · 「接入 → 演示 → 验收」<em>新项目接入 EvoFlow 的标准动作</em><em></em></h3><p class="who"></p><div class="flow"><div class="step"><span class="n">Step 1</span><b>EvoFlow 接入套件</b><small>注册扩展/知识库/员工四脚本一条龙</small></div><div class="step"><span class="n">Step 2</span><b>EvoFlow 业务场景台</b><small>:8877 场景页演示编排效果</small></div><div class="step"><span class="n">Step 3</span><b>smoke_check --live</b><small>实网验证通过才算接入完成</small></div></div></div><div class="combo"><h3>组合二 · 「场景 → 业务项目」映射<em>演示场景对应真实项目</em><em></em></h3><p class="who"></p><div class="flow"><div class="step"><span class="n">Step 1</span><b>S1 拆解师 / S2 KB 钩子</b><small>对应抖音拆解台 :8765 与知识库体系</small></div><div class="step"><span class="n">Step 2</span><b>S3 电商短视频编排</b><small>对应商策造物与宣传视频制作</small></div><div class="step"><span class="n">Step 3</span><b>S4 调研+成片大纲</b><small>对应 AIGC 创作链的起点</small></div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 6 日常怎么用（EvoFlow 接入） ═══════════ -->
+<section id="daily" class="reveal">
+  <div class="sec-head"><span class="sec-no">06</span><div><h2>日常怎么用</h2><p class="sec-sub">单开网页只是「手动挡」。接入 EvoFlow 后，同一个能力有四种发起方式，外加一条沉淀闭环。</p></div></div>
+  <div class="sec-body">
+<div class="grid g2" style="margin-bottom:20px"><div class="card"><svg class="ic lg"><use href="#i-chat"/></svg><h3>工作台对话发起</h3><p>在 EvoFlow 对话框直接 <code>@员工</code> 甩一条任务，员工调起本台技能，场景运行记录与报告直接回进对话。</p></div><div class="card"><svg class="ic lg"><use href="#i-phone"/></svg><h3>手机 IM 发起</h3><p>员工接入飞书 / 钉钉 / 微信等渠道后，手机发消息即可发起——通勤路上顺手一发，跑一个场景就跑完了。</p></div><div class="card"><svg class="ic lg"><use href="#i-timer"/></svg><h3>自动化定时发起</h3><p>把「跑一个场景」挂成自动化任务：按计划自动执行，结果准时出现在对话和面板里。</p></div><div class="card"><svg class="ic lg"><use href="#i-monitor"/></svg><h3>EvoFlow 面板直看</h3><p>本台 UI 以扩展面板嵌进 EvoFlow，不切窗口，对话和操作台同屏。</p></div></div><div class="combo"><h3>沉淀闭环：越用越聪明<em>关键不在跑一次，而在产出落进知识库，反哺之后的每一次发起</em></h3><p class="who"></p><div class="flow"><div class="step"><span class="n">发起</span><b>对话 / IM / 自动化</b><small>任一入口把任务丢给员工</small></div><div class="step"><span class="n">执行</span><b>员工调本台技能</b><small>流水线跑完，产出场景运行记录与报告</small></div><div class="step"><span class="n">沉淀</span><b>报告进知识库</b><small>场景演示库（建议命名）自动归档、可检索</small></div><div class="step"><span class="n">复用</span><b>员工查库再生成</b><small>下次同类任务先查历史产出，结论更准</small></div></div><div class="loop-back"><svg class="ic"><use href="#i-loop"/></svg>复用的结论又变成下一次发起的输入 —— 知识库越厚，建议越准</div></div><div class="callout"><svg class="ic lg"><use href="#i-plug"/></svg><div><span class="t">本项目已绑定的 EvoFlow 资产</span><code>evoflow-capability-demo</code> 技能已注册平台技能；员工/知识库为场景内种子资产（seed_demo.py 铺设）。接入或重建步骤见 <code>evoflow-onboarding-kit</code>。</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 小白上手 ═══════════ -->
+<section id="start" class="reveal">
+  <div class="sec-head"><span class="sec-no">07</span><div><h2>小白怎么上手</h2><p class="sec-sub">不写代码，三步跑通第一条产出。</p></div></div>
+  <div class="sec-body">
+<div class="callout"><svg class="ic lg"><use href="#i-check-c"/></svg><div><span class="t">开始前确认（一次性准备）</span>离线演示零依赖；实网调用需要 <b>EvoFlow Gateway api_key</b>（走环境变量）与 gateway 地址配置（config/evoflow.json）；Python 3.12。</div></div><div class="qs"><div class="q"><div class="n">1</div><div><h4>铺种子数据</h4><p>一键铺设演示用员工/知识库/场景数据。</p><div class="code"><span class="c"># 在项目根目录执行</span>
+py -3.12 scripts/seed_demo.py
+py -3.12 scripts/web_server.py
+<span class="ok"># ✓ Listening on http://127.0.0.1:8877</span><button class="copy">复制</button></div></div></div><div class="q"><div class="n">2</div><div><h4>跑场景（dry-run / live）</h4><p>页面一场景一页：先 dry-run 预览流程，实网确认后 live 跑通。</p><div class="code"><span class="c"># 实网验收</span>
+py -3.12 scripts/smoke_check.py --live<button class="copy">复制</button></div></div></div><div class="q"><div class="n">3</div><div><h4>看运行记录</h4><p>每次运行落 JSON（data/runs/），演示完可回放复盘。</p></div></div></div><div style="margin-top:36px"><h3 style="font-size:17px;font-weight:600;margin-bottom:6px;letter-spacing:-.2px">常见问题</h3><div class="faq"><details><summary>dry-run 和 live 差在哪？</summary><div class="a">dry-run 只按 scenario JSON 预览编排路径不发请求；live 真调 Gateway，以 smoke_check --live 全绿为准。</div></details><details><summary>实网 401 / 连不上？</summary><div class="a">检查 api_key 环境变量与 config/evoflow.json 的 gateway 地址。</div></details><details><summary>能加自己的场景吗？</summary><div class="a">能：在 scenarios/ 加一份场景 JSON + 一个页面，照 S1 的结构写。</div></details></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ 8 从 0 到 1 提示词 ═══════════ -->
+<section id="prompt" class="reveal">
+  <div class="sec-head"><span class="sec-no">08</span><div><h2>想自己做一个？0→1 提示词</h2><p class="sec-sub">把下面整段喂给 AI 编程助手（ZCode / Cursor 等）。<b style="color:#1d4ed8;font-weight:550">蓝色填空</b>是你要替换的部分。</p></div></div>
+  <div class="sec-body">
+<div class="prompt-wrap"><div class="prompt-head"><b>从 0 到 1 建项目提示词</b><small>替换蓝色填空 → 整段复制 → 发给 AI</small></div><div class="prompt-body" id="promptText"><span class="cm"># ── 角色与目标 ──</span>
+你是资深全栈工程师。请帮我从零开发一个本地工具：<span class="ph">【EvoFlow 业务场景演示台——一场景一页跑通员工/知识库/编排】</span>。
+
+<span class="cm"># ── 核心用户与场景 ──</span>
+主要用户是<span class="ph">【演示者 / EvoFlow 接入开发者】</span>，他们在<span class="ph">【要把平台能力讲清楚、接入要可验收】</span>的场景下使用，期望得到<span class="ph">【S1–S4 场景演示 + 可重复的验证手段】</span>。
+
+<span class="cm"># ── 功能清单（MVP）──</span>
+1. 场景 JSON 驱动：一场景一页，含编排路径展示
+2. 种子数据：一键铺设演示员工/知识库
+3. 双模式：dry-run 离线预览 / live 实网调用
+4. smoke_check 验收脚本 + 运行记录 JSON 归档
+
+<span class="cm"># ── 技术约束 ──</span>
+- 技术栈：<span class="ph">【Python 标准库 HTTP + EvoFlow Gateway API + scenario JSON】</span>
+- 全部本地运行，不依赖云服务；密钥走环境变量，代码里绝不硬编码
+- 端口 <span class="ph">【8877】</span>，启动方式：<span class="ph">【py -3.12 scripts/web_server.py】</span>
+- 关键步骤有实时进度提示；失败要给可读的中文报错
+
+<span class="cm"># ── 质量要求 ──</span>
+- 先给我目录结构和关键模块设计，我确认后再写代码
+- 附 README（安装、启动、常见问题），按项目规范不硬编码任何密钥与内网地址
+- 边界情况都要有兜底提示，宁可报错清晰也不静默失败</div><div class="prompt-foot"><button class="btn primary copy-prompt">复制整段提示词</button></div></div><div class="tips"><div class="tip"><b>填空技巧</b>「解决什么问题」越具体，AI 一次做对的概率越高。写「给人看报告」不如写「给新手照抄结构」。</div><div class="tip"><b>小步快跑</b>先让 MVP 跑通再迭代功能；一次让 AI 做十个小功能，不如三轮各做三个。</div><div class="tip"><b>安全红线</b>永远在提示词里写明「密钥走环境变量」——这是本系列所有项目的铁律。</div><div class="tip"><b>验收标准</b>把「先出设计再写码」「失败要中文报错」写进提示词，能有效防住糊弄式实现。</div></div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <span>AI Showcase · EvovexAI AI 实战演示系列</span>
+  <a href="../overview/index.html">返回项目总览 →</a>
+</footer>
+
+<script>
+  // 复制按钮（命令块）
+  document.querySelectorAll(".code").forEach(function(c){
+    var b=c.querySelector(".copy"); if(!b) return;
+    b.addEventListener("click",function(){
+      var t=[...c.childNodes].filter(function(n){return n.nodeType===3}).map(function(n){return n.textContent}).join("").trim();
+      navigator.clipboard.writeText(t).then(function(){b.textContent="已复制 ✓";b.classList.add("done");
+        setTimeout(function(){b.textContent="复制";b.classList.remove("done")},1600)});
+    });
+  });
+  // 提示词整段复制
+  var pp=document.querySelector(".copy-prompt");
+  if(pp) pp.addEventListener("click",function(){
+    navigator.clipboard.writeText(document.getElementById("promptText").innerText.trim()).then(function(){
+      pp.textContent="已复制，去粘贴给 AI";setTimeout(function(){pp.textContent="复制整段提示词"},2000)});
+  });
+  // 滚动渐显
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});
+  // 导航高亮
+  var links=[...document.querySelectorAll("nav a[href^='#']")];
+  var sec=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+  window.addEventListener("scroll",function(){
+    var y=window.scrollY+140,i=sec.length-1;
+    while(i>0&&sec[i].offsetTop>y)i--;
+    links.forEach(function(a){a.classList.remove("active")});
+    if(sec[i])links[i].classList.add("active");
+  },{passive:true});
+</script>
+</body>
+</html>

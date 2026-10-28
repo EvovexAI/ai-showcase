@@ -1,0 +1,26 @@
+{
+  "id": "s3",
+  "title": "电商：一键跑商品短视频脚本编排",
+  "persona": "电商店播/短视频运营",
+  "story": "新品要出一条 30 秒带货短视频。点一下编排：卖点提炼 → 口播稿 → 分镜要点，自动跑完。",
+  "business": "workflow",
+  "industry": "电商",
+  "when_to_use": "多步骤固定流水线、要可复用可参数化",
+  "steps_human": [
+    "确认「商品短视频脚本」应用已发布",
+    "填入商品名/卖点/人群",
+    "启动一次 run",
+    "轮询到终态并查看结果摘要"
+  ],
+  "inputs": {
+    "app_id": { "label": "编排应用 ID", "from_seed": "app_id" },
+    "product": { "label": "商品名", "default": "便携榨汁杯" },
+    "selling_points": { "label": "卖点", "default": "无线便携、30 秒出汁、可洗刀头" },
+    "audience": { "label": "人群", "default": "上班族 / 健身党" }
+  },
+  "acceptance": [
+    "应用 status=published",
+    "POST /api/apps/{id}/run 返回 run_id",
+    "GET /api/apps/runs/{run_id} 可读到终态或明确进度"
+  ]
+}

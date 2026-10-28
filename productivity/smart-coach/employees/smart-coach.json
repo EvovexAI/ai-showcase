@@ -1,0 +1,23 @@
+{
+  "agent_code": "smart-coach",
+  "role_name": "陪练师",
+  "position_code": "",
+  "department": "培训学习",
+  "reports_to": "",
+  "config": {
+    "workspace_path": "${ORG_WORKSPACE}",
+    "knowledge_vault_ids": ["${KB_REF:materials}"],
+    "skills": ["smart-coach"],
+    "autonomy_level": "approval_for_risky",
+    "responsibilities": [
+      "根据学员资料梳理学习大纲并写入本地 outline.json",
+      "按进度开展短问答陪练，回写 sessions 与 mastery",
+      "基于知识库答疑，结合当前学习焦点",
+      "向学员汇报进度百分比、刚练内容与下一步建议",
+      "维护陪练资料库与 data/materials 同步意识"
+    ],
+    "max_turns": 20,
+    "timeout_seconds": 900,
+    "daily_budget_usd": 0
+  }
+}

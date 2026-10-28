@@ -1,0 +1,11 @@
+{
+  "base_url": "http://127.0.0.1:8070",
+  "api_key": "",
+  "timeout_seconds": 180,
+  "default_employee_code": "",
+  "default_app_id": "",
+  "default_kb_id": "",
+  "dry_run": true,
+  "require_live_for_accept": true,
+  "_comment": "本机网关常在 8070（非 8080）。复制为 evoflow.json：实网设 dry_run=false；本地常可不填 api_key。验收：py -3.12 scripts/smoke_check.py --live，须 accepted_as_live=true。"
+}

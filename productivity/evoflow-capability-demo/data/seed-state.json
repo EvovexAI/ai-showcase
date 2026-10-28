@@ -1,0 +1,10 @@
+{
+  "employee_code": "demo-1007-analyst",
+  "kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+  "app_id": "App_20261020165401_87219f",
+  "docs_ingested": 3,
+  "dry_run": false,
+  "base_url": "http://127.0.0.1:8070",
+  "updated_at": "2026-10-20T09:18:07.409374+00:00",
+  "prefix": "demo-1007"
+}

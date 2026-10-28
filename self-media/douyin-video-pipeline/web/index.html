@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>视频分析</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="bg-blob bg-blob-a"></div>
+  <div class="bg-blob bg-blob-b"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar glass" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">🎬</span>
+        <div>
+          <div class="sidebar-brand-title">视频分析</div>
+          <div class="sidebar-brand-sub">内容拆解 · 起号</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="主菜单"></nav>
+      <div class="sidebar-foot">
+        <span class="pill pill-local">本地安全运行</span>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <!-- 开始分析 -->
+      <section id="viewAnalyzeInput" class="app-view">
+        <header class="view-head">
+          <h1>开始分析</h1>
+          <p class="hint">粘贴抖音分享文案或短链 · 生成可抄作业的内容拆解报告</p>
+        </header>
+        <section class="card input-card">
+          <div class="textarea-wrap">
+            <textarea id="shareText" rows="4" placeholder="例如：9.43 复制打开抖音，看看【xxx】 https://v.douyin.com/xxxxx/ …"></textarea>
+          </div>
+          <!-- 反推已拆至 1008-aigc-prompt-reverse（:8768）；本台只做内容拆解 -->
+          <input type="hidden" name="analysisMode" value="content" checked />
+          <div class="keyframe-options">
+            <div class="keyframe-label">关键帧模式</div>
+            <div class="keyframe-modes">
+              <label class="mode-option">
+                <input type="radio" name="keyframeMode" value="transcript" checked />
+                <span>口播一句一帧</span>
+                <small>内容拆解默认 · 每句话截一张图</small>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="keyframeMode" value="scene" />
+                <span>镜头切换检测</span>
+                <small>按切镜抽代表帧</small>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="keyframeMode" value="custom" />
+                <span>自定义帧数</span>
+                <small>按你指定的数量均匀截取</small>
+              </label>
+            </div>
+            <div id="customFrameWrap" class="custom-frame-wrap hidden">
+              <label for="frameCount">帧数</label>
+              <input type="number" id="frameCount" value="30" min="5" max="300" step="1" />
+            </div>
+          </div>
+          <div class="actions">
+            <button id="analyzeBtn" class="btn-primary">
+              <span class="btn-icon">✦</span>
+              <span>开始拆解</span>
+            </button>
+          </div>
+          <div id="progress" class="progress hidden">
+            <div class="progress-track"><div id="progressFill"></div></div>
+            <p id="progressText"></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- 视频库 -->
+      <section id="viewAnalyzeLibrary" class="app-view hidden">
+        <header class="view-head">
+          <h1>视频库</h1>
+          <span class="hint" id="libraryCount">加载中…</span>
+        </header>
+        <section class="card library-card">
+          <div id="projectList" class="project-list"></div>
+        </section>
+      </section>
+
+      <!-- 视频详情：面包屑 + 二级页签（与左侧主菜单分层） -->
+      <section id="viewAnalyzeDetail" class="app-view hidden">
+        <nav class="detail-breadcrumb" aria-label="面包屑">
+          <button type="button" class="crumb-link" id="crumbLibrary">视频库</button>
+          <span class="crumb-sep">/</span>
+          <span class="crumb-current" id="crumbTitle">视频详情</span>
+        </nav>
+
+        <div class="detail-head">
+          <div class="detail-head-text">
+            <button type="button" id="detailTitle" class="detail-title-btn">视频详情</button>
+            <span class="hint" id="detailMeta"></span>
+          </div>
+          <div class="detail-actions hidden" id="detailActions">
+            <a id="reportModalRaw" class="btn-ghost hidden" href="#" target="_blank" rel="noopener" title="打开 Markdown 原文">MD</a>
+            <button type="button" id="reanalyzeBtn" class="btn-secondary">重新分析</button>
+            <button type="button" id="reanalyzeFullBtn" class="btn-ghost" title="重新转写口播，耗时更长">完整重拆</button>
+          </div>
+        </div>
+
+        <nav class="detail-subnav" id="detailSubnav" aria-label="视频内页签">
+          <button type="button" class="subnav-item" data-tab="report">报告</button>
+          <button type="button" class="subnav-item" data-tab="overview">概览</button>
+          <button type="button" class="subnav-item" data-tab="chapters">章节</button>
+          <button type="button" class="subnav-item" data-tab="segments">口播</button>
+          <button type="button" class="subnav-item" data-tab="scenes">关键帧</button>
+        </nav>
+
+        <section id="detailPanelReport" class="detail-panel hidden">
+          <section id="reportInline" class="report-inline card hidden">
+            <header class="report-inline-head">
+              <h3>分析报告</h3>
+              <div class="report-inline-actions">
+                <button type="button" id="reportInlineToggle" class="btn-ghost btn-sm">收起</button>
+                <a id="reportModalRaw2" class="btn-ghost btn-sm hidden" href="#" target="_blank" rel="noopener" title="打开 Markdown 原文">MD</a>
+              </div>
+            </header>
+            <div id="reportInlineBody" class="report-inline-body"></div>
+          </section>
+          <section id="reportEmpty" class="card report-empty hidden">
+            <p>还没有报告。点右上角「重新分析」生成拆解结果。</p>
+          </section>
+        </section>
+
+        <section id="detailPanelOverview" class="detail-panel">
+          <section id="analysisNotice" class="analysis-notice card hidden"></section>
+          <section id="videoPlayerWrap" class="video-player-wrap hidden">
+            <video id="detailVideo" controls preload="metadata" playsinline></video>
+            <p class="video-hint">点击关键帧或章节画面可跳转到对应时间点</p>
+          </section>
+          <section id="summary" class="metrics"></section>
+        </section>
+
+        <section id="detailPanelChapters" class="detail-panel hidden">
+          <section id="tab-chapters" class="card tab-panel"></section>
+        </section>
+
+        <section id="detailPanelSegments" class="detail-panel hidden">
+          <section id="tab-segments" class="card tab-panel"></section>
+        </section>
+
+        <section id="detailPanelScenes" class="detail-panel hidden">
+          <section id="tab-scenes" class="card tab-panel scenes-grid"></section>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="infoModal" class="info-modal hidden" role="dialog" aria-modal="true" aria-label="作品信息">
+    <div class="info-modal-backdrop" id="infoModalBackdrop"></div>
+    <div class="info-modal-panel">
+      <button type="button" class="info-modal-close" id="infoModalClose" aria-label="关闭">×</button>
+      <header class="info-modal-header">
+        <h3>作品信息</h3>
+        <p class="info-modal-hint" id="infoModalHint"></p>
+      </header>
+      <div class="info-modal-body" id="infoModalBody"></div>
+    </div>
+  </div>
+
+  <div id="chapterModal" class="chapter-modal hidden" role="dialog" aria-modal="true" aria-label="章节详情">
+    <div class="chapter-modal-backdrop" id="chapterModalBackdrop"></div>
+    <div class="chapter-modal-panel">
+      <button type="button" class="chapter-modal-close" id="chapterModalClose" aria-label="关闭">×</button>
+      <header class="chapter-modal-header" id="chapterModalHeader"></header>
+      <div class="chapter-modal-body" id="chapterModalBody"></div>
+    </div>
+  </div>
+
+  <div id="reportModal" class="report-modal hidden" role="dialog" aria-modal="true" aria-label="拆解报告">
+    <div class="report-modal-backdrop" id="reportModalBackdrop"></div>
+    <div class="report-modal-panel">
+      <button type="button" class="report-modal-close" id="reportModalClose" aria-label="关闭">×</button>
+      <header class="report-modal-header">
+        <h3 id="reportModalTitle">拆解报告</h3>
+        <p class="report-modal-meta" id="reportModalMeta"></p>
+      </header>
+      <div class="report-modal-body" id="reportModalBody"></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="关键帧预览">
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭">×</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一帧">‹</button>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一帧">›</button>
+    <div class="lightbox-body">
+      <img id="lightboxImg" alt="" />
+      <div class="lightbox-meta">
+        <div class="lightbox-title" id="lightboxTitle"></div>
+        <div class="lightbox-sub" id="lightboxSub"></div>
+        <div class="lightbox-vision hidden" id="lightboxVision"></div>
+        <button type="button" class="lightbox-seek" id="lightboxSeek">▶ 跳转原片</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/nav.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

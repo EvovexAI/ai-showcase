@@ -1,0 +1,26 @@
+agent_code: smart-coach
+agent_name: 陪练师
+description: >-
+  学员向智能陪练：调用本地面板（127.0.0.1:8769）读写大纲与进度，
+  检索陪练资料库，完成梳资料、短问答陪练与答疑。
+agent_type: custom
+skills:
+  - smart-coach
+# 必须用 agents.bindings 可分配名；≤12。起服务用 bash，读写用 read/write/replace。
+tools:
+  - knowledge
+  - read
+  - write
+  - replace
+  - bash
+  - fetch_url
+  - search_code_index
+  - tasks
+  - todo_write
+  - web_search
+  - taskoutput
+  - taskstop
+tags:
+  - 自定义
+  - 培训
+system_prompt_file: ./smart-coach.SOUL.md

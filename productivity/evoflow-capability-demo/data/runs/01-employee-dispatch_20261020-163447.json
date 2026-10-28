@@ -1,0 +1,125 @@
+{
+  "ok": true,
+  "scenario": "01-employee-dispatch",
+  "agent_code": "demo-analyst",
+  "goal": "整理本周短视频钩子清单，输出 5 条可直接套用的开场句",
+  "log": [
+    {
+      "step": "employees.list",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles",
+          "url": "http://127.0.0.1:8080/api/proactive/roles?status=active",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "roles": [
+            {
+              "agent_code": "demo-analyst",
+              "role_name": "演示拆解师",
+              "status": "active",
+              "description": "dry-run 模拟员工"
+            }
+          ],
+          "count": 1
+        }
+      }
+    },
+    {
+      "step": "employees.get",
+      "agent_code": "demo-analyst",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-analyst",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-analyst",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "message": "dry-run mock",
+          "path": "/api/proactive/roles/demo-analyst"
+        }
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-analyst/dispatch",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-analyst/dispatch",
+          "body": {
+            "goal": "整理本周短视频钩子清单，输出 5 条可直接套用的开场句",
+            "description": "资源演示 · 场景一",
+            "priority": "normal",
+            "source": "capability-demo"
+          },
+          "dry_run": true
+        },
+        "mock": {
+          "ok": true,
+          "accepted": true,
+          "round_id": "dry-5dba29ca",
+          "goal": "整理本周短视频钩子清单，输出 5 条可直接套用的开场句"
+        }
+      }
+    },
+    {
+      "step": "employees.busy/wait",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-analyst/busy",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-analyst/busy",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "busy": false,
+          "agent_code": "demo-analyst"
+        },
+        "idle": true
+      }
+    },
+    {
+      "step": "employees.work_board",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-analyst/work-board",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-analyst/work-board?limit=20",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "tasks": [
+            {
+              "task_id": "dry-task-1",
+              "name": "演示任务",
+              "status": "done",
+              "description": "dry-run 工作台样例"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "base_url": "http://127.0.0.1:8080",
+    "dry_run": true,
+    "has_api_key": false
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "live": false,
+  "accepted_as_live": false,
+  "require_live_for_accept": true,
+  "base_url": "http://127.0.0.1:8080",
+  "has_api_key": false,
+  "seed": {
+    "employee_code": "demo-1007-analyst",
+    "kb_id": "demo-1007-kb",
+    "app_id": "demo-1007-app",
+    "docs_ingested": 3,
+    "dry_run": true,
+    "base_url": "http://127.0.0.1:8080",
+    "updated_at": "2026-10-20T08:47:34.817670+00:00",
+    "prefix": "demo-1007"
+  },
+  "rows": [
+    {
+      "check": "health",
+      "ok": true,
+      "elapsed_ms": 0.0,
+      "detail": "ok"
+    },
+    {
+      "check": "seed",
+      "ok": true,
+      "elapsed_ms": 0.0,
+      "detail": "emp=demo-1007-analyst kb=demo-1007-kb app=demo-1007-app"
+    },
+    {
+      "check": "S1",
+      "ok": true,
+      "elapsed_ms": 1.0,
+      "detail": "{\"dispatch_ok\": true, \"busy_readable\": true}"
+    },
+    {
+      "check": "S2",
+      "ok": true,
+      "elapsed_ms": 1.2,
+      "detail": "{\"employee_has_kb\": true, \"search_hits_ge_1\": true, \"dispatch_ok\": true}"
+    },
+    {
+      "check": "S3",
+      "ok": true,
+      "elapsed_ms": 0.0,
+      "detail": "{\"published\": true, \"has_run_id\": true, \"status_readable\": true}"
+    },
+    {
+      "check": "S4",
+      "ok": true,
+      "elapsed_ms": 1.0,
+      "detail": "{\"has_dispatch\": true, \"has_run_id\": true}"
+    }
+  ],
+  "scenarios": {
+    "S1": {
+      "ok": true,
+      "acceptance": {
+        "dispatch_ok": true,
+        "busy_readable": true
+      },
+      "saved": "D:\\dev\\github\\evo\\edu\\ai-demos\\1007-evoflow-capability-demo\\data\\runs\\smoke-s1_20261020-164734.json"
+    },
+    "S2": {
+      "ok": true,
+      "acceptance": {
+        "employee_has_kb": true,
+        "search_hits_ge_1": true,
+        "dispatch_ok": true
+      },
+      "saved": "D:\\dev\\github\\evo\\edu\\ai-demos\\1007-evoflow-capability-demo\\data\\runs\\smoke-s2_20261020-164734.json"
+    },
+    "S3": {
+      "ok": true,
+      "acceptance": {
+        "published": true,
+        "has_run_id": true,
+        "status_readable": true
+      },
+      "saved": "D:\\dev\\github\\evo\\edu\\ai-demos\\1007-evoflow-capability-demo\\data\\runs\\smoke-s3_20261020-164734.json"
+    },
+    "S4": {
+      "ok": true,
+      "acceptance": {
+        "has_dispatch": true,
+        "has_run_id": true
+      },
+      "saved": "D:\\dev\\github\\evo\\edu\\ai-demos\\1007-evoflow-capability-demo\\data\\runs\\smoke-s4_20261020-164734.json"
+    }
+  },
+  "elapsed_ms": 3.2,
+  "checked_at": "2026-10-20T16:47:34",
+  "note": "dry-run 仅离线预览，禁止冒充调通"
+}

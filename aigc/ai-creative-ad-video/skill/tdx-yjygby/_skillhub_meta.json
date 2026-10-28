@@ -1,0 +1,14 @@
+{
+  "name": "业绩分析师",
+  "installedAt": 1789195251397,
+  "source": "marketplace",
+  "version": "1.1.4",
+  "skillId": "skill_2085675767450804224",
+  "description_zh": "通达信业绩分析师：聚焦业绩预告/快报/财报的事件驱动博弈，分析发布前后市场如何交易、超预期是否还能涨、利空出尽能否反弹，输出预期差、股价位置、博弈路径与多情景推演。",
+  "description_en": "TDX earnings analyst: event-driven analysis around earnings pre-announcements, express reports and financial reports, examining how the market trades before and after release, whether beats keep rallying and whether bad news is priced in, with expectation gap, price positioning and multi-scenario paths.",
+  "iconSource": "https://openplatform-cdn.codebuddy.cn/public/c0c8b4b5-88b6-4952-a193-4c84115f2a91/avatar/skill/au_ab6d9455-e57.png",
+  "iconLocalPath": "/Users/xiguang/.workbuddy/skills/tdx-yjygby/_icon.png",
+  "iconDownloadedFrom": "https://openplatform-cdn.codebuddy.cn/public/c0c8b4b5-88b6-4952-a193-4c84115f2a91/avatar/skill/au_ab6d9455-e57.png",
+  "installedContentHash": "sha256:3f09031a73af7d6effc1389d66eadb11e20d28ab77a0055e9a00aa1be4457171",
+  "skillName": "tdx-yjygby"
+}

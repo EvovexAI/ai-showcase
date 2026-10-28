@@ -1,0 +1,12 @@
+﻿{
+  "name": "ai-video-promo-003",
+  "version": "0.2.0",
+  "description": "Promo video production system — TTS, storyboard plans, workbench. 1002-decompose 拆出的制作+配音子系统。",
+  "private": true,
+  "scripts": {
+    "dev": "python scripts/promo_server.py",
+    "start": "python scripts/promo_server.py",
+    "export-voices": "python scripts/export_tts_voices.py"
+  },
+  "type": "module"
+}

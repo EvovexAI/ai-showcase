@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1007 · 业务场景演示</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="nav">
+      <div class="brand">
+        <span class="brand-mark">1007</span>
+        <span class="brand-name">业务场景</span>
+      </div>
+      <nav class="nav-list">
+        <a href="#/" class="nav-item" data-nav="home">场景列表</a>
+        <a href="#/s1" class="nav-item nav-scene" data-nav="s1">当前场景</a>
+        <a href="#/setup" class="nav-item" data-nav="setup">准备一下</a>
+      </nav>
+      <div class="nav-foot" id="navMode">—</div>
+    </aside>
+
+    <main class="main">
+      <section id="view-home" class="view hidden">
+        <header class="page-head">
+          <h1>选一个场景，点一下就能跑</h1>
+          <p class="lede">自媒体 / 电商演示。参数已配好，不用填表。</p>
+        </header>
+        <div class="catalog" id="catalog"></div>
+      </section>
+
+      <section id="view-scenario" class="view hidden">
+        <header class="page-head">
+          <p class="eyebrow" id="scIndustry"></p>
+          <h1 id="scTitle"></h1>
+          <p class="lede" id="scStory"></p>
+        </header>
+
+        <ol class="steps" id="scSteps"></ol>
+
+        <div class="panel run-panel">
+          <button type="button" class="btn-primary btn-lg" id="runBtn">开始演示</button>
+          <p class="hint" id="runHint"></p>
+          <p class="progress hidden" id="progress">正在跑…</p>
+          <div class="result-card" id="resultCard">
+            <p class="result-title" id="resultTitle">还没开始</p>
+            <p class="result-summary" id="resultSummary">点上面的按钮即可。</p>
+            <details class="result-detail">
+              <summary>看详细日志</summary>
+              <pre class="log" id="resultLog"></pre>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-setup" class="view hidden">
+        <header class="page-head">
+          <h1>准备一下</h1>
+          <p class="lede">第一次用先点「准备环境」；想确认通不通再点「一键验收」。</p>
+        </header>
+        <div class="panel status-panel" id="setupStatus"></div>
+        <div class="actions">
+          <button type="button" class="btn-primary" id="seedBtn">准备环境</button>
+          <button type="button" class="btn-ghost" id="smokeBtn">一键验收</button>
+        </div>
+        <div class="result-card">
+          <p class="result-title" id="setupTitle">待命</p>
+          <p class="result-summary" id="setupSummary">点按钮开始。</p>
+          <details class="result-detail">
+            <summary>看详细日志</summary>
+            <pre class="log" id="setupLog"></pre>
+          </details>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

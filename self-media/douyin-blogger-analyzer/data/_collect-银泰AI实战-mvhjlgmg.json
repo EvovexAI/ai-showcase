@@ -1,0 +1,446 @@
+{
+  "account": {
+    "name": "银泰AI实战",
+    "douyinId": "60689175632",
+    "secUid": "MS4wLjABAAAAClmsPEwCa1v3IcjOt0O7nA4DZ0OgY-jbKg3Sx8dOo1yRMRNlOhlVT4WW-_7TYBLU",
+    "gender": "",
+    "age": "28岁",
+    "location": "上海·浦东",
+    "ipLocation": "上海",
+    "bio": "🚀 EvoFlow 作者，已开源，感谢大佬们 star \\n🧑‍💻 单人加多个 AI 工具创造此项目，无团队\\n✨ 专属会员会持续上传实战资源资料和教程\\n🎁 yintai9900",
+    "profileUrl": "https://www.douyin.com/user/MS4wLjABAAAAClmsPEwCa1v3IcjOt0O7nA4DZ0OgY-jbKg3Sx8dOo1yRMRNlOhlVT4WW-_7TYBLU",
+    "metric": "likes",
+    "notes": "主页计数 44 条,公开展示 42 条",
+    "stats": {
+      "following": 307,
+      "followers": 6869,
+      "followersText": "6869",
+      "totalLikes": 25000,
+      "totalLikesText": "2.5万",
+      "workCount": 42
+    },
+    "collectedAt": "2026-10-21"
+  },
+  "works": [
+    {
+      "id": "7672711731303785393",
+      "url": "https://www.douyin.com/video/7672711731303785393",
+      "title": "分享大家我自己的 AI 智能体工作台，详细上手指南和功能介绍 #真实生活分享计划  #AI工作台 #workbuddy #EvoFlow #抖加小助手",
+      "likes": 568,
+      "duration": null,
+      "pinned": true,
+      "visibility": "public",
+      "publishedAt": "2026-08-11"
+    },
+    {
+      "id": "7668999627262003955",
+      "url": "https://www.douyin.com/video/7668999627262003955",
+      "title": "智能体 AI 工作台分享 #真实生活分享计划 #AI工作台 #workbuddy #抖加小助手",
+      "likes": 2620,
+      "duration": null,
+      "pinned": true,
+      "visibility": "public",
+      "publishedAt": "2026-08-01"
+    },
+    {
+      "id": "7698365443606589562",
+      "url": "https://www.douyin.com/video/7698365443606589562",
+      "title": "开源工作台分享｜电脑控制 #用ai做出一点小成果 #ai学习 #ai技术 #agent #抖加小助手",
+      "likes": 441,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-19"
+    },
+    {
+      "id": "7697571358800407227",
+      "url": "https://www.douyin.com/video/7697571358800407227",
+      "title": "开源 AI 工作台已支持浏览器自动化了 #真实生活分享计划 #用ai做出一点小成果 #AI工作台 #workbuddy #抖加小助手",
+      "likes": 1840,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-17"
+    },
+    {
+      "id": "7696468745783690611",
+      "url": "https://www.douyin.com/video/7696468745783690611",
+      "title": "开源工作台分享，真正能用了！ #真实生活分享计划 #AI工作台 #workbuddy #ai #抖加小助手",
+      "likes": 2532,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-14"
+    },
+    {
+      "id": "7696115331299561841",
+      "url": "https://www.douyin.com/video/7696115331299561841",
+      "title": "开源工作台分享 AI 拆解分析视频学习 #真实生活分享计划 #AI工作台 #agent #workbuddy #抖加小助手",
+      "likes": 70,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-13"
+    },
+    {
+      "id": "7695352908523792585",
+      "url": "https://www.douyin.com/video/7695352908523792585",
+      "title": "开源 AI 工作台员工应用知识库搭配分享 #真实生活分享 #AI工作台 #ai #workbuddy #抖加小助手",
+      "likes": 535,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-11"
+    },
+    {
+      "id": "7694988003333388786",
+      "url": "https://www.douyin.com/video/7694988003333388786",
+      "title": "AI 工作台 CLI 协作编排工作流 #真实生活分享 #ai工作台 #workbuddy #ai #抖加小助手",
+      "likes": 675,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-10"
+    },
+    {
+      "id": "7694959467389132361",
+      "url": "https://www.douyin.com/video/7694959467389132361",
+      "title": "AI 数字员工工作台分享的已开源 #我的假期生活图鉴 #真实生活分享 #ai工作台 #workbuddy #Ai新星计划",
+      "likes": 214,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-10"
+    },
+    {
+      "id": "7690895735009063398",
+      "url": "https://www.douyin.com/video/7690895735009063398",
+      "title": "求助开源工作台科技风怎么效果会更好！ #我的假期生活图鉴 #真实生活分享 #ai工作台 #workbuddy #抖加小助手",
+      "likes": 273,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-29"
+    },
+    {
+      "id": "7690470739040222577",
+      "url": "https://www.douyin.com/video/7690470739040222577",
+      "title": "开源工作台演示智能客服创建接入通道问答 #真实生活分享计划 #ai工作台 #workbuddy #ai #抖加小助手",
+      "likes": 270,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-28"
+    },
+    {
+      "id": "7690146667563996913",
+      "url": "https://www.douyin.com/video/7690146667563996913",
+      "title": "AI开源工作台分享,接入 AI 客服 #真实生活分享计划 #ai工作台 #agent #workbuddy #抖加小助手",
+      "likes": 848,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-27"
+    },
+    {
+      "id": "7689045041315601802",
+      "url": "https://www.douyin.com/video/7689045041315601802",
+      "title": "AI 工作台快速创建员工 #真实生活分享计划 #ai工作台 #workbuddy #ai员工 #抖加小助手",
+      "likes": 79,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-24"
+    },
+    {
+      "id": "7688975562849189361",
+      "url": "https://www.douyin.com/video/7688975562849189361",
+      "title": "AI 工作台分享讲解 #真实生活分享计划 #ai工作台 #workbuddy #ai #抖加小助手",
+      "likes": 406,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-24"
+    },
+    {
+      "id": "7688301562984310515",
+      "url": "https://www.douyin.com/video/7688301562984310515",
+      "title": "AI 工作台分享，个人提效 #真实生活分享计划 #AI工作台 #workbuddy #agent #抖加小助手",
+      "likes": 321,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-22"
+    },
+    {
+      "id": "7686471246083903610",
+      "url": "https://www.douyin.com/video/7686471246083903610",
+      "title": "AI 工作台分享，多 ai 协作场景 #真实生活分享计划 #workbuddy #ai工作台 #agent #抖加小助手",
+      "likes": 312,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-17"
+    },
+    {
+      "id": "7686088885423752625",
+      "url": "https://www.douyin.com/video/7686088885423752625",
+      "title": "AI 工作台开源分享，AI 高效编排任务 #真实生活分享计划 #工作台 #workbuddy #ai #抖加小助手",
+      "likes": 588,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-16"
+    },
+    {
+      "id": "7684616926613765370",
+      "url": "https://www.douyin.com/video/7684616926613765370",
+      "title": "我的工作台分享 #真实生活分享计划 #工作台 #ai工作台 #ai #抖加小助手",
+      "likes": 593,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-12"
+    },
+    {
+      "id": "7684518791934300338",
+      "url": "https://www.douyin.com/video/7684518791934300338",
+      "title": "AI 工作台开源分享 #真实生活分享计划 #工作台 #ai #agent #抖加小助手",
+      "likes": 2119,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-12"
+    },
+    {
+      "id": "7683848632803012538",
+      "url": "https://www.douyin.com/video/7683848632803012538",
+      "title": "工作台点赞破万，直接全部源码开源分享 #真实生活分享计划 #工作台 #ai #agent #抖加小助手",
+      "likes": 268,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-10"
+    },
+    {
+      "id": "7683486910153061733",
+      "url": "https://www.douyin.com/video/7683486910153061733",
+      "title": "AI 工作台分享，沉淀可复用资产 #真实生活分享计划 #ai #工作台 #agent #抖加小助手",
+      "likes": 612,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-09"
+    },
+    {
+      "id": "7683103672855379386",
+      "url": "https://www.douyin.com/video/7683103672855379386",
+      "title": "AI工作台分享，AI 协同调用 #真实生活分享计划 #workbuddy #工作台 #agent #抖加小助手",
+      "likes": 510,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-08"
+    },
+    {
+      "id": "7681996004991725194",
+      "url": "https://www.douyin.com/video/7681996004991725194",
+      "title": "AI 工作台分享，agent 协作 #真实生活分享计划 #ai工作台 #workbuddy #agent #抖加小助手",
+      "likes": 5958,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-05"
+    },
+    {
+      "id": "7681948298638265619",
+      "url": "https://www.douyin.com/video/7681948298638265619",
+      "title": "Agent技术讲解|沙箱系列第三期 · 沙箱原理拆解 上期说沙箱像划了个圈——圈内随便写，圈外碰不了。那这个圈到底怎么划出来的？   \n你可能以为是软件在拦。其实不是。真正拦你的，是操作系统本身。软件只是跟系统打招呼：这个进程，给我关起来。   \n今天拆三层：  \n① 怎么定范围（白名单：哪些路径可读可写）  \n② 怎么关起来（Linux bwrap / Mac Seatbelt / Windows 令牌+ACL）  \n③ 写盘时谁来查（内核访问检查——没资格，直接失败）   \n三期连起来：概念 → 文件真假 → 拦法从哪来。  \n觉得有用点个关注 · 评论区见 👇   \n#沙箱 #技术原理  #文件隔离  #开发者 #AIAgent  #智能体  #EvoFlow #程序员 #Linux #系统安全",
+      "likes": 141,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-05"
+    },
+    {
+      "id": "7680365652841991459",
+      "url": "https://www.douyin.com/video/7680365652841991459",
+      "title": "Agent技术讲解|沙箱系列第二期 · 专门讲文件 让 AI 帮忙整理文件夹，它真动手了，文件直接没了——最近有人碰到，我也踩过。\n差别就一个字：它有没有被关起来。关起来就是划个圈，圈里随便动，出圈碰都不许碰。\n自己试一下：让它把文件复制到圈外。能成，说明没边界；说没权限，才是真被管着。\n重要文件先备份，再让它动手。上期讲「沙箱是什么」，下期讲这个圈怎么划。\n#沙箱  #文件隔离 #AIAgent  #智能体  #技术讲解 #编程 #开发者 #EvoFlow  #程序员 #系统安全",
+      "likes": 30,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-01"
+    },
+    {
+      "id": "7680364806381063439",
+      "url": "https://www.douyin.com/video/7680364806381063439",
+      "title": "Agent技术讲解|沙箱系列第一期 · 沙箱是什么 沙箱不是让程序更聪明，是让它更难闯祸：能执行，但文件、网络、权限往往被削过。  \n口头约定「你只能待在这个文件夹」，那不是真沙箱；真沙箱靠系统/运行时强制检查，没资格就失败。   \n记住三句：隔离靠强制不靠自觉；事故圈在小范围；再看到「沙箱」就知道——里面在跑，外面有边界。 \n#沙箱  #文件隔离 #AIAgent  #智能体  #技术讲解 #编程 #开发者 #EvoFlow  #程序员 #系统安全",
+      "likes": 96,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-09-01"
+    },
+    {
+      "id": "7679765843479210889",
+      "url": "https://www.douyin.com/video/7679765843479210889",
+      "title": "自己的 agent 也可以接入豆包类似能力，语音对话等 #真实生活分享计划 #agent #豆包 #语音 #抖加小助手",
+      "likes": 51,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-30"
+    },
+    {
+      "id": "7679371613414142642",
+      "url": "https://www.douyin.com/video/7679371613414142642",
+      "title": "分享智能体编排工作流，快速上手操作 #真实生活分享计划 #工作流 #智能体 #EvoFlow #抖加小助手",
+      "likes": 183,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-29"
+    },
+    {
+      "id": "7677185070885983857",
+      "url": "https://www.douyin.com/video/7677185070885983857",
+      "title": "用一句话，让Agent自动换上Deepseek 玻璃皮肤 #真实生活分享计划 #效率工具  #agent #EvoFlow #抖加小助手",
+      "likes": 188,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-23"
+    },
+    {
+      "id": "7676811698238480561",
+      "url": "https://www.douyin.com/video/7676811698238480561",
+      "title": "AI工作台创建待办分配 AI 员工 #真实生活分享计划 #traework #EvoFlow #agent #抖加小助手",
+      "likes": 638,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-22"
+    },
+    {
+      "id": "7671617856815172019",
+      "url": "https://www.douyin.com/video/7671617856815172019",
+      "title": "分享 AI工作台，AI 员工可以聊天室聊天😁 #真实生活分享计划 #AI工作台 #AI员工 #workbuddy #EvoFlow",
+      "likes": 55,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-08"
+    },
+    {
+      "id": "7670337628747393966",
+      "url": "https://www.douyin.com/video/7670337628747393966",
+      "title": "AI 工作台分享，分享大家怎么可以做好赛博老板 #真实生活分享计划 #AI工作台 #workbuddy #智能体 #抖加小助手",
+      "likes": 243,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-08-05"
+    },
+    {
+      "id": "7667215035562824442",
+      "url": "https://www.douyin.com/video/7667215035562824442",
+      "title": "智能体员工介绍～ 讲一下我的 EvoFlow 智能体员工体系，想实操的朋友一起来聊聊\n#智能体 #数字员工 #EvoFlow",
+      "likes": 47,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-07-27"
+    },
+    {
+      "id": "7667144130123943204",
+      "url": "https://www.douyin.com/video/7667144130123943204",
+      "title": "刷到有趣视频想拆清楚？智能体员工帮你出报告 刷到一条有意思的视频，想拆清楚它好在哪？  \n演示一条真实路径：发给EvoFlow里的小V（智能体员工助手），说一句「拆解这个视频」，它会派给拆解分析师开干。  \n过一会儿再问「搞定了吗」，赛道、钩子、评分和网页报告就齐了，还能分类归档方便复盘。  \n开始 10 秒案例来自 @保护膜公主  ，仅作演示拆解。  \n你最近想拆哪类内容？评论区聊聊 👇  \n#智能体员工 #视频拆解 #短视频运营 #我的coding日记 #抖音前沿科技首发计划  #内容复盘 #AI员工 #EvoFlow",
+      "likes": 24,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-07-27"
+    },
+    {
+      "id": "7698291090863967515",
+      "url": "https://www.douyin.com/video/7698291090863967515",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2026-10-19"
+    },
+    {
+      "id": "7584270858164653322",
+      "url": "https://www.douyin.com/video/7584270858164653322",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2025-12-16"
+    },
+    {
+      "id": "7244526061696961829",
+      "url": "https://www.douyin.com/video/7244526061696961829",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2023-06-14"
+    },
+    {
+      "id": "7234145830758812986",
+      "url": "https://www.douyin.com/video/7234145830758812986",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2023-05-17"
+    },
+    {
+      "id": "7576007750746022394",
+      "url": "https://www.douyin.com/video/7576007750746022394",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2025-11-23"
+    },
+    {
+      "id": "7348270976058068251",
+      "url": "https://www.douyin.com/video/7348270976058068251",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2024-03-20"
+    },
+    {
+      "id": "7047458662608063747",
+      "url": "https://www.douyin.com/video/7047458662608063747",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2021-12-30"
+    },
+    {
+      "id": "7254311381682474295",
+      "url": "https://www.douyin.com/video/7254311381682474295",
+      "title": "",
+      "likes": null,
+      "duration": null,
+      "pinned": false,
+      "visibility": "public",
+      "publishedAt": "2023-07-10"
+    }
+  ]
+}

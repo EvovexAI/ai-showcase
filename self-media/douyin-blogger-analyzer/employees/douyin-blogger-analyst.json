@@ -1,0 +1,22 @@
+{
+  "agent_code": "douyin-blogger-analyst",
+  "role_name": "抖音博主分析师",
+  "position_code": "",
+  "department": "内容运营",
+  "reports_to": "",
+  "config": {
+    "workspace_path": "${ORG_WORKSPACE}",
+    "knowledge_vault_ids": ["${KB_REF:reports}"],
+    "skills": ["douyin-blogger-analysis"],
+    "autonomy_level": "approval_for_risky",
+    "responsibilities": [
+      "接收博主主页链接或抖音号，调用 douyin-blogger-analysis 采集并入库 :8787",
+      "输出账号看板摘要：粉丝/获赞/作品/近期钩子与对比结论",
+      "维护博主分析报告知识库（data/reports/）",
+      "采集失败时如实上报原因，不编造指标"
+    ],
+    "max_turns": 16,
+    "timeout_seconds": 900,
+    "daily_budget_usd": 0
+  }
+}

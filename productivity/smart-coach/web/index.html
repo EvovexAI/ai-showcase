@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>智能陪练 · 学员工作台</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19V7l8-4 8 4v12l-8 4-8-4z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="11" r="2.2" fill="#fff"/></svg>
+        </span>
+        <div>
+          <b>智能陪练</b>
+          <small>学员工作台 · EvoFlow</small>
+        </div>
+      </div>
+      <nav aria-label="主菜单">
+        <button type="button" class="active" data-view="overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span>学习总览</span>
+        </button>
+        <button type="button" data-view="profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM5 20a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M17.5 8.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6L17.5 14l-2.4 1.3.5-2.6-1.9-1.8 2.6-.4L17.5 8.5z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+          <span>学习画像</span>
+        </button>
+        <button type="button" data-view="outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 6h13M7 12h13M7 18h13M4 6h.01M4 12h.01M4 18h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>学习大纲</span>
+        </button>
+        <button type="button" data-view="practice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 6.6H21l-5.4 3.9 2.1 6.5L12 16.8 6.3 20l2.1-6.5L3 9.6h6.8L12 3z" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span>开始陪练</span>
+        </button>
+        <button type="button" data-view="materials">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.7"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span>我的资料</span>
+          <em id="navMatBadge">0</em>
+        </button>
+        <button type="button" data-view="sessions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span>陪练记录</span>
+          <em id="navSessionBadge">0</em>
+        </button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="school-mini">
+          <span>学</span>
+          <div>
+            <b>学员端</b>
+            <small>进度真源 · 本地 8769</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main" id="main">
+      <header class="topbar">
+        <button type="button" class="sidebar-toggle" id="sidebarToggle" title="收起侧栏" aria-label="收起侧栏">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="top-search">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="search" placeholder="搜索资料、大纲节点，或直接复制话术去问陪练师…" />
+          <kbd>/</kbd>
+        </div>
+        <div class="role-switch">
+          学员端
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <button type="button" class="top-icon" title="状态" id="btnRefresh">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.2-5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M20 5v5h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="user-chip" id="btnCoachTop">
+          <span>陪</span>
+          <div>
+            <b>陪练师</b>
+            <small>去 EvoFlow 开练</small>
+          </div>
+        </button>
+      </header>
+
+      <div class="content">
+        <!-- 总览 -->
+        <section id="view-overview" class="page-stack">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">智能工作台</div>
+              <h1 id="greeting">你好，学员。今天继续练一练。</h1>
+              <p id="ledeLine">把资料丢进来，让陪练师梳大纲、记进度、短问答陪练与答疑。面板只展示状态，真正开练在 EvoFlow。</p>
+            </div>
+            <div class="header-actions">
+              <button type="button" class="button button-secondary" data-goto="materials">上传资料</button>
+              <button type="button" class="button button-primary" id="btnCoachHero">请陪练师继续</button>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric-card hover-lift">
+              <div class="metric-icon tone-blue">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5h4v14H4zm6 0V9h4v10h-4zm6 0v-7h4v7h-4z" fill="currentColor"/></svg>
+              </div>
+              <div>
+                <span>完成度</span>
+                <strong><span id="percentLabel">0</span>%</strong>
+                <small id="percentHint">按大纲节点掌握度估算</small>
+              </div>
+            </article>
+            <article class="metric-card hover-lift">
+              <div class="metric-icon tone-green">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 6.6H21l-5.4 3.9 2.1 6.5L12 16.8 6.3 20l2.1-6.5L3 9.6h6.8L12 3z" fill="currentColor"/></svg>
+              </div>
+              <div>
+                <span>下一步焦点</span>
+                <strong class="metric-focus" id="nextFocus">—</strong>
+                <small id="chapterLine">当前章节待定</small>
+              </div>
+            </article>
+            <article class="metric-card hover-lift">
+              <div class="metric-icon tone-orange">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7V3z" stroke="currentColor" stroke-width="1.7"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7"/></svg>
+              </div>
+              <div>
+                <span>学习资料</span>
+                <strong id="statMats">0</strong>
+                <small>已上传到本地 materials</small>
+              </div>
+            </article>
+            <article class="metric-card hover-lift">
+              <div class="metric-icon tone-purple">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <span>陪练次数</span>
+                <strong id="statSessions">0</strong>
+                <small id="lastSessionLine">尚无陪练记录</small>
+              </div>
+            </article>
+          </div>
+
+          <div class="archive-hero" id="archiveHero">
+            <div>
+              <span>综合成长指数</span>
+              <strong id="growthIndex">0</strong>
+              <small id="growthDelta">开始上传资料后会持续抬升</small>
+            </div>
+            <div class="archive-bars" id="archiveBars"></div>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="card chart-card">
+              <div class="card-heading">
+                <div>
+                  <h3>成长趋势</h3>
+                  <p>完成度随陪练推进的变化</p>
+                </div>
+                <span class="badge badge-green" id="trendBadge">待启动</span>
+              </div>
+              <div class="chart-wrap" id="trendChart"></div>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>快捷入口</h3>
+                  <p>高频任务一步直达</p>
+                </div>
+              </div>
+              <div class="quick-grid">
+                <button type="button" class="quick-action" data-goto="materials">
+                  <span>⬆</span><b>上传资料</b>
+                </button>
+                <button type="button" class="quick-action" data-phrase="按我的资料梳一份学习大纲">
+                  <span>☰</span><b>梳学习大纲</b>
+                </button>
+                <button type="button" class="quick-action" data-phrase="让陪练师继续陪练">
+                  <span>✦</span><b>继续陪练</b>
+                </button>
+                <button type="button" class="quick-action" data-goto="profile">
+                  <span>◎</span><b>查看学习画像</b>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <div class="dashboard-grid lower">
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>今日关注</h3>
+                  <p>薄弱点与下一步建议</p>
+                </div>
+                <button type="button" class="text-button" data-goto="profile">画像详情</button>
+              </div>
+              <div class="alert-list" id="weakList"></div>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>陪练动态</h3>
+                  <p>最近会话摘要</p>
+                </div>
+                <button type="button" class="text-button" data-goto="sessions">查看全部</button>
+              </div>
+              <div class="timeline" id="recentTimeline"></div>
+            </section>
+          </div>
+
+          <div class="archive-grid" id="insightCards"></div>
+
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <h3>大纲节点预览</h3>
+                <p>掌握情况一览</p>
+              </div>
+              <button type="button" class="text-button" data-goto="outline">查看大纲</button>
+            </div>
+            <div class="progress lg"><i id="progressBar" style="width:0%"></i></div>
+            <div id="outlinePreview" class="knowledge-list"></div>
+          </section>
+          <p class="status" id="status"></p>
+        </section>
+
+        <!-- 学习画像 -->
+        <section id="view-profile" class="page-stack hidden">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Learning Profile</div>
+              <h1>学习画像</h1>
+              <p>把资料完备度、大纲清晰度、陪练活跃度与节点掌握合成一张可追踪的能力图。</p>
+            </div>
+            <div class="header-actions">
+              <button type="button" class="button button-secondary" data-phrase="我现在学到哪了？下一步练什么？">查进度</button>
+              <button type="button" class="button button-primary" data-phrase="让陪练师继续陪练">请陪练师继续</button>
+            </div>
+          </div>
+
+          <div class="profile-hero">
+            <span class="large-avatar" aria-hidden="true">学</span>
+            <div class="profile-main">
+              <div>
+                <h2 id="profileName">学员</h2>
+                <p id="profileMeta">画像会随资料与陪练记录自动更新</p>
+              </div>
+              <div class="tags" id="profileTags"></div>
+            </div>
+            <div class="profile-score">
+              <small>综合成长指数</small>
+              <strong id="profileOverall">0</strong>
+              <span id="profileTrend">本周期待启动</span>
+            </div>
+          </div>
+
+          <div class="profile-grid">
+            <section class="card radar-card">
+              <div class="card-heading">
+                <div>
+                  <h3>能力雷达</h3>
+                  <p>当前表现 vs 建议基线</p>
+                </div>
+                <span class="badge badge-blue">实时</span>
+              </div>
+              <div class="radar-wrap" id="radarChart"></div>
+            </section>
+            <section class="card trait-card">
+              <div class="card-heading">
+                <div>
+                  <h3>画像摘要</h3>
+                  <p>不贴固定标签，只反映当下证据</p>
+                </div>
+              </div>
+              <div class="trait-block green">
+                <b>✦ 优势信号</b>
+                <div id="traitStrengths" class="tags"></div>
+              </div>
+              <div class="trait-block orange">
+                <b>◎ 当前卡点</b>
+                <div id="traitGaps" class="tags"></div>
+              </div>
+              <div class="trait-block purple">
+                <b>★ 下一步动力</b>
+                <div id="traitNext" class="tags"></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="profile-grid lower">
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>知识掌握轨迹</h3>
+                  <p>从大纲节点看练习深度</p>
+                </div>
+                <span class="badge badge-blue">大纲同步</span>
+              </div>
+              <div id="profileTrack" class="knowledge-list"></div>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>学习节奏观察</h3>
+                  <p>用完成度与陪练频次估算投入</p>
+                </div>
+                <span class="badge badge-green" id="paceBadge">待观察</span>
+              </div>
+              <div class="wellbeing-score">
+                <div class="progress-ring" id="paceRing"><span>0</span></div>
+                <div>
+                  <h4 id="paceTitle">节奏尚未成型</h4>
+                  <p id="paceNote">上传资料并完成一次梳大纲、一次短问答后，这里会给出更稳的节奏建议。</p>
+                </div>
+              </div>
+              <div class="safe-note">
+                <span>ⓘ</span>
+                <span>画像仅用于陪练支持：聚焦下一步可练的小目标，不替代正式测评或诊断。</span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- 大纲 -->
+        <section id="view-outline" class="page-stack hidden">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Outline</div>
+              <h1>学习大纲</h1>
+              <p>由陪练师根据资料梳理；掌握度：未学 / 练习中 / 已掌握。</p>
+            </div>
+            <button type="button" class="button button-primary" data-phrase="按我的资料梳一份学习大纲">让陪练师梳大纲</button>
+          </div>
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <h3 id="outlineCourse">课程节点</h3>
+                <p id="outlineMeta"></p>
+              </div>
+            </div>
+            <div id="outlineTree" class="knowledge-list"></div>
+          </section>
+        </section>
+
+        <!-- 开练 -->
+        <section id="view-practice" class="page-stack hidden">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Practice</div>
+              <h1>开始陪练</h1>
+              <p>复制话术到 EvoFlow，由「陪练师」完成短问答；本页只做触发与焦点展示。</p>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>今日焦点</h3>
+                  <p id="coachHint"></p>
+                </div>
+              </div>
+              <div class="practice-focus" id="practiceFocus">—</div>
+              <div class="header-actions" style="margin-top:18px">
+                <button type="button" class="button button-primary" id="btnCoach">复制「继续陪练」</button>
+                <button type="button" class="button button-secondary" data-phrase="按我的资料梳一份学习大纲">复制「梳大纲」</button>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-heading">
+                <div>
+                  <h3>常用话术</h3>
+                  <p>点一下即可复制</p>
+                </div>
+              </div>
+              <div class="phrase-list">
+                <button type="button" class="phrase" data-phrase="让陪练师继续陪练">继续陪练</button>
+                <button type="button" class="phrase" data-phrase="按我的资料梳一份学习大纲">梳大纲</button>
+                <button type="button" class="phrase" data-phrase="我现在学到哪了？下一步练什么？">查进度</button>
+                <button type="button" class="phrase" data-phrase="结合我当前进度，解释一下：">答疑（自行补概念）</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- 资料 -->
+        <section id="view-materials" class="page-stack hidden">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Materials</div>
+              <h1>我的资料</h1>
+              <p>上传到本地 data/materials；同步知识库后，陪练师可检索。</p>
+            </div>
+            <div class="header-actions">
+              <button type="button" class="button button-secondary" id="btnSync">同步说明</button>
+              <label class="button button-primary file-btn">
+                上传资料
+                <input type="file" id="fileInput" hidden />
+              </label>
+            </div>
+          </div>
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <h3>已上传 <span class="badge badge-blue" id="matCount">0</span></h3>
+                <p>支持文档直接拖入目录或点上传</p>
+              </div>
+            </div>
+            <div id="materials" class="file-table"></div>
+          </section>
+        </section>
+
+        <!-- 记录 -->
+        <section id="view-sessions" class="page-stack hidden">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">Sessions</div>
+              <h1>陪练记录</h1>
+              <p>每次陪练结束后由陪练师写入 data/sessions/。</p>
+            </div>
+          </div>
+          <section class="card">
+            <div id="sessions" class="timeline"></div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="assistant-anchor">
+    <button type="button" class="assistant-fab" id="fabCoach" title="请陪练师继续">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a7 7 0 0 0-7 7v2.2L3 15h4v1a5 5 0 0 0 10 0v-1h4l-2-2.8V10a7 7 0 0 0-7-7z" stroke="#fff" stroke-width="1.6"/><circle cx="9.5" cy="10.5" r="1" fill="#fff"/><circle cx="14.5" cy="10.5" r="1" fill="#fff"/></svg>
+      <span>练</span>
+    </button>
+  </div>
+
+  <dialog id="coachDialog">
+    <form method="dialog" class="dialog-body">
+      <h3>去找陪练师</h3>
+      <p>在 EvoFlow 聊天里粘贴下面这句话：</p>
+      <pre id="coachCopy">让陪练师继续陪练</pre>
+      <menu>
+        <button value="cancel" class="button button-secondary">关闭</button>
+        <button value="ok" class="button button-primary" id="btnCopy">复制话术</button>
+      </menu>
+    </form>
+  </dialog>
+  <script type="module" src="/assets/app.js"></script>
+</body>
+</html>

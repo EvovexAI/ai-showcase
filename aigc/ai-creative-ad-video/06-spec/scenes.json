@@ -1,0 +1,46 @@
+[
+  {
+    "name": "雨夜路口",
+    "time_period": "夜晚暴雨",
+    "light_direction": "低角度光源来自路面霓虹倒影，环境顶光偏暗",
+    "spatial_anchor": {
+      "foreground": "电动车前轮积水",
+      "mid_background": "路面",
+      "background": "远处雨夜建筑，霓虹招牌"
+    },
+    "shots": ["S01", "S02"]
+  },
+  {
+    "name": "古街落点",
+    "time_period": "雨后夜晚",
+    "light_direction": "侧顺光来自两侧木楼灯笼",
+    "spatial_anchor": {
+      "foreground": "青石板地面，侧翻电动车，头盔",
+      "mid_background": "古街街道，两侧木楼",
+      "background": "远处古街延伸，灯笼串"
+    },
+    "shots": ["S03", "S04", "S05"]
+  },
+  {
+    "name": "醉仙楼门口",
+    "time_period": "夜晚",
+    "light_direction": "顶光来自门头灯笼，侧光从左上方来",
+    "spatial_anchor": {
+      "foreground": "半开朱红大门，林小满",
+      "mid_background": "六名护卫，门前空地",
+      "background": "门内院子，灯笼光影"
+    },
+    "shots": ["S06", "S07", "S08", "S09"]
+  },
+  {
+    "name": "醉仙楼内",
+    "time_period": "夜晚",
+    "light_direction": "顶部灯笼主光源，左侧补光",
+    "spatial_anchor": {
+      "foreground": "一楼大厅，楼梯扶手",
+      "mid_background": "二楼廊道，酒桌，人物",
+      "background": "满楼厅堂，其他食客"
+    },
+    "shots": ["S10", "S11", "S12", "S13", "S14", "S15"]
+  }
+]

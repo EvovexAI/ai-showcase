@@ -1,0 +1,603 @@
+{
+  "ok": true,
+  "scenario": "s3",
+  "app_id": "App_20261020165401_87219f",
+  "run_id": "Run_20261020165504_4f9930",
+  "parameters": {
+    "product": "便携榨汁杯",
+    "selling_points": "无线便携、30 秒出汁、可洗刀头",
+    "audience": "上班族 / 健身党"
+  },
+  "final_status": "executing",
+  "log": [
+    {
+      "step": "apps.get",
+      "result": {
+        "id": "App_20261020165401_87219f",
+        "name": "demo-1007·商品短视频脚本",
+        "description": "1007 live: 卖点→口播→分镜",
+        "icon": "",
+        "category": "ecommerce",
+        "goal_template": "为商品「{{product}}」写短视频脚本。卖点：{{selling_points}}；人群：{{audience}}；主题：{{topic}}；简报：{{brief}}",
+        "flowchart_mermaid": "",
+        "execution_mode": "workflow",
+        "auto_run": false,
+        "source": "demo-1007",
+        "source_task_id": null,
+        "version": 3,
+        "status": "published",
+        "created_at": "2026-10-20T16:54:01.840245+08:00",
+        "updated_at": "2026-10-20T16:54:52.114386+08:00",
+        "usage_count": 0,
+        "last_used_at": null,
+        "final_rollup": "auto",
+        "final_rollup_agent": "",
+        "final_rollup_instruction": "",
+        "answer_from_ref": "",
+        "org_id": "local",
+        "owner_scope_id": "personal:admin",
+        "created_by": "admin",
+        "parameters": [
+          {
+            "name": "product",
+            "label": "商品名",
+            "type": "text",
+            "required": true,
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "selling_points",
+            "label": "卖点",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "audience",
+            "label": "人群",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "topic",
+            "label": "主题",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "description": ""
+          },
+          {
+            "name": "brief",
+            "label": "调研简报",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "description": ""
+          }
+        ],
+        "steps": [
+          {
+            "ref": "1",
+            "name": "卖点提炼",
+            "depends_on": [],
+            "goal": "提炼不超过3条核心卖点",
+            "assigned_agent": "demo-1007-analyst"
+          },
+          {
+            "ref": "2",
+            "name": "口播稿",
+            "depends_on": [],
+            "goal": "写约30秒口播",
+            "assigned_agent": "demo-1007-analyst"
+          },
+          {
+            "ref": "3",
+            "name": "分镜要点",
+            "depends_on": [],
+            "goal": "拆4-6镜",
+            "assigned_agent": "demo-1007-analyst"
+          }
+        ],
+        "validation_template": [],
+        "tags": [
+          "demo-1007",
+          "ecommerce"
+        ],
+        "canvas": {
+          "nodes": [
+            {
+              "nodeId": "__start__",
+              "type": "start",
+              "position": {
+                "x": 48.0,
+                "y": 140.0
+              }
+            },
+            {
+              "nodeId": "1",
+              "type": "agentStep",
+              "position": {
+                "x": 300.0,
+                "y": 80.0
+              }
+            },
+            {
+              "nodeId": "2",
+              "type": "agentStep",
+              "position": {
+                "x": 648.0,
+                "y": 80.0
+              }
+            },
+            {
+              "nodeId": "3",
+              "type": "agentStep",
+              "position": {
+                "x": 996.0,
+                "y": 80.0
+              }
+            }
+          ],
+          "edges": [
+            {
+              "source": "__start__",
+              "target": "1",
+              "sourceHandle": "out",
+              "targetHandle": "in"
+            },
+            {
+              "source": "__start__",
+              "target": "2",
+              "sourceHandle": "out",
+              "targetHandle": "in"
+            },
+            {
+              "source": "__start__",
+              "target": "3",
+              "sourceHandle": "out",
+              "targetHandle": "in"
+            }
+          ]
+        },
+        "schema_enforcement": "warn",
+        "step_count": 3,
+        "parameter_count": 5,
+        "plan": {
+          "goal": "为商品「{{product}}」写短视频脚本。卖点：{{selling_points}}；人群：{{audience}}；主题：{{topic}}；简报：{{brief}}",
+          "steps": [
+            {
+              "ref": "1",
+              "name": "卖点提炼",
+              "depends_on": [],
+              "goal": "提炼不超过3条核心卖点",
+              "assigned_agent": "demo-1007-analyst"
+            },
+            {
+              "ref": "2",
+              "name": "口播稿",
+              "depends_on": [],
+              "goal": "写约30秒口播",
+              "assigned_agent": "demo-1007-analyst"
+            },
+            {
+              "ref": "3",
+              "name": "分镜要点",
+              "depends_on": [],
+              "goal": "拆4-6镜",
+              "assigned_agent": "demo-1007-analyst"
+            }
+          ],
+          "canvas": {
+            "nodes": [
+              {
+                "nodeId": "__start__",
+                "type": "start",
+                "position": {
+                  "x": 48.0,
+                  "y": 140.0
+                }
+              },
+              {
+                "nodeId": "1",
+                "type": "agentStep",
+                "position": {
+                  "x": 300.0,
+                  "y": 80.0
+                }
+              },
+              {
+                "nodeId": "2",
+                "type": "agentStep",
+                "position": {
+                  "x": 648.0,
+                  "y": 80.0
+                }
+              },
+              {
+                "nodeId": "3",
+                "type": "agentStep",
+                "position": {
+                  "x": 996.0,
+                  "y": 80.0
+                }
+              }
+            ],
+            "edges": [
+              {
+                "source": "__start__",
+                "target": "1",
+                "sourceHandle": "out",
+                "targetHandle": "in"
+              },
+              {
+                "source": "__start__",
+                "target": "2",
+                "sourceHandle": "out",
+                "targetHandle": "in"
+              },
+              {
+                "source": "__start__",
+                "target": "3",
+                "sourceHandle": "out",
+                "targetHandle": "in"
+              }
+            ]
+          },
+          "answer_from_ref": ""
+        },
+        "total_runs": 0,
+        "_trace": {
+          "method": "GET",
+          "path": "/api/apps/App_20261020165401_87219f",
+          "url": "http://127.0.0.1:8070/api/apps/App_20261020165401_87219f",
+          "body": null,
+          "dry_run": false
+        },
+        "ok": true
+      }
+    },
+    {
+      "step": "apps.run",
+      "result": {
+        "run_id": "Run_20261020165504_4f9930",
+        "task_id": "2610200855_a8aa",
+        "execution_mode": "workflow",
+        "run_kind": "debug",
+        "status": "executing",
+        "plan": {
+          "goal": "为商品「便携榨汁杯」写短视频脚本。卖点：无线便携、30 秒出汁、可洗刀头；人群：上班族 / 健身党；主题：{{topic}}；简报：{{brief}}",
+          "steps": [
+            {
+              "ref": "1",
+              "name": "卖点提炼",
+              "depends_on": [],
+              "goal": "提炼不超过3条核心卖点",
+              "assigned_agent": "demo-1007-analyst"
+            },
+            {
+              "ref": "2",
+              "name": "口播稿",
+              "depends_on": [],
+              "goal": "写约30秒口播",
+              "assigned_agent": "demo-1007-analyst"
+            },
+            {
+              "ref": "3",
+              "name": "分镜要点",
+              "depends_on": [],
+              "goal": "拆4-6镜",
+              "assigned_agent": "demo-1007-analyst"
+            }
+          ],
+          "flowchart_mermaid": "",
+          "validation": [],
+          "open_questions": "无"
+        },
+        "subtasks_sync": {
+          "success": true,
+          "task_id": "2610200855_a8aa",
+          "created": [
+            {
+              "subtaskId": "Subtask_20261020085504_717796",
+              "name": "Step 1: 卖点提炼",
+              "description": "目标：提炼不超过3条核心卖点",
+              "parentTaskId": "2610200855_a8aa",
+              "ref": "1",
+              "status": "planned",
+              "assignedTo": "demo-1007-analyst",
+              "assigned_to": "demo-1007-analyst",
+              "dependsOn": [],
+              "depends_on": [],
+              "assignedAgentName": "演示拆解师",
+              "assigned_agent_name": "演示拆解师"
+            },
+            {
+              "subtaskId": "Subtask_20261020085504_544940",
+              "name": "Step 2: 口播稿",
+              "description": "目标：写约30秒口播",
+              "parentTaskId": "2610200855_a8aa",
+              "ref": "2",
+              "status": "planned",
+              "assignedTo": "demo-1007-analyst",
+              "assigned_to": "demo-1007-analyst",
+              "dependsOn": [],
+              "depends_on": [],
+              "assignedAgentName": "演示拆解师",
+              "assigned_agent_name": "演示拆解师"
+            },
+            {
+              "subtaskId": "Subtask_20261020085504_696065",
+              "name": "Step 3: 分镜要点",
+              "description": "目标：拆4-6镜",
+              "parentTaskId": "2610200855_a8aa",
+              "ref": "3",
+              "status": "planned",
+              "assignedTo": "demo-1007-analyst",
+              "assigned_to": "demo-1007-analyst",
+              "dependsOn": [],
+              "depends_on": [],
+              "assignedAgentName": "演示拆解师",
+              "assigned_agent_name": "演示拆解师"
+            },
+            {
+              "subtask_id": "Subtask_20261020085504_727304",
+              "ref": "__rollup__",
+              "name": "结果汇总与验收",
+              "depends_on": [
+                "1",
+                "2",
+                "3"
+              ],
+              "assigned_agent": "general-purpose"
+            }
+          ],
+          "updated": [],
+          "removed": [],
+          "unchanged": 0,
+          "warnings": [],
+          "rollup_step_added": true,
+          "rollup_step": {
+            "subtask_id": "Subtask_20261020085504_727304",
+            "ref": "__rollup__",
+            "name": "结果汇总与验收",
+            "depends_on": [
+              "1",
+              "2",
+              "3"
+            ],
+            "assigned_agent": "general-purpose"
+          }
+        },
+        "auto_authorized": true,
+        "dispatch": {
+          "success": true,
+          "action": "start_execution",
+          "taskId": "2610200855_a8aa",
+          "authorizedBy": "api",
+          "message": "Execution authorized for task 2610200855_a8aa. Subagents are running in the background; the lead thread is not blocked. Note: This response is a snapshot; for final status use the task sidebar or call get_status/list_subtasks. 1 subtask(s) skipped (dependency not ready — see blockedSubtasks; this is not missing user authorization).",
+          "collabPhaseAdvanced": false,
+          "waitForCompletion": false,
+          "subtaskIds": [
+            "Subtask_20261020085504_717796",
+            "Subtask_20261020085504_544940",
+            "Subtask_20261020085504_696065"
+          ],
+          "blockedSubtasks": [
+            {
+              "subtaskId": "Subtask_20261020085504_727304",
+              "reason": "waiting_on_dependencies",
+              "unmetDependencies": [
+                "Subtask_20261020085504_717796",
+                "Subtask_20261020085504_544940",
+                "Subtask_20261020085504_696065"
+              ]
+            }
+          ],
+          "delegatedSubtasks": [
+            {
+              "subtaskId": "Subtask_20261020085504_717796",
+              "ok": true,
+              "detached": true,
+              "result": "Task Detached. Background execution started for collab subtask."
+            },
+            {
+              "subtaskId": "Subtask_20261020085504_544940",
+              "ok": true,
+              "detached": true,
+              "result": "Task Detached. Background execution started for collab subtask."
+            },
+            {
+              "subtaskId": "Subtask_20261020085504_696065",
+              "ok": true,
+              "detached": true,
+              "result": "Task Detached. Background execution started for collab subtask."
+            }
+          ],
+          "delegationAllSucceeded": true,
+          "autoFollowed": true,
+          "mustContinueMonitoring": true,
+          "nextMonitorInSeconds": 2,
+          "terminal": false,
+          "shouldStopMonitoring": false,
+          "follow": {
+            "success": true,
+            "terminal": false,
+            "status": "in_progress",
+            "message": "Detached execution started; follow real-time updates via chat stream and task sidebar."
+          },
+          "blockedSubtasksNote": "blockedSubtasks 表示依赖未满足（如 Step 2 等 Step 1 完成），不是用户未授权。 executionAuthorized 为 true 时勿再要求用户点击「开始执行」。"
+        },
+        "_trace": {
+          "method": "POST",
+          "path": "/api/apps/App_20261020165401_87219f/run",
+          "url": "http://127.0.0.1:8070/api/apps/App_20261020165401_87219f/run",
+          "body": {
+            "parameters": {
+              "product": "便携榨汁杯",
+              "selling_points": "无线便携、30 秒出汁、可洗刀头",
+              "audience": "上班族 / 健身党"
+            },
+            "run_kind": "debug",
+            "trigger_kind": "manual"
+          },
+          "dry_run": false
+        },
+        "ok": true
+      }
+    },
+    {
+      "step": "apps.run_status",
+      "run_id": "Run_20261020165504_4f9930",
+      "result": {
+        "run_id": "Run_20261020165504_4f9930",
+        "app_id": "App_20261020165401_87219f",
+        "app_version": 3,
+        "answer_from_ref": null,
+        "task_id": "2610200855_a8aa",
+        "thread_id": null,
+        "execution_mode": "workflow",
+        "status": "executing",
+        "task_status": "executing",
+        "progress": 20,
+        "subtask_status": {
+          "1": "executing",
+          "2": "executing",
+          "3": "executing",
+          "__rollup__": "planned"
+        },
+        "step_ref_to_subtask_id": {
+          "1": "Subtask_20261020085504_717796",
+          "2": "Subtask_20261020085504_544940",
+          "3": "Subtask_20261020085504_696065",
+          "__rollup__": "Subtask_20261020085504_727304"
+        },
+        "steps": [
+          {
+            "ref": "1",
+            "subtask_id": "Subtask_20261020085504_717796",
+            "status": "executing",
+            "name": "Step 1: 卖点提炼",
+            "description": "目标：提炼不超过3条核心卖点",
+            "assigned_agent": "demo-1007-analyst",
+            "progress": 45,
+            "result_summary": "",
+            "error_text": "",
+            "started_at": "2026-10-20T16:55:05.150207+08:00",
+            "completed_at": null,
+            "subtask_thread_id": "SubThread_Subtask_20261020085504_717796",
+            "outputs": [],
+            "evidence_paths": [],
+            "is_rollup_step": false,
+            "display_name": "卖点提炼"
+          },
+          {
+            "ref": "2",
+            "subtask_id": "Subtask_20261020085504_544940",
+            "status": "executing",
+            "name": "Step 2: 口播稿",
+            "description": "目标：写约30秒口播",
+            "assigned_agent": "demo-1007-analyst",
+            "progress": 25,
+            "result_summary": "",
+            "error_text": "",
+            "started_at": "2026-10-20T16:55:05.150207+08:00",
+            "completed_at": null,
+            "subtask_thread_id": "SubThread_Subtask_20261020085504_544940",
+            "outputs": [],
+            "evidence_paths": [],
+            "is_rollup_step": false,
+            "display_name": "口播稿"
+          },
+          {
+            "ref": "3",
+            "subtask_id": "Subtask_20261020085504_696065",
+            "status": "executing",
+            "name": "Step 3: 分镜要点",
+            "description": "目标：拆4-6镜",
+            "assigned_agent": "demo-1007-analyst",
+            "progress": 10,
+            "result_summary": "",
+            "error_text": "",
+            "started_at": "2026-10-20T16:55:05.150207+08:00",
+            "completed_at": null,
+            "subtask_thread_id": "SubThread_Subtask_20261020085504_696065",
+            "outputs": [],
+            "evidence_paths": [],
+            "is_rollup_step": false,
+            "display_name": "分镜要点"
+          },
+          {
+            "ref": "__rollup__",
+            "subtask_id": "Subtask_20261020085504_727304",
+            "status": "planned",
+            "name": "结果汇总与验收",
+            "description": "你是这个工作流的收尾汇总员。所有步骤都已完成，请给出用户可直接使用的最终结论。",
+            "assigned_agent": "general-purpose",
+            "progress": 0,
+            "result_summary": "",
+            "error_text": "",
+            "started_at": null,
+            "completed_at": null,
+            "subtask_thread_id": "",
+            "outputs": [],
+            "evidence_paths": [],
+            "is_rollup_step": true,
+            "display_name": "结果汇总与验收"
+          }
+        ],
+        "outputs": [],
+        "evidence_paths": [],
+        "result_summary": "",
+        "parameters": {
+          "product": "便携榨汁杯",
+          "selling_points": "无线便携、30 秒出汁、可洗刀头",
+          "audience": "上班族 / 健身党"
+        },
+        "parameter_fields": [
+          {
+            "name": "product",
+            "label": "商品名"
+          },
+          {
+            "name": "selling_points",
+            "label": "卖点"
+          },
+          {
+            "name": "audience",
+            "label": "人群"
+          },
+          {
+            "name": "topic",
+            "label": "主题"
+          },
+          {
+            "name": "brief",
+            "label": "调研简报"
+          }
+        ],
+        "error": null,
+        "created_at": "2026-10-20T16:55:04.761579+08:00",
+        "started_at": null,
+        "completed_at": null,
+        "_trace": {
+          "method": "GET",
+          "path": "/api/apps/runs/Run_20261020165504_4f9930",
+          "url": "http://127.0.0.1:8070/api/apps/runs/Run_20261020165504_4f9930",
+          "body": null,
+          "dry_run": false
+        },
+        "ok": true,
+        "timed_out": true
+      }
+    }
+  ],
+  "acceptance": {
+    "published": true,
+    "has_run_id": true,
+    "status_readable": true
+  }
+}

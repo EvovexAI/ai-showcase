@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "kind": "team",
+  "id": "douyin-video-pipeline-pack",
+  "name": "视频拆解工作台场景包",
+  "version": "1.1.0",
+  "description": "1004 视频拆解全套场景：UI 扩展（folder-link 到本仓库）+ 抖音拆解师员工 + 拆解技能 ×2 + 拆解报告知识库。导入后一次装齐，知识库按名称幂等复用。",
+  "workspace": {
+    "path": "${ORG_ROOT}/workspace",
+    "name": "视频拆解工作区",
+    "create_if_missing": true
+  },
+  "primitives": {
+    "knowledge": [
+      {
+        "ref": "reports",
+        "name": "抖音拆解报告库",
+        "description": "抖音视频拆解报告案例库，来自 1004 data/reports，供写脚本时检索对标案例",
+        "import_folder": "./data/reports",
+        "upsert": true,
+        "prune_missing": false
+      }
+    ],
+    "skills": [
+      { "path": "./skills/douyin-video-pipeline", "link": true },
+      { "path": "./skills/evoflow-onboarding", "link": true }
+    ],
+    "agents": [
+      { "from": "./agents/douyin-analyst.yaml" }
+    ],
+    "extensions": [
+      { "from": "./", "link": true }
+    ]
+  },
+  "team": {
+    "employees": [
+      { "from": "./employees/douyin-analyst.json" }
+    ]
+  }
+}

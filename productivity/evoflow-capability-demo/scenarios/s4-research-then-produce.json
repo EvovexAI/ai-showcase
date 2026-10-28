@@ -1,0 +1,30 @@
+{
+  "id": "s4",
+  "title": "电商/自媒体：调研简报后再编排成片大纲",
+  "persona": "内容负责人",
+  "story": "先让运营调研岗看竞品钩子出简报，再把简报塞进「商品短视频脚本」编排，生成可拍的成片大纲——员工 + 编排串起来。",
+  "business": ["employees", "workflow"],
+  "industry": "电商",
+  "when_to_use": "先人工岗判断/搜集，再标准化多步产出",
+  "steps_human": [
+    "派调研/拆解员工出竞品钩子简报",
+    "等待或限时后取简报占位（goal 摘要）",
+    "用 topic + brief 启动编排应用",
+    "轮询编排 run 终态"
+  ],
+  "inputs": {
+    "agent_code": { "label": "调研员工编码", "from_seed": "employee_code" },
+    "app_id": { "label": "编排应用 ID", "from_seed": "app_id" },
+    "topic": { "label": "选题/商品", "default": "便携榨汁杯 · 上班族早餐场景" },
+    "audience": { "label": "人群", "default": "上班族" },
+    "goal": {
+      "label": "调研派工目标",
+      "default": "围绕「便携榨汁杯」整理 3 条竞品短视频钩子手法，并各给一句可套用开场，输出简洁简报。"
+    }
+  },
+  "acceptance": [
+    "日志中有员工 dispatch 成功记录",
+    "日志中有 apps.run 的 run_id",
+    "run 状态可查询"
+  ]
+}

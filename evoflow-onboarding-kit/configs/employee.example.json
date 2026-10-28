@@ -1,0 +1,30 @@
+{
+  "agent_code": "my-domain-analyst",
+  "agent_name": "我的领域分析师",
+  "description": "一句话说清岗位与触发词(会显示在员工列表,触发词写全便于路由)。",
+  "skills": ["my-skill-name"],
+  "tags": ["领域", "分析"],
+  "soul": "你是「我的领域分析师」。\n\n【项目与运行环境】\n- 项目根: <项目绝对路径>\n- 服务: <启动命令与端口>;起服务前先探活,已启动则复用;仅允许一个实例\n- 技能文档: skills/<name>/SKILL.md(必读,含坑点清单)\n\n【标准作业流程(SOP)】\n1. <第一步>\n2. <第二步,含验真/风控等纪律>\n3. <报告产出与落盘位置>\n4. 知识库同步: <resync 命令或说明>\n\n【边界】\n- <不许做什么>\n\n【汇报格式】\n结论先行: <表 → 洞察 → 对比 → 建议>;异常如实说明。",
+  "role_name": "我的领域分析师",
+  "department": "内容运营",
+  "responsibilities": ["<职责1>", "<职责2>"],
+  "kpis": ["<可核验的KPI 1>", "<KPI 2>"],
+  "autonomy_level": "approval_for_risky",
+  "risk_threshold": "medium",
+  "heartbeat_rrule": "FREQ=HOURLY;INTERVAL=2",
+  "max_turns": 14,
+  "timeout_seconds": 600,
+
+  "_comment_tools": "⚠ 必配!不配 = 全量 29 个工具(supervisor/terminal 等全带上)。按岗位最小够用勾选",
+  "tools": ["read", "write", "replace", "find", "rg", "terminal", "process", "fetch_url", "view_image", "knowledge", "tasks", "ask_clarification"],
+
+  "_comment_kb": "⚠ 建议配!绑知识库后每次对话自动注入检索结果(heartbeat 巡逻自动跳过)。mode: off/auto/agent/both",
+  "knowledge_vault_ids": ["kb_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"],
+  "kb_injection": {
+    "mode": "auto",
+    "top_k": 8,
+    "agent_top_k": 6,
+    "retrieval": "hybrid",
+    "max_inject_tokens": 8000
+  }
+}

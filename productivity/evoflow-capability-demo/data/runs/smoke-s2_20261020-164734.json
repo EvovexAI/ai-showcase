@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "scenario": "s2",
+  "agent_code": "demo-1007-analyst",
+  "kb_id": "demo-1007-kb",
+  "knowledge_vault_ids": [],
+  "search_hits": 1,
+  "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+  "log": [
+    {
+      "step": "employees.get",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-1007-analyst",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "message": "dry-run mock",
+          "path": "/api/proactive/roles/demo-1007-analyst"
+        }
+      }
+    },
+    {
+      "step": "knowledge.search",
+      "kb_id": "demo-1007-kb",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "POST",
+          "path": "/api/knowledge/owned/bases/demo-1007-kb/search",
+          "url": "http://127.0.0.1:8080/api/knowledge/owned/bases/demo-1007-kb/search",
+          "body": {
+            "query": "短视频钩子 开场",
+            "mode": "hybrid",
+            "topK": 5
+          },
+          "dry_run": true
+        },
+        "mock": {
+          "items": [
+            {
+              "title": "钩子样例：先抛结果",
+              "snippet": "普通人用 AI 做副业，第一周就出了第一条播放过万的口播。",
+              "score": 0.92
+            }
+          ],
+          "total": 1
+        }
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-1007-analyst/dispatch",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-1007-analyst/dispatch",
+          "body": {
+            "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+            "description": "1007·S2 员工+知识库",
+            "priority": "normal",
+            "source": "demo-1007"
+          },
+          "dry_run": true
+        },
+        "mock": {
+          "ok": true,
+          "accepted": true,
+          "round_id": "dry-428bedd5",
+          "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。"
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "employee_has_kb": true,
+    "search_hits_ge_1": true,
+    "dispatch_ok": true
+  }
+}

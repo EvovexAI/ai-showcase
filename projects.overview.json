@@ -1,0 +1,428 @@
+{
+ "generatedAt": "2026-10-28",
+ "source": "ai-showcase（2026-10-28 起按业务分类目录组织，原 10xx 编号已废弃） 机审扫描（README / evoflow.extension.json / package.json / 目录结构）",
+ "maintainDoc": "overview/MAINTENANCE.md（新增/修改项目前必读）",
+ "stats": {
+  "projects": 11,
+  "byLanguage": {
+   "JavaScript": 5,
+   "TypeScript": 1,
+   "Python": 5
+  },
+  "byResourceType": {
+   "纯前端应用": 1,
+   "本地Web服务": 8,
+   "CLI工作流": 1,
+   "接入套件": 1
+  },
+  "evoTotal": {
+   "knowledgeBases": 4,
+   "employees": 4,
+   "skills": 8,
+   "extensions": 4
+  }
+ },
+ "projects": [
+  {
+   "category": "aigc",
+   "id": "ai-poster-editor",
+   "dir": "aigc/ai-poster-editor",
+   "name": "AI 海报编辑器",
+   "description": "纯前端海报编辑器 + AI 生成：描述生成背景（通义万象）、绿幕素材自动抠绿、AI 布局优化（多轮 diff 预览/撤回）、一键成稿；拖拽/图层面板/艺术字/导出 PNG·JPG，附零依赖 REST API。",
+   "tags": [
+    "自媒体电商",
+    "内容创作",
+    "AI 生图"
+   ],
+   "language": "JavaScript",
+   "techStack": [
+    "Vanilla JS 零框架",
+    "Node 内置模块零依赖 API"
+   ],
+   "resourceType": "纯前端应用",
+   "launch": "node server.cjs → http://127.0.0.1:8899",
+   "ports": [
+    "8899"
+   ],
+   "status": "可用",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [],
+    "extensions": []
+   },
+   "contains": "js/ 14 个模块、css/、index.html、server.cjs、proxy.cjs；文档 README/SETUP/API/AGENTS",
+   "source": "根 README + 目录结构"
+  },
+  {
+   "category": "self-media",
+   "id": "ai-video-decompose",
+   "dir": "self-media/ai-video-decompose",
+   "name": "AI 视频拆解（Web 全栈版）",
+   "description": "抖音视频一键拆解的 Next.js 重构版：链接 → 下载 → 转写 → 关键帧 → 章节 → 分镜，支持脚本(MD)/章节表(JSON)/分镜表(JSON) 导出与详情页可视化。",
+   "tags": [
+    "自媒体电商",
+    "内容分析",
+    "视频处理"
+   ],
+   "language": "TypeScript",
+   "techStack": [
+    "Next.js 14",
+    "React 18",
+    "Fastify",
+    "Prisma + SQLite",
+    "pnpm monorepo (turbo)"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "pnpm dev → http://localhost:3002/video-decompose",
+   "ports": [
+    "3001 API",
+    "3002 Web"
+   ],
+   "status": "原型（含 dev.db 样例数据）",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [],
+    "extensions": []
+   },
+   "contains": "apps/api 10 个 TS 模块、apps/web 4 个页面、prisma/dev.db；文档 WORKFLOW/SUMMARY/DEMO/INTEGRATION_GUIDE",
+   "source": "package.json + SUMMARY.md + 目录实况"
+  },
+  {
+   "category": "self-media",
+   "id": "ai-video-promo",
+   "dir": "self-media/ai-video-promo",
+   "name": "宣传视频制作系统",
+   "description": "从 1002 拆出的制作+配音子系统：火山 TTS（seed-tts-2.0，291 音色）、分镜策划稿（AI 润色）、一键配音、工作台 API（任务/技能/草稿/自动化/飞书推送），与 1004 后端对齐、砍掉拆解侧。",
+   "tags": [
+    "自媒体电商",
+    "内容创作",
+    "TTS 配音"
+   ],
+   "language": "Python",
+   "techStack": [
+    "httpx",
+    "火山 OpenSpeech v3 TTS",
+    "EvoFlow 兼容客户端",
+    "Web UI 复用 1004"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "python scripts/promo_server.py → http://localhost:8766",
+   "ports": [
+    "8766"
+   ],
+   "status": "可用（TTS 需配 Key）",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [],
+    "extensions": []
+   },
+   "contains": "scripts/ 9 个模块、web/ 前端、config/ TTS 配置；文档 README/INTEGRATION_GUIDE",
+   "source": "README + package.json"
+  },
+  {
+   "category": "self-media",
+   "id": "douyin-video-pipeline",
+   "dir": "self-media/douyin-video-pipeline",
+   "name": "抖音视频拆解工作台",
+   "description": "内容拆解（起号）工作台：抖音分享链接直达（B站/YouTube 走 yt-dlp）→ 下载 → Whisper 转写 → 关键帧 → 章节 → 规则引擎洞察（钩子/人群/黄金句/节奏/结构）。AIGC 反推已拆至 1008。",
+   "tags": [
+    "自媒体电商",
+    "内容分析",
+    "爆款拆解"
+   ],
+   "language": "Python",
+   "techStack": [
+    "yt-dlp",
+    "Whisper",
+    "ffmpeg",
+    "内置规则引擎"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "python scripts/web_server.py → http://127.0.0.1:8765",
+   "ports": [
+    "8765"
+   ],
+   "status": "可用（已转私有仓库，zip 分发）",
+   "evo": {
+    "knowledgeBases": [
+     "抖音拆解报告库 (kb_72da6f1d…)"
+    ],
+    "employees": [
+     "douyin-analyst"
+    ],
+    "skills": [
+     "douyin-video-pipeline",
+     "evoflow-onboarding"
+    ],
+    "extensions": [
+     "视频拆解工作台 :8765"
+    ]
+   },
+   "contains": "scripts/、web/、skills/ 2 个；文档 README/EVOFLOW-SETUP",
+   "source": "README + evoflow.extension.json"
+  },
+  {
+   "category": "self-media",
+   "id": "douyin-blogger-analyzer",
+   "dir": "self-media/douyin-blogger-analyzer",
+   "name": "抖音博主分析器",
+   "description": "采集抖音博主公开数据做分析看板：数据看板/内容分析/标题钩子分类/多账号对比；数据双轨（accounts.json 机器真源 + data/reports/*.md 知识库喂养层），支持 API 直灌与浏览器采集技能。",
+   "tags": [
+    "自媒体电商",
+    "数据分析",
+    "对标账号"
+   ],
+   "language": "JavaScript",
+   "techStack": [
+    "Node 18+ 零依赖服务",
+    "playwright-core（采集）"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "node server.js → http://127.0.0.1:8787",
+   "ports": [
+    "8787"
+   ],
+   "status": "可用（EvoFlow 接入打样项目）",
+   "evo": {
+    "knowledgeBases": [
+     "抖音博主分析报告库 (kb_e2a8f73a…)"
+    ],
+    "employees": [
+     "douyin-blogger-analyst"
+    ],
+    "skills": [
+     "douyin-blogger-analysis"
+    ],
+    "extensions": [
+     "抖音博主分析 :8787"
+    ]
+   },
+   "contains": "server.js、scripts/collect-douyin.js、skills/ 1 个技能；文档 README",
+   "source": "README + package.json + evoflow.extension.json"
+  },
+  {
+   "category": "aigc",
+   "id": "ai-creative-ad-video",
+   "dir": "aigc/ai-creative-ad-video",
+   "name": "AI 创意广告视频",
+   "description": "用小云雀（Pippit）官方 CLI 从一句话到创意广告成片：脚本定稿 → 480p 样片预览 → 确认后转 1080p；含提示词套路库、积分策略与 PowerShell 封装脚本。",
+   "tags": [
+    "自媒体电商",
+    "内容创作",
+    "广告视频"
+   ],
+   "language": "JavaScript",
+   "techStack": [
+    "@pippit-dev/cli (Node)",
+    "Seedance 2.5",
+    "PowerShell 封装脚本"
+   ],
+   "resourceType": "CLI工作流",
+   "launch": "powershell -File scripts/generate-ad.ps1 …",
+   "ports": [],
+   "status": "可用（需小云雀会员账号 + CLI 登录）",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [],
+    "extensions": []
+   },
+   "contains": "scripts/ 4 个 ps1、prompts/ 套路库、docs/、SKILL.md；可含漫剧流水线子目录",
+   "source": "README + 目录实况"
+  },
+  {
+   "category": "productivity",
+   "id": "evoflow-capability-demo",
+   "dir": "productivity/evoflow-capability-demo",
+   "name": "EvoFlow 业务场景台",
+   "description": "一场景一页演示台：种子员工/知识库/编排后跑通 S1–S4（拆解师、KB 钩子、电商短视频编排、调研+成片大纲）；dry-run 仅预览，真调通以 smoke_check --live 为准。",
+   "tags": [
+    "基础设施",
+    "EvoFlow 生态",
+    "业务演示"
+   ],
+   "language": "Python",
+   "techStack": [
+    "EvoFlow Gateway API",
+    "本地 Web UI",
+    "scenario JSON"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "py -3.12 scripts/web_server.py → http://127.0.0.1:8877",
+   "ports": [
+    "8877"
+   ],
+   "status": "可用（实网需 api_key；离线可 dry-run 预览）",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [
+     "evoflow-capability-demo"
+    ],
+    "extensions": []
+   },
+   "contains": "scenarios/ S1–S4、scripts/ seed+smoke+web、skills/、web/；文档 README",
+   "source": "README + scenarios + skills"
+  },
+  {
+   "category": "aigc",
+   "id": "aigc-prompt-reverse",
+   "dir": "aigc/aigc-prompt-reverse",
+   "name": "AIGC 反推提示词工作台",
+   "description": "从 1004 复制并专项化：只做 prompt_reverse。权威系统提示词 prompts/reverse-system.md（逐镜头时间轴→目标模型生成词+禁止项）。粘贴链接 → 约 3.5 秒一帧（约 20 秒 5～6 张）→ T2V/I2V 可粘贴 Prompt。",
+   "tags": [
+    "自媒体电商",
+    "内容创作",
+    "AIGC 反推"
+   ],
+   "language": "Python",
+   "techStack": [
+    "yt-dlp",
+    "Whisper",
+    "ffmpeg",
+    "prompt_reverse 规则引擎"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "python scripts/web_server.py → http://127.0.0.1:8768",
+   "ports": [
+    "8768"
+   ],
+   "status": "可用",
+   "evo": {
+    "knowledgeBases": [
+     "AIGC 反推报告库"
+    ],
+    "employees": [
+     "aigc-prompt-reverser"
+    ],
+    "skills": [
+     "aigc-prompt-reverse",
+     "evoflow-onboarding"
+    ],
+    "extensions": [
+     "AIGC 反推提示词 :8768"
+    ]
+   },
+   "contains": "自 1004 复制；agents/ SOUL、skills/aigc-prompt-reverse、web/ 反推锁定 UI",
+   "source": "README + evoflow.extension.json + SOUL"
+  },
+  {
+   "category": "productivity",
+   "id": "smart-coach",
+   "dir": "productivity/smart-coach",
+   "name": "智能陪练（学员版）",
+   "description": "学员向陪练台：上传资料、看进度与最近会话；梳大纲/短问答陪练/答疑由 EvoFlow 员工「陪练师」完成。本地真源 data/outline.json + progress.json，提示词 prompts/coach-system.md。",
+   "tags": [
+    "教育培训",
+    "智能陪练",
+    "学员"
+   ],
+   "language": "Python",
+   "techStack": [
+    "标准库 HTTP 服务",
+    "本地 JSON 进度",
+    "EvoFlow 员工+知识库"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "py -3.12 scripts/web_server.py → http://127.0.0.1:8769",
+   "ports": [
+    "8769"
+   ],
+   "status": "可用",
+   "evo": {
+    "knowledgeBases": [
+     "陪练资料库"
+    ],
+    "employees": [
+     "smart-coach"
+    ],
+    "skills": [
+     "smart-coach"
+    ],
+    "extensions": [
+     "智能陪练 :8769"
+    ]
+   },
+   "contains": "agents/ SOUL、skills/smart-coach、prompts/coach-system.md、web/ 学员页、data/",
+   "source": "README + evoflow.extension.json + SOUL"
+  },
+  {
+   "category": "ecommerce",
+   "id": "ecommerce-content-studio",
+   "dir": "ecommerce/ecommerce-content-studio",
+   "name": "商策造物 · 电商智能创作中枢",
+   "description": "收录自黎小会员资料库 1022 项目的单品电商内容生产全栈应用：公开网页检索提炼痛点/卖点/创意方向，按平台规格生成主图套装、SKU 套图、详情页与三类视频，含违禁词初筛、报价确认与成果管理；生图/生视频依赖 BOLI CLI，洞察功能零密钥开箱可用。",
+   "tags": [
+    "自媒体电商",
+    "内容创作",
+    "AI 生图",
+    "市场洞察"
+   ],
+   "language": "JavaScript",
+   "techStack": [
+    "React 18",
+    "Vite",
+    "Express",
+    "multer",
+    "BOLI CLI（生图/生视频）"
+   ],
+   "resourceType": "本地Web服务",
+   "launch": "npm install && npm run dev → 前端 http://localhost:5173 + API http://localhost:8790",
+   "ports": [
+    "5173 Web",
+    "8790 API"
+   ],
+   "status": "可用（全网洞察开箱可用；生图/生视频需安装并登录 BOLI CLI）",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [],
+    "extensions": []
+   },
+   "contains": "src/ 前端（App.jsx 等）、server/index.js 单文件后端、dist/ 预构建产物、generated/ 作者成品图、uploads/ data/；文档 README（含收录说明）",
+   "source": "README + package.json + server/index.js + vite.config.js + 目录实况（2026-10-25 收录）"
+  },
+  {
+   "category": "kit",
+   "id": "kit",
+   "dir": "evoflow-onboarding-kit",
+   "name": "EvoFlow 项目接入套件",
+   "description": "把 ai-showcase 任意工具型项目接入 EvoFlow 全链路的通用操作体系：UI 扩展面板 → 知识库 → 技能库 → 专属员工，四个脚本一条龙（注册扩展/同步知识库/雇佣员工），已在 1004、1005 打样。",
+   "tags": [
+    "基础设施",
+    "EvoFlow 生态",
+    "自动化接入"
+   ],
+   "language": "JavaScript",
+   "techStack": [
+    "Node 零依赖脚本",
+    "manifest 模板",
+    "平台 API 打通"
+   ],
+   "resourceType": "接入套件",
+   "launch": "node scripts/register-extension.js / sync-kb.js / hire-employee.js",
+   "ports": [],
+   "status": "可用",
+   "evo": {
+    "knowledgeBases": [],
+    "employees": [],
+    "skills": [
+     "evoflow-onboarding (SKILL.md 已注册平台技能)"
+    ],
+    "extensions": []
+   },
+   "contains": "SKILL.md、scripts/ 3 个脚本、configs/employee.example.json、templates/extension 模板",
+   "source": "README + 目录结构"
+  }
+ ],
+ "notes": [
+  "重复/临时项已移至 D:\\dev\\github\\evo\\edu\\_ai-demos-archive",
+  "2026-10-28 仓库重组：目录改为 <分类>/<意义名>（ecommerce/self-media/productivity/aigc），原 10xx 编号前缀废弃；id 改用语义 slug",
+  "douyin-video-pipeline = 内容拆解；aigc-prompt-reverse = AIGC 反推（从前者复制拆出，勿再把反推做进拆解台 UI）",
+  "端口分配：8899 / 8765 / 8766 / 8768 / 8769 / 8787 / 8877 / 3001-3002，互不冲突",
+  "smart-coach = 学员智能陪练（面板展示；梳/练/答在员工侧）"
+ ]
+}

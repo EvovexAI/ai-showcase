@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>起号 · 抖音视频拆解</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="bg-blob bg-blob-a"></div>
+  <div class="bg-blob bg-blob-b"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar glass" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-icon">🎬</span>
+        <div>
+          <div class="sidebar-brand-title">起号拆解台</div>
+          <div class="sidebar-brand-sub">拆解对标 · 策划成片</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="主导航"></nav>
+      <div class="sidebar-foot">
+        <span class="pill pill-local">本地安全运行</span>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <!-- 粘贴拆解 -->
+      <section id="viewAnalyzeInput" class="app-view">
+        <header class="view-head">
+          <h1>粘贴拆解</h1>
+          <p class="hint">支持整段文案或 v.douyin.com 短链</p>
+        </header>
+        <section class="card input-card">
+          <div class="textarea-wrap">
+            <textarea id="shareText" rows="4" placeholder="例如：9.43 复制打开抖音，看看【xxx】 https://v.douyin.com/xxxxx/ …"></textarea>
+          </div>
+          <div class="keyframe-options">
+            <div class="keyframe-label">关键帧模式</div>
+            <div class="keyframe-modes">
+              <label class="mode-option">
+                <input type="radio" name="keyframeMode" value="transcript" checked />
+                <span>口播一句一帧</span>
+                <small>默认 · 每句话截一张图，章节内一句对一画</small>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="keyframeMode" value="custom" />
+                <span>自定义帧数</span>
+                <small>按你指定的数量均匀截取</small>
+              </label>
+            </div>
+            <div id="customFrameWrap" class="custom-frame-wrap hidden">
+              <label for="frameCount">帧数</label>
+              <input type="number" id="frameCount" value="30" min="5" max="300" step="1" />
+            </div>
+            <label class="vision-option">
+              <input type="checkbox" id="visionPrep" />
+              <span class="vision-option-text">
+                <strong>同时生成视觉任务清单</strong>
+                <small>免费 · 不调用模型 · 拆解后可让 Cursor 看图写描述</small>
+              </span>
+            </label>
+          </div>
+          <div class="actions">
+            <button id="analyzeBtn" class="btn-primary">
+              <span class="btn-icon">✦</span>
+              <span>开始拆解</span>
+            </button>
+          </div>
+          <div id="progress" class="progress hidden">
+            <div class="progress-track"><div id="progressFill"></div></div>
+            <p id="progressText"></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- 视频库 -->
+      <section id="viewAnalyzeLibrary" class="app-view hidden">
+        <header class="view-head">
+          <h1>视频库</h1>
+          <span class="hint" id="libraryCount">加载中…</span>
+        </header>
+        <section class="card library-card">
+          <div id="projectList" class="project-list"></div>
+        </section>
+      </section>
+
+      <!-- 视频详情 · 各分解独立视图 -->
+      <section id="viewAnalyzeDetail" class="app-view hidden">
+        <div class="detail-head">
+          <div class="detail-head-text">
+            <button type="button" id="detailTitle" class="detail-title-btn">视频详情</button>
+            <span class="hint" id="detailMeta"></span>
+          </div>
+          <div class="detail-actions hidden" id="detailActions">
+            <a id="exportReportBtn" class="btn-ghost" href="#" target="_blank" rel="noopener">导出报告</a>
+            <button type="button" id="reanalyzeBtn" class="btn-secondary">重新拆解</button>
+            <button type="button" id="reanalyzeFullBtn" class="btn-ghost" title="重新转写口播，耗时更长">完整重拆</button>
+          </div>
+        </div>
+
+        <section id="detailPanelOverview" class="detail-panel">
+          <section id="analysisNotice" class="analysis-notice card hidden"></section>
+          <section id="videoPlayerWrap" class="video-player-wrap hidden">
+            <video id="detailVideo" controls preload="metadata" playsinline></video>
+            <p class="video-hint">点击关键帧或章节画面可跳转到对应时间点</p>
+          </section>
+          <section id="visionPanel" class="vision-panel card hidden"></section>
+          <section id="summary" class="metrics"></section>
+        </section>
+
+        <section id="detailPanelChapters" class="detail-panel hidden">
+          <section id="tab-chapters" class="card tab-panel"></section>
+        </section>
+
+        <section id="detailPanelSegments" class="detail-panel hidden">
+          <section id="tab-segments" class="card tab-panel"></section>
+        </section>
+
+        <section id="detailPanelScenes" class="detail-panel hidden">
+          <section id="tab-scenes" class="card tab-panel scenes-grid"></section>
+        </section>
+      </section>
+
+      <!-- 制作策划 -->
+      <section id="viewProduce" class="app-view hidden">
+        <header class="view-head">
+          <h1>制作策划</h1>
+          <p class="hint">分镜、口播、录屏操作 · 可让 Cursor 改 JSON</p>
+        </header>
+        <div class="produce-layout">
+          <aside class="card produce-sidebar">
+            <div class="card-head">
+              <h2>待拍视频</h2>
+              <button type="button" id="newPlanBtn" class="btn-ghost btn-sm">+ 新建</button>
+            </div>
+            <div id="planList" class="plan-list"></div>
+          </aside>
+          <main id="planEditor" class="card produce-editor hidden">
+            <div class="produce-editor-head">
+              <div>
+                <input type="text" id="planTitle" class="plan-title-input" placeholder="视频标题" />
+                <p class="hint" id="planMeta"></p>
+              </div>
+              <div class="produce-editor-actions">
+                <button type="button" id="savePlanBtn" class="btn-secondary">保存</button>
+                <button type="button" id="exportPlanBtn" class="btn-ghost">导出 Markdown</button>
+              </div>
+            </div>
+            <div class="produce-meta-grid">
+              <label>目标 <input type="text" id="planGoal" placeholder="这条视频要传达什么" /></label>
+              <label>画幅 <input type="text" id="planAspect" value="9:16" /></label>
+              <label>总时长 <input type="text" id="planDuration" value="60s" /></label>
+            </div>
+
+            <div id="planPanelInfo" class="plan-panel">
+              <label class="produce-field">
+                <span>完整口播稿</span>
+                <textarea id="planFullScript" rows="8" placeholder="可自动由各镜口播拼接，也可整体改写"></textarea>
+              </label>
+              <label class="produce-field">
+                <span>备注</span>
+                <textarea id="planNotes" rows="2" placeholder="标签、参赛要求、BGM 等"></textarea>
+              </label>
+              <section class="produce-tts card-inset">
+                <h3>口播配音</h3>
+                <p class="hint">按各镜 <code>voiceover</code> 生成 mp3；空口播的镜（如纯录屏段）自动跳过。需先在「配音设置」填火山 Key。</p>
+                <div class="produce-tts-actions">
+                  <button type="button" id="generateTtsBtn" class="btn-primary">生成全部配音</button>
+                  <button type="button" id="generateTtsShotsOnlyBtn" class="btn-ghost">仅分镜（不含完整稿）</button>
+                </div>
+                <div id="ttsProgress" class="progress hidden">
+                  <div class="progress-track"><div id="ttsProgressFill"></div></div>
+                  <p id="ttsProgressText"></p>
+                </div>
+                <div id="ttsAudioList" class="tts-audio-list"></div>
+              </section>
+              <section class="produce-ai card-inset">
+                <h3>让 AI 帮忙改</h3>
+                <p class="hint">不消耗网页端模型。写好修改意见后，复制指令到 Cursor，Agent 会直接改 <code>productions/*.json</code> 文件。</p>
+                <textarea id="aiReviseInstruction" rows="3" placeholder="例如：总时长压到 55 秒；第 3–5 镜口播更口语；操作栏写清楚要录哪几个界面"></textarea>
+                <div class="produce-ai-actions">
+                  <button type="button" id="copyAiPromptBtn" class="btn-primary">复制 AI 修改指令</button>
+                  <button type="button" id="reloadPlanBtn" class="btn-ghost">刷新（AI 改完后点）</button>
+                </div>
+                <p id="aiPromptStatus" class="ai-prompt-status hidden"></p>
+              </section>
+            </div>
+
+            <div id="planPanelShot" class="plan-panel hidden">
+              <div class="produce-shots-head">
+                <h3 id="activeShotLabel">镜 1</h3>
+                <div class="produce-shots-actions">
+                  <button type="button" id="addShotBtn" class="btn-ghost btn-sm">+ 加一镜</button>
+                  <button type="button" id="deleteShotBtn" class="btn-ghost btn-sm">删除此镜</button>
+                </div>
+              </div>
+              <div id="shotsTable" class="shots-table shots-table-single"></div>
+            </div>
+          </main>
+          <div id="planEmpty" class="produce-empty card">
+            <div class="library-empty-icon">📝</div>
+            <p>左侧选择或新建一个视频策划</p>
+            <p class="hint">左侧选待拍视频，展开后点分镜编辑</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 配音设置 -->
+      <section id="viewSettings" class="app-view hidden">
+        <header class="view-head">
+          <h1>配音设置</h1>
+          <p class="hint">火山 TTS · 与 EvoFlow 创意媒体同一套 Key（Agent Plan 填 ark- 开头）</p>
+        </header>
+        <section class="card settings-card">
+          <div id="ttsSettingsStatus" class="settings-status"></div>
+
+          <div class="settings-section">
+            <label class="settings-label" for="ttsApiKey">火山语音 API Key</label>
+            <input type="password" id="ttsApiKey" class="settings-input" autocomplete="off" placeholder="ark-… 或 Speech Key" />
+            <p class="hint">也可设环境变量 ARK_API_KEY / VOLCENGINE_SPEECH_API_KEY</p>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-label-row">
+              <span class="settings-label">默认音色</span>
+              <span class="hint" id="ttsVoiceCount"></span>
+            </div>
+            <div id="ttsSpeakerPicker"></div>
+          </div>
+
+          <details class="settings-advanced">
+            <summary>高级选项</summary>
+            <div class="settings-section">
+              <label class="settings-label" for="ttsResourceId">Resource ID</label>
+              <input type="text" id="ttsResourceId" class="settings-input" value="seed-tts-2.0" />
+              <p class="hint">2.0 音色一般填 seed-tts-2.0</p>
+            </div>
+          </details>
+
+          <div class="settings-actions">
+            <button type="button" id="saveTtsSettingsBtn" class="btn-primary">保存设置</button>
+          </div>
+          <p id="ttsSettingsMessage" class="settings-message hidden"></p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="infoModal" class="info-modal hidden" role="dialog" aria-modal="true" aria-label="作品信息">
+    <div class="info-modal-backdrop" id="infoModalBackdrop"></div>
+    <div class="info-modal-panel">
+      <button type="button" class="info-modal-close" id="infoModalClose" aria-label="关闭">×</button>
+      <header class="info-modal-header">
+        <h3>作品信息</h3>
+        <p class="info-modal-hint" id="infoModalHint"></p>
+      </header>
+      <div class="info-modal-body" id="infoModalBody"></div>
+    </div>
+  </div>
+
+  <div id="chapterModal" class="chapter-modal hidden" role="dialog" aria-modal="true" aria-label="章节详情">
+    <div class="chapter-modal-backdrop" id="chapterModalBackdrop"></div>
+    <div class="chapter-modal-panel">
+      <button type="button" class="chapter-modal-close" id="chapterModalClose" aria-label="关闭">×</button>
+      <header class="chapter-modal-header" id="chapterModalHeader"></header>
+      <div class="chapter-modal-body" id="chapterModalBody"></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="关键帧预览">
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭">×</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一帧">‹</button>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一帧">›</button>
+    <div class="lightbox-body">
+      <img id="lightboxImg" alt="" />
+      <div class="lightbox-meta">
+        <div class="lightbox-title" id="lightboxTitle"></div>
+        <div class="lightbox-sub" id="lightboxSub"></div>
+        <div class="lightbox-vision hidden" id="lightboxVision"></div>
+        <button type="button" class="lightbox-seek" id="lightboxSeek">▶ 跳转原片</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/nav.js"></script>
+  <script src="/assets/tts-speaker-picker.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

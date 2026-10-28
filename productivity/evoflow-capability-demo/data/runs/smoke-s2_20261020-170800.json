@@ -1,0 +1,98 @@
+{
+  "ok": false,
+  "scenario": "s2",
+  "agent_code": "demo-1007-analyst",
+  "kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+  "knowledge_vault_ids": [],
+  "search_hits": 0,
+  "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+  "log": [
+    {
+      "step": "employees.get",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst",
+          "body": null,
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "knowledge.search",
+      "kb_id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "POST",
+          "path": "/api/knowledge/owned/bases/kb_77e358602f904e20aea3c4ba8efaf8f8/search",
+          "url": "http://127.0.0.1:8070/api/knowledge/owned/bases/kb_77e358602f904e20aea3c4ba8efaf8f8/search",
+          "body": {
+            "query": "短视频钩子 开场",
+            "mode": "hybrid",
+            "topK": 5
+          },
+          "dry_run": false
+        }
+      }
+    },
+    {
+      "step": "employees.ensure_idle",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst/busy",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/busy",
+          "body": null,
+          "dry_run": false
+        },
+        "stopped": {
+          "ok": false,
+          "error": "HTTP 503",
+          "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+          "trace": {
+            "method": "POST",
+            "path": "/api/proactive/roles/demo-1007-analyst/stop",
+            "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/stop",
+            "body": null,
+            "dry_run": false
+          }
+        }
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "result": {
+        "ok": false,
+        "error": "HTTP 503",
+        "detail": "{\"error\":\"loading_extended\",\"message\":\"扩展模块仍在加载，请稍后重试\",\"retry_after_ms\":2000}",
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-1007-analyst/dispatch",
+          "url": "http://127.0.0.1:8070/api/proactive/roles/demo-1007-analyst/dispatch",
+          "body": {
+            "goal": "必须先检索绑定的知识库中的爆款钩子案例，再基于命中内容写出 3 条可直接使用的短视频开场句（主题：普通人用 AI 做副业）。不要编造未检索到的案例。",
+            "description": "1007·S2 员工+知识库",
+            "priority": "normal",
+            "source": "demo-1007"
+          },
+          "dry_run": false
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "employee_has_kb": false,
+    "search_hits_ge_1": false,
+    "dispatch_ok": false
+  }
+}

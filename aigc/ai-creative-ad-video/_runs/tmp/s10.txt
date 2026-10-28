@@ -1,0 +1,1 @@
+{"asset_id": "S10", "type": "keyframe", "stage": "keyframe", "thread_id": "skill_8a14d949-31af-4311-8cf8-80f383499e36", "run_id": "skill_ce3638a5-fe40-40a4-b337-f1fa84113a89", "elapsed": 16.2, "result": "submitted", "attempt": 1, "refs": 2}

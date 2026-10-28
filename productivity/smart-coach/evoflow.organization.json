@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "kind": "team",
+  "id": "smart-coach-pack",
+  "name": "智能陪练（学员）场景包",
+  "version": "1.0.0",
+  "description": "1009 学员陪练全套：面板扩展（folder-link）+ 陪练师员工 + smart-coach 技能（folder-link）+ 陪练资料库。一次导入即可装配。",
+  "workspace": {
+    "path": "${ORG_ROOT}/workspace",
+    "name": "智能陪练工作区",
+    "create_if_missing": true
+  },
+  "primitives": {
+    "knowledge": [
+      {
+        "ref": "materials",
+        "name": "陪练资料库",
+        "description": "学员上传的陪练资料（data/materials）",
+        "import_folder": "./data/materials",
+        "upsert": true,
+        "prune_missing": false
+      }
+    ],
+    "skills": [
+      { "path": "./skills/smart-coach", "link": true }
+    ],
+    "agents": [
+      { "from": "./agents/smart-coach.yaml" }
+    ],
+    "extensions": [
+      { "from": "./", "link": true }
+    ]
+  },
+  "team": {
+    "employees": [
+      { "from": "./employees/smart-coach.json" }
+    ]
+  }
+}

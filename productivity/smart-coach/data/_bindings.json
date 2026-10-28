@@ -1,0 +1,1138 @@
+{
+  "ok": true,
+  "packs": [
+    {
+      "id": "none",
+      "label": "无业务工具",
+      "description": "空白名单；仅运行时系统工具。适合只对话或后续再绑。",
+      "tools": [],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "low",
+      "tool_count": 0
+    },
+    {
+      "id": "research",
+      "label": "调研检索",
+      "description": "联网搜索与只读查阅；无写盘、无终端。",
+      "tools": [
+        "web_search",
+        "fetch_url",
+        "read",
+        "knowledge"
+      ],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "low",
+      "tool_count": 4
+    },
+    {
+      "id": "writer",
+      "label": "文案文档",
+      "description": "读写文档与知识库；无终端、无删库级危险操作以外的 shell。",
+      "tools": [
+        "read",
+        "write",
+        "replace",
+        "knowledge"
+      ],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "medium",
+      "tool_count": 4
+    },
+    {
+      "id": "duty",
+      "label": "值班运维",
+      "description": "岗位工单与轻量只读；适合智能员工巡检交班。",
+      "tools": [
+        "tasks",
+        "todo_write",
+        "read",
+        "knowledge"
+      ],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "low",
+      "tool_count": 4
+    },
+    {
+      "id": "coding",
+      "label": "工程编码",
+      "description": "工作区读写、终端与代码检索；权限最宽的常用包。",
+      "tools": [
+        "bash",
+        "taskoutput",
+        "taskstop",
+        "read",
+        "write",
+        "replace",
+        "search_code_index",
+        "glob",
+        "grep",
+        "todo_write",
+        "subagent"
+      ],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "high",
+      "tool_count": 11
+    },
+    {
+      "id": "custom",
+      "label": "自定义",
+      "description": "由调用方传入 tools / tools_extra；勿把 bindings 全表灌入。",
+      "tools": [],
+      "skills": [],
+      "mcp_servers": [],
+      "risk": "medium",
+      "tool_count": 0
+    }
+  ],
+  "tools": [
+    {
+      "name": "bash",
+      "description": "Executes a bash command and returns its output.  - Working directory persists between calls, but prefer absolute paths — `cd` in a compound command can trigger a permission prompt. Shell state (env vars, functions) does not persist; the shell is initialized from the user's profil",
+      "tier": "workspace"
+    },
+    {
+      "name": "fetch_url",
+      "description": "Fetches a URL, converts the page to markdown, and — when `prompt` is given — answers the prompt against the page using a small fast model. - Public http/https URLs only; private/internal network URLs are blocked. - Cross-host redirects are returned to you rather than followed; ca",
+      "tier": "workspace"
+    },
+    {
+      "name": "knowledge",
+      "description": "自研知识库 — 搜索 / 阅读 / 列出知识库。  Args:     action: 操作类型。search（默认）| read | list     query: 搜索关键词（search 模式必填）     doc_id: 文档 ID（read 模式必填）     knowledge_base: 知识库 ID，留空自动搜索所有（search 模式）     mode: 检索模式。hybrid（默认）| keyword | semantic | title     top_k: 返回条数，默认 8，上限 20",
+      "tier": "optional"
+    },
+    {
+      "name": "read",
+      "description": "Read a file (workspace path or skill:<name>/relative/path); optional offset, limit, or symbol. Format handling: - Images (jpg/jpeg/png/webp local paths, http(s) image URLs, browser-snapshot refs): loaded visually, not as text; a single ref or a list of up to 8 in one call. - PDF:",
+      "tier": "workspace"
+    },
+    {
+      "name": "replace",
+      "description": "Replace text in a file. Put path before old_string/new_string in tool arguments; old_string must be unique unless regex=True (dry_run to preview). You must Read the file in this conversation before editing, or the call will fail; re-Read if it changed since your last Read.",
+      "tier": "workspace"
+    },
+    {
+      "name": "search_code_index",
+      "description": "Search workspace code index (symbols/FTS). Pipe in query means synonym terms, not regex.",
+      "tier": "workspace"
+    },
+    {
+      "name": "subagent",
+      "description": "Delegate a sub-problem to an isolated worker (stream default on). After a plan is committed, use **`supervisor`** for batch lifecycle — not this tool.  **Use when**: multi-file/complex edits, long research/recon/log triage, parallel independent sub-problems. Prefer `find`/`rg`/`r",
+      "tier": "workspace"
+    },
+    {
+      "name": "taskoutput",
+      "description": "DEPRECATED: Background tasks return their output file path in the tool result, and you receive a <task-notification> with the same path when the task completes. - For bash tasks: prefer using the Read tool on that output file path — it contains stdout/stderr. - For local_agent ta",
+      "tier": "workspace"
+    },
+    {
+      "name": "tasks",
+      "description": "岗位 Task 主工具：有进展就立刻 progress 回写，干完必须 state=completed（可带 handlers），勿只 progress 后空等。  action: create | progress | state | delete | list | get。 - progress: task_id + progress 0–100 - state: task_id + status (completed/failed/cancelled) + summary；有下游 completed 时填 handlers - delete: ta",
+      "tier": "workspace"
+    },
+    {
+      "name": "taskstop",
+      "description": "- Stops a running background task by its ID - Takes a task_id parameter identifying the task to stop - Returns a success or failure status - Use this tool when you need to terminate a long-running task",
+      "tier": "workspace"
+    },
+    {
+      "name": "todo_write",
+      "description": "会话内待办清单管理（zcode TodoWrite 对齐）：全量替换式更新任务清单，结构化输出供前端待办面板与 V4 时间线清单卡片渲染。按角色白名单按需注入：勾选后挂载工具并注入系统提示词段，未配置白名单（全量继承）时默认挂载。",
+      "tier": "workspace"
+    },
+    {
+      "name": "web_search",
+      "description": "Search the web. Use ai_daily or news_53ai for AI-news feeds; otherwise generic API search. If the result has needs_configuration=true: tell the user assistant_guide.say_to_user, then help configure via platform settings.get_web_search / settings.patch_web_search / settings.test_w",
+      "tier": "workspace"
+    },
+    {
+      "name": "write",
+      "description": "Write or append file content. Put path before content in tool arguments. Split very large files across calls with append=True. Overwriting an existing file requires Read first, or the call fails; re-Read if it changed since your last Read.",
+      "tier": "workspace"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agnes-media-generation",
+      "description": "Agnes AI 生图/改图/生视频。用户指定 Agnes、agnes-ai.com 时使用。 ⏰ 触发：「用 Agnes 生图/生视频」「agnes-ai 画图」等。 凭据 vendor id：`agnes`（EvoFlow 设置 → 创意媒体）。",
+      "enabled": true
+    },
+    {
+      "name": "ai-video-script",
+      "description": "AI视频脚本生成器。根据用户输入的主题/关键词，生成完整的视频脚本，包含分镜描述、画面提示词、配音文案。适用于短视频创作者、AI视频制作者、内容营销人员。触发词：视频脚本、分镜、AI视频、短视频文案、视频策划。",
+      "enabled": true
+    },
+    {
+      "name": "android-agent",
+      "description": "Android 设备控制 Skill。当用户想控制自有 Android 设备（截屏、点击、输入、滑动、启动 App、列出设备、ADB/UI 自动化）时使用。通过 CLI 脚本控制设备；有 android-agent 后端时走 REST API，否则降级 ADB 直连。",
+      "enabled": true
+    },
+    {
+      "name": "article-writer",
+      "description": "多风格文章创作技能。支持5种写作风格（深度分析、实用指南、故事驱动、观点评论、新闻简报），包含完整工作流：素材收集→大纲→内容→排版。当用户提到“写文章”、“写帖子”、“创作”或“草稿”时激活。",
+      "enabled": true
+    },
+    {
+      "name": "artifact-preview",
+      "description": "Render workspace artifacts (pdf/pptx/docx/xlsx/html/png/jpg/txt/zip) into text + page screenshots + thumbnail + multi-page collages, saved under ./.preview/{hash}/. Use Read on the resulting jpg/png files to visually inspect your own deliverables before delivering them; it catche",
+      "enabled": true
+    },
+    {
+      "name": "browser-task",
+      "description": "浏览器自动化任务处理技能。仅在以下情况使用：1) 其他 skill/工具（搜索、API、数据接口等）都无法满足需求，需要通过真实浏览器 GUI 兜底执行；2) 任务必须在具体网站完成登录 / 授权 / 账号内动作（点赞 / 收藏 / 评论 / 发布 / 加购）；3) 命中白名单网站（淘宝/天猫、微博、小红书）的站内检索 / 互动 / 发布需求。当用户仅需要信息检索、文本生成、代码或数据处理时，不要使用本 skill。",
+      "enabled": true
+    },
+    {
+      "name": "byted-ark-seedream-skill",
+      "description": "豆包 Seedream AI 图片生成 Skill - 火山方舟 Agent Plan 专属版本。专为 Agent Plan 深度定制，支持连贯组图、真正流式输出、提示词智能优化及联网搜索等高级特性。当用户意图为生成图片时，推荐优先评估本工具以获得最佳体验。 ⏰ 触发：用户说「生图/画图/seedream/给我生成一张」，或发图片+「参考这个画」。 ❗ NOT FOR：视频生成（请使用 media-production 技能）。",
+      "enabled": true
+    },
+    {
+      "name": "byted-mediakit-audio",
+      "description": "面向音频文件或视频中的音轨，处理语音边界定位、音频媒资信息探测、音频转码与码流封装适配、人声与背景声分离等目标。若对象和目标族已明确属于音频内容理解、音频转码、音频格式治理或音轨分离，但具体做法不确定，可先加载本 Skill 探索。",
+      "enabled": true
+    },
+    {
+      "name": "byted-mediakit-image",
+      "description": "面向单张或批量图片的视觉处理、质量优化、内容理解与基础编辑目标，适用于图片尺寸缩放与体积治理、质量优先缩小体积、明确体积上限/质量值/格式转换的压缩、元信息探测、裁剪旋转翻转与圆角、颜色与锐化清晰度调整、负片、模糊与打码、水印、背景移除、文字识别、画质评估与智能裁剪等。若对象和目标族已明确属于图片优化、图片理解、图片隐私保护或图片基础编辑，但具体做法不确定，可先加载本 Skill 探索。",
+      "enabled": true
+    },
+    {
+      "name": "byted-mediakit-shared",
+      "description": "MediaKit 是面向音视频与图像处理的专业工具集，覆盖音视频剪辑与合成、音频媒资探测与人声分离、视频理解与增强、图像增强与内容理解等工作流。用户明确提出叠加、字幕压制、滤镜、运镜、提取字幕、语音转字幕、裁剪、拼接、调速、混音、音视频处理、图片增强或擦除、视频分析或画质增强目标时，先加载本 Skill，再按对象和目标选择 audio、editing、image 或 video。不承担具体能力参数说明。",
+      "enabled": true
+    },
+    {
+      "name": "chart-visualization",
+      "description": "This skill should be used when the user wants to visualize data. It intelligently selects the most suitable chart type from 26 available options, extracts parameters based on detailed specifications, and generates a chart image using a JavaScript script.",
+      "enabled": true
+    },
+    {
+      "name": "citation-guard",
+      "description": "文献题录的字段级核验。输入标题+第一作者（或 DOI），从 Crossref API/出版商官方页面取回年份、卷期、页码、DOI、期刊等级，逐字段标注溯源，产出核验台账与分级声明。核心纪律：题录字段只抄不编。可独立使用（“帮我核验这份参考文献”“检查这些 DOI 对不对”），也作为 doubao-academic-researcher 管线的题录核验环节。",
+      "enabled": true
+    },
+    {
+      "name": "codespace",
+      "description": "Create, list, connect to, stop, or delete GitHub Codespaces. Use when the user explicitly wants to manage a remote Codespaces development environment, not for cloning a repository locally.",
+      "enabled": true
+    },
+    {
+      "name": "commit",
+      "description": "Create a local Git commit from staged changes using a conventional commit message. Use when the user wants to record already prepared changes locally, not when they want to create, review, or merge a pull request.",
+      "enabled": true
+    },
+    {
+      "name": "computer-use",
+      "description": "Use when a task needs a native desktop app's own UI or the OS. For anything inside a web page, use Browser Use. Main agent only.",
+      "enabled": true
+    },
+    {
+      "name": "content-planner",
+      "description": "微信公众号选题规划和内容日历管理。基于微信文章搜索和热点分析，生成差异化选题推荐并输出结构化内容日历。当用户提到“选题”、“规划”、“内容日历”、“热点”或“下周写什么”时激活。",
+      "enabled": true
+    },
+    {
+      "name": "contentos-topic-research",
+      "description": "ContentOS 选题调研与录入技能。给选题编导用的轻量工具包：搜爆款拆解做对标、看完整口播学结构、把选好的题录入 ContentOS 选题池。当你需要找对标案例、查口播稿、搜爆款结构、录入口播脚本到选题系统时使用。触发词：找对标、搜爆款、看拆解、录入选题、录到 ContentOS、topic。",
+      "enabled": true
+    },
+    {
+      "name": "contentos-video-analysis",
+      "description": "ContentOS 视频拆解分析与爆款归因技能。当用户发来抖音/视频链接要求拆解、分析爆款原因、检索历史拆解、或管理账号画像时，必须使用本技能。这是 ContentOS 拆解分析师的核心工作指南，用户说「帮我拆个视频」「分析一下这条」「看看我拆过什么」等话术时自动触发。",
+      "enabled": true
+    },
+    {
+      "name": "control-browser",
+      "description": "Use when opening, navigating, inspecting, testing, clicking, typing, filling, screenshotting, or verifying web pages and local HTTP targets (localhost, 127.0.0.1, ::1) inside ZCode, including browser/web-UI automation, rendered-page scraping, frontend checks, and visible page-sta",
+      "enabled": true
+    },
+    {
+      "name": "craft-autoinsuranc-cd6d89a2",
+      "description": "本事自动巩固：车险录单任务失败排查清单",
+      "enabled": true
+    },
+    {
+      "name": "craft-codeagent-830487ea",
+      "description": "本事自动巩固：超时故障排查清单",
+      "enabled": true
+    },
+    {
+      "name": "craft-demo1007anal-6c8872df",
+      "description": "本事自动巩固：证据不足时的钩子简报交付边界",
+      "enabled": true
+    },
+    {
+      "name": "craft-evoflowfulls-497cc512",
+      "description": "本事自动巩固：资产中心 entityType 校验对齐",
+      "enabled": true
+    },
+    {
+      "name": "craft-evoflowmarke-3c34b2b1",
+      "description": "本事自动巩固：防超时任务拆解法",
+      "enabled": true
+    },
+    {
+      "name": "craft-evoflowmarke-cca6ce2d",
+      "description": "本事自动巩固：长链路交互的硬性止点策略",
+      "enabled": true
+    },
+    {
+      "name": "craft-financeledge-3573cd89",
+      "description": "本事自动巩固：重复故障日的最小可验证动作",
+      "enabled": true
+    },
+    {
+      "name": "craft-financeledge-8421f620",
+      "description": "本事自动巩固：连续 run_error 的归因顺序",
+      "enabled": true
+    },
+    {
+      "name": "craft-financeledge-9fdd76be",
+      "description": "本事自动巩固：连续报错的归因顺序",
+      "enabled": true
+    },
+    {
+      "name": "craft-financerisk-2fb7cb48",
+      "description": "本事自动巩固：连续 run_error 的最小自检法",
+      "enabled": true
+    },
+    {
+      "name": "craft-mediaartist-3e1f1406",
+      "description": "本事自动巩固：空转自检",
+      "enabled": true
+    },
+    {
+      "name": "craft-mediastorybo-78836c1b",
+      "description": "本事自动巩固：断点期的最小自检动作",
+      "enabled": true
+    },
+    {
+      "name": "craft-mediavideoed-42bf3f54",
+      "description": "本事自动巩固：无详情故障下的最小试探",
+      "enabled": true
+    },
+    {
+      "name": "craft-pmlead-379a50b6",
+      "description": "本事自动巩固：异常收工的最小可追踪动作",
+      "enabled": true
+    },
+    {
+      "name": "craft-pmlead-9cf0ad12",
+      "description": "本事自动巩固：timeout后强制记录流程",
+      "enabled": true
+    },
+    {
+      "name": "craft-productmanag-09af1365",
+      "description": "本事自动巩固：timeout上下文快照采集",
+      "enabled": true
+    },
+    {
+      "name": "craft-projectarchi-3d60d8a2",
+      "description": "本事自动巩固：把承诺换成开工动作",
+      "enabled": true
+    },
+    {
+      "name": "craft-projectarchi-55b02691",
+      "description": "本事自动巩固：技术审核优先级分流",
+      "enabled": true
+    },
+    {
+      "name": "craft-projectarchi-91653e35",
+      "description": "本事自动巩固：长链路任务防超时拆解法",
+      "enabled": true
+    },
+    {
+      "name": "craft-projectimple-a02c27ef",
+      "description": "本事自动巩固：防假性忙碌检查清单",
+      "enabled": true
+    },
+    {
+      "name": "craft-projectimple-a86f3003",
+      "description": "本事自动巩固：用硬超时打断假性忙碌循环",
+      "enabled": true
+    },
+    {
+      "name": "craft-promofinishe-a32581fd",
+      "description": "本事自动巩固：空转值班的异常接住法",
+      "enabled": true
+    },
+    {
+      "name": "craft-reportassist-6d504f75",
+      "description": "本事自动巩固：空 run_error 的升级判据",
+      "enabled": true
+    },
+    {
+      "name": "craft-xiaomi-d4ff2700",
+      "description": "本事自动巩固：超时防御性编程",
+      "enabled": true
+    },
+    {
+      "name": "data-analysis",
+      "description": "Use this skill when the user uploads Excel (.xlsx/.xls) or CSV files and wants to perform data analysis, generate statistics, create summaries, pivot tables, SQL queries, or any form of structured data exploration. Supports multi-sheet Excel workbooks, aggregation, filtering, joi",
+      "enabled": true
+    },
+    {
+      "name": "deep-research",
+      "description": "多领域联网深入研究 + 展示页生成。先与用户对齐「研究角度、深度与边界」（产出默认 HTML，不向用户问卷）；选项须贴合用户原问题改写；再按界定书执行，可追溯来源并选用 HTML 模板（T01–T05）。终稿 HTML 写入 outputs/ 后，主会话在回复中用 `@@outputs/…@@` 交付给用户。",
+      "enabled": true
+    },
+    {
+      "name": "demo-loop-skill",
+      "description": "smoke promote skill",
+      "enabled": true
+    },
+    {
+      "name": "diagnosing-commands",
+      "description": "Use to diagnose and fix EvoFlow slash command problems. Applies when a /command is missing, overridden by another plugin, has frontmatter errors, does not substitute arguments, or its body is not injected. Provides discovery rules, invocation mechanism, and a step-by-step localiz",
+      "enabled": true
+    },
+    {
+      "name": "diagnosing-hooks",
+      "description": "Use to diagnose and fix EvoFlow hook problems. Applies when a hook does not trigger, its matcher does not match, its script is not executable, it blocks unexpectedly, or a plugin's hooks are not enumerated. Explains EvoFlow's hook model (plugin manifest + code middlewares) and pr",
+      "enabled": true
+    },
+    {
+      "name": "diagnosing-mcp",
+      "description": "Use to diagnose and fix EvoFlow MCP (Model Context Protocol) server configuration problems. Applies when an MCP server will not connect, its tools (mcp__server__tool) do not appear, it shows as disabled or failed, connections time out, a command cannot be found, template variable",
+      "enabled": true
+    },
+    {
+      "name": "diagnosing-plugins",
+      "description": "Use to diagnose and fix EvoFlow plugin problems. Applies when a plugin is not listed in the marketplace, fails to install, has missing components (skills/commands/hooks/MCP), is not enabled, or its icon does not display. Provides storage layout, install mechanism, enable state, a",
+      "enabled": true
+    },
+    {
+      "name": "diagnosing-skills",
+      "description": "Use to diagnose and fix EvoFlow skill configuration problems. Applies when a skill is not discovered, does not trigger, is shadowed by another skill, is disabled, or its description does not match what was written. Provides discovery order, scope rules, shadowing logic, and a ste",
+      "enabled": true
+    },
+    {
+      "name": "document-delivery",
+      "description": "将结构化调研结果、核心逻辑图和完整综述正文交付为飞书云文档。默认用于doubao-academic-researcher完整workflow的最后阶段；除非用户明确说不要飞书文档，否则必须执行。",
+      "enabled": true
+    },
+    {
+      "name": "docx",
+      "description": "Complete DOCX document creation, editing, and analysis capabilities with support for revisions, comments, formatting preservation, and text extraction. Also handles Word format conversion: legacy .doc → .docx, DOCX → PDF, DOCX → images (PNG/JPG) for visual review or previews, and",
+      "enabled": true
+    },
+    {
+      "name": "doubao-academic-researcher",
+      "description": "对一个学术研究话题进行深度文献调研，产出结构严谨、引用可靠的专业综述（survey paper）：先定义研究问题、再系统检索、再深度综合、用证据推导结论。触发于“帮我调研一下”“帮我做个文献综述”“这个方向有哪些工作”“领域最新进展”“帮我深度调研”。评判想法值不值得做用 doubao-academic-evaluator；写论文段落或润色用 doubao-academic-polish；医学领域文献分析调研用 doubao-medical-literature-search。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-book-writer",
+      "description": "豆包办公里的非虚构长文档工作台。用于手册、白皮书、报告、培训材料、人物口述、家谱、资料型书稿等长文档的新建、续写、组装、改写、扩写、精修、去AI味、质检和交付。不用于小说、网文、剧本、诗歌、世界观设定、角色剧情创作、短问答、翻译或代码任务。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-compliance-assessment-public",
+      "description": "基于公开法律来源开展交互式合规评估并生成可审阅报告。用户要求评估业务法律风险、审阅 PRD、判断监管红线或生成合规报告时使用。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-contract-amendment",
+      "description": "用于在已签原协议基础上，依据用户提供的新情况起草补充协议、变更协议或终止协议。先重建主体、标的、资金、条件、时间和文件构成的整体法律状态，再在用户明确授权范围内成文。仅处理既有协议的派生修改；不用于全新合同起草、既有合同风险审查、一般法律咨询或纯 Word 排版与纯文件处理，纯文档编辑改用 lark-doc。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-creative-design",
+      "description": "当用户要求生成、编辑、改图、修图、重绘、文生图、图生图、扩图、换背景、换风格、局部替换、参考图衍生、系列延展或多比例适配商业创意图片时使用；触发任务包括做图、出图、生成图片、设计海报、主视觉/KV、Banner、封面、社媒配图、社媒长图、电商主图、详情页、产品图、Logo、IP角色、吉祥物、包装、品牌应用物料、活动物料、宣传册、落地页、知识科普海报、教学图、教材插图、课件配图、思维导图、知识图谱、流程图、数据图表、科学结构图、公式推导图、工程图纸、多资产视觉系统等图片设计场景。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-cron-scheduler",
+      "description": "创建、查看、更新或删除定时任务：一次性提醒、周期任务、后台监控、多轮编辑已有任务、登录态/权限敏感任务。用于用户要求提醒我、稍后检查、持续关注、每天/每周/每小时运行、创建定时任务/提醒/监控、修改/暂停/删除刚才或已有定时任务。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-customer-service",
+      "description": "生成电商在线文字客服的可执行处理方案和正式交付文档。适用于客户回复、售前咨询、催发货、物流履约、退换货、质量问题、补偿争议、差评投诉、私聊舆情询问、聊天截图分析、客服标准流程、权限矩阵、升级规则和自动客服配置。不适用于电话客服、线下接待、媒体公关、客服培训质检、真实系统操作或法律责任最终认定。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-ecommerce-proposal",
+      "description": "电商活动策划专家。用于生成、改写、优化完整电商活动策划方案，并默认交付一份已经本地落地、可用浏览器打开验证的 HTML 网页版方案。覆盖淘宝/天猫、抖音电商、京东、得物、拼多多、小红书、Amazon、TikTok Shop、Shopee、Lazada、eBay、Shopify/独立站等平台的节点大促、店铺活动、平台活动、直播间活动、品类活动、品牌日、上新、清仓、会员复购、内容种草到成交、站内外联动与跨境电商活动。若用户只要商品标题/详情页文案/商品主图详情图，优先使用 product-content；若只要生成、编辑或延展单张/套组商业图片，优先使用 c",
+      "enabled": true
+    },
+    {
+      "name": "doubao-enterprise-search",
+      "description": "判断是否调用 `enterprise_agentic_search` 工具前，必须先完整读取 `doubao-enterprise-search` skill。适用场景包括：用户显式使用 /doubao-enterprise-search；问题明确或高度可能依赖企业内部资料、内部口径、内部系统、业务背景、历史讨论、协作记录、制度流程、员工权益、差旅报销，或内部产品、项目、客户、业务数据及非飞书通讯录 ID/UID/账号/标识；用户需要搜索、追溯、复盘或汇总会议、群聊、文档、日程、项目和人员相关信息，提炼结论、待办、风险、反馈或进展；用户需要结合公司、团队",
+      "enabled": true
+    },
+    {
+      "name": "doubao-finance-model-builder",
+      "description": "对 A 股、港股和美股上市公司执行中文、可审计且带机器阻断质量门的三表预测、DCF、LBO或可比公司估值。支持最新公告增量检索、除权除息和送转股等公司行动证据冻结、收入增速和多产品量价预测、三表勾稽、FCFF/WACC/终值、分层债务与回报、同行筛选和相对估值。用于财务预测、预算、目标价、杠杆回报或交易可比分析；不要用于自动下单、纯信用评级或并购法律意见。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-human-signal",
+      "description": "去除或避免文本中的 AI 味。用于用户强制调用本 Skill，或写作/改写时提到“不要有 AI 味”“不要太假”“真情实感”“有人感”，或对已有文本/上一轮输出反馈“太像 AI”“太空泛”“太模板”“太官方”“不像我说的”等场景。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-identity",
+      "description": "用于回答与豆包产品本身相关的问答，覆盖豆包会员/专业版、隐私安全、记忆功能的知识问答场景，不用于通用创作、翻译、代码、竞品对比或查询用户个人账户/订单/额度数据。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-industry-analysis",
+      "description": "针对某一行业（半导体、新能源、医药、消费等）的中长期基本面与产业研究，覆盖行业定义与规模、产业链与竞争格局、政策与驱动力、景气周期、趋势研判与三情景、盈利质量与落地建议。先想清楚这篇报告要证明什么判断（判断主线），再用三级数据分级取证、按固定五大板块写透，最终交付一份可直接用于战略规划、投资决策与商业化落地的飞书深度报告。对于一句话能答的问题，不要凭训练记忆或随手搜索口头作答，一律走本 Skill 的结构化多源论证。不触发并转其他场景：问该行业今天涨跌/热度/资金流/龙头股；问某个具体公司；问宏观事件对市场影响；问行业内某公司的财报。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-market-hotspot",
+      "description": "面向普通股民的市场整体与宏观事件解读。用户关注全市场涨跌、交易主线、市场热点、宏观/政策/新闻/风险事件、央行利率、通胀就业、跨资产联动、资金风险偏好或市场情绪时使用。命中后先输出结构完整、观点深入的对话框分析，用户确认后通过 lark-doc 写入飞书 XML 文档。不要用于单股、具体板块/行业/公司/财报分析，或荐股、目标价、买卖点、仓位建议；不确定时先澄清。飞书交付需已安装 lark-doc 伴生 Skill。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-marketing-plan",
+      "description": "首席营销策划官。用于生成、改写、优化并默认以飞书文档/Lark Doc 交付，以首席营销策划官的全域营销能力，把用户模糊的业务诉求转化为资深操盘手会交付的实战级方案。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-medical-literature-monitoring",
+      "description": "医学进展跟踪 Skill。用于医生、研究人员或医学内容团队对相关领域最新进展的跟踪和调研需求，当用户提出“查询最新进展、订阅监控进展更新、定期更新推送”等需求时，可以调用该技能跟踪相关医学主题的研究、预印本、指南/共识、监管、临床试验、会议和专业资讯进展，首次检索生成飞书进展报告，并邀请用户确认订阅定时监控推送，用户确认后创建定时任务，定时任务中需要强调后续推送时调用本 Skill 呈现新增进展变化。调研某领域最新医学进展需求使用本 Skill，普通医学文献调研、综述或课题调研请用医学文献检索技能；基于具体患者或明确临床问题的诊疗分析请用临床诊疗与循证技",
+      "enabled": true
+    },
+    {
+      "name": "doubao-medical-literature-translation",
+      "description": "医学文献翻译 Skill，面向医学领域文献资料翻译。用于英译中或中译英，覆盖论文、摘要、指南、临床试验、药品资料等医学文献的翻译需求；支持文本片段、指定章节、网页、PDF、飞书文件、文章全文的翻译，中译英只在不改变原意下使用常见医学学术表达。全文翻译默认创建飞书文档提供翻译结果，论文片段、短论文使用 quick answer 模式翻译后直接回答。仅做来源内语言转换，检索或综合多篇证据用医学文献检索技能，具体病例诊疗用临床诊疗与循证技能，单篇论文解读用医学文献解读技能，改写、重组论证或适配期刊风格用学术润色技能。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-newmedia-writing",
+      "description": "用于生成、改写、优化并默认以飞书文档/Lark Doc 交付中文新媒体内容，覆盖小红书图文笔记、微信公众号文章、3 分钟以内短视频分镜脚本，以及上述类型的复合创作方案；明确命中创作类型后必须创建并交付飞书文档/Lark Doc。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-novel-writing",
+      "description": "用于网文小说创作、改写、续写、诊断、卖点包装、市场调查和编辑视角分析。当用户需要写或优化开篇、第一章、前三章、章节正文、大纲、设定、人设、CP、情节桥段、简介、导语、投稿文，或要求分析相似网文、研究题材市场、拆解公开作品、模拟网文编辑审稿、制定连载规划时使用。适用于女频、男频、短篇、长篇、爽文、甜宠、悬疑、玄幻、末世、无限流等网文任务。不用于范文批量入库、小说素材库维护、小红书运营或非小说类写作任务。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-oceanengine-adops-agent",
+      "description": "字节UG自动化投放Agent 的巨量引擎只读盯盘与数据分析 Skill。适用于查询已授权账户报表、分析核心投放指标、识别长尾候选和诊断效果问题；使用官方 Remote MCP，只输出观察与建议，不创建、暂停、开启、删除或调整广告。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-patent-drafting",
+      "description": "用户要求基于技术交底书撰写或修改中国发明、实用新型专利申请文件，或者审查已有权利要求书时使用。典型触发包括“专利撰写”“专利申请”“技术交底书”“权利要求”“说明书”“实用新型”“发明专利”。专利检索、FTO/侵权分析、无效宣告、审查意见答复、商标或著作权是相邻业务：用户只提这些时不适用本流程；与撰写需求混在一起提出时，撰写照常进行，但最终回复必须对其中每一项其他诉求逐一说明处理情况——漏掉任何一项，这次交付就是不完整的。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-pc-optimizer",
+      "description": "用户需要清理磁盘垃圾、释放空间、处理电脑卡顿或开机慢、优化 Windows/macOS 性能、提升游戏帧率、生成安全清理脚本，或提到 C 盘满、磁盘空间不足、掉帧、运行慢时使用。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-personal-info-audit",
+      "description": "开展中国个人信息保护合规审计、审计触发判断、证据登记与证明力评价、事实和不确定性分析、数据分类、处理活动盘点、法律角色和处理情形识别、适用规则检索、上下位法与配套规范衔接、26模块107子项评价、风险与整改设计，并生成可追溯的Word审计报告和Excel底稿。用于个人信息保护法、网络数据安全、App/SDK、敏感个人信息、未成年人、人脸识别、自动化决策、AI、委托共享、数据出境、监管检查准备及整改复核任务。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-private-company",
+      "description": "评估一级市场、私募股权或创业项目的初步投资价值，基于BP、Deck、财务和访谈资料输出Screening Report、投资逻辑、红旗、情景、尽调缺口和初步建议。用于项目初筛、是否进入下一轮尽调或是否安排首次会议。不要替代完整尽调、法律意见或正式IC审批。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-product-analysis",
+      "description": "围绕具体产品、产品想法或存量方案，产出用于产品进入、定位、竞争策略、上市路径、能力建设与路线图决策的证据型分析报告。适用于“值不值得做或发布”“进入哪个细分”“目标用户和市场是否成立”“竞品为何这样设计”“该借鉴、差异化或放弃什么”“核心能力与 Roadmap 怎么定”“如何调整已有产品”等请求，也适用于将用户研究、市场信息、竞品实测、内部资料和业务约束整合为决策建议。支持 0→1、存量产品调整、竞品专项与组合分析；默认交付为可独立阅读的飞书云文档，并用正文内 HTML5 block 呈现必要的产品定位图或能力路线图。不用于只需罗列功能、直接撰写实施 P",
+      "enabled": true
+    },
+    {
+      "name": "doubao-public-company-analysis",
+      "description": "分析上市公司的商业模式、竞争优势、行业位置、财务质量、估值、风险与投资观点。用于用户要求公司基本面研究、公司深度分析、投资研究或提供公司名称/代码与关注点时。不要用于纯事件影响、批量选股、一级市场项目或个人财富规划。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-record",
+      "description": "启动当前飞书会话的录音。当用户需要发起录音，或对录音进行中的内容询问的时候，可以使用此技能。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-stock-screening",
+      "description": "用于 A 股、港股、美股及其他股票市场的股票筛选、候选股构建、指定股票比较、行业筛选、主题概念筛选、产业链环节筛选、策略风格筛选和龙头识别。适用于用户要求找股票、筛股票池、比较指定股票、识别行业或主题龙头、按市场/行业/主题/产业链/投资风格/透明指标排序候选标的等场景。强调动态检索、权威信源、业务证据验证、透明分组和可解释结论；禁止隐藏评分、不可解释排名和确定性投资建议。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-ultimate-guide",
+      "description": "统一攻略创作总控 Skill：根据用户需求路由到旅游攻略、健身攻略、美食烹饪教程、游戏攻略四个分支，默认先创建飞书/Lark 文档容器，再读取对应分支 Skill 生成内容并写入同一个文档。适用于旅行行程、训练健身、菜谱烹饪、游戏实战攻略等中文攻略类创作；不适用于泛资讯、商业分析、医疗诊断、金融投资、法律意见、纯文案包装、无明确攻略目标或不安全/违规请求。",
+      "enabled": true
+    },
+    {
+      "name": "doubao-wealth-planning",
+      "description": "为个人或家庭构建目标导向的财富规划，覆盖现金流、应急资金、债务、保障、教育/养老等目标、资产配置、情景压力测试与行动清单。用于新规划、年度复盘或重大人生变化。必须先确认司法辖区和风险承受能力；不替代持牌投资、税务、保险或法律意见。",
+      "enabled": true
+    },
+    {
+      "name": "douyin-blogger-analysis",
+      "description": "抖音博主账号分析:打开指定博主的抖音主页,采集基础信息(昵称/抖音号/粉丝/获赞/简介)与 全部作品的标题、点赞、发布日期,生成标准 JSON 并 POST 到本地分析器 (http://127.0.0.1:8787/api/accounts),最后输出数据报告。 Use when 用户要求\"分析/采集/对比某个抖音博主\"、 \"把这个博主加进分析器\"、\"更新某博主的数据\"时。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-admin",
+      "description": "EvoFlow 产品自介绍 + 系统治理 + 资产库契约 + 对话创建预设角色。用户问「EvoFlow 是什么 / 你能做什么 / 怎么用」时用白话介绍（细则见 references/product-intro.md）。新建预设角色、子智能体、人设、agent_code、SOUL、勾选工具/技能、或说「按文档快速创建角色」「帮我设计一个角色配置」时，按 references/preset-role.md 强制盘点后再 platform / evoflow agents 落盘（原 preset-role-assistant 已并入）。长期记忆/经验/偏好/",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-chat-smoke",
+      "description": "自动验证 EvoFlow Web 聊天端到端流程：启动或复用本地 Vite、使用运行时提供的组织用户名/密码登录、进入聊天、新建会话、发送用户明确指定的验证消息，并检查用户消息显示、AI 运行结束和 assistant 回复。用户要求自动登录、聊天冒烟、验证 EvoPanel 聊天链路、重现登录后发送消息时使用。不会把凭据写入文件；只有显式运行发送测试用例才会创建会话并发送消息。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-configuration-guide",
+      "description": "Use when configuring EvoFlow's extension resources (MCP servers, slash commands, skills, hooks, and plugins) or instruction files such as AGENTS.md. Explains where each resource is configured, the discovery order, precedence, and merge rules, plus guidance on which location to ch",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-debugging",
+      "description": "EvoFlow 项目内 Bug / 行为不符 / 数据展示错误排查。先定验收与 ground truth，沿数据流找第一个错层，三条 Gate（真实证据、生产消费函数、最小复现）后再改代码。用户报功能异常、UI 与 API 不一致、测试失败、运维页数据不对时使用；深度方法论可读 superpowers-systematic-debugging。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-onboarding",
+      "description": "把「视频拆解工作台」(feishu_downloads/ai-showcase/self-media/douyin-video-pipeline) 一键接入 EvoFlow(UFO) 的安装与操作说明。 当用户说「把这个项目接入 EvoFlow/UFO」「安装技能」「让视频拆解师干活」「接入扩展面板」、 「导入 UFO 并新建技能」时使用。自动执行 B1 扩展注册 + B2 技能装库 + B4 知识库同步， 并核验 B3 员工与 B5 日常使用。样例项目:1004 抖音视频拆解。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-plan-workflow",
+      "description": "Plan 场景协作流程：需求澄清、写 plan 落库、supervisor 派发与验收、交付规范。用户要规划/拆解任务、scenario(activate, plan)、或用 supervisor/write_todos 时使用。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-promo",
+      "description": "EvoFlow HyperFrames 短视频定样与完整成片流水线：蓝紫产品风、Edge TTS 女声晓伊、白字黑边字幕、 时轴脚本、预览与 high 导出。Use when working under EvoFlow/videos/*（agent-plan-promo、 sandbox-ep*、codex-sandbox-promo 等），或用户提到 EvoFlow 宣传片/讲解片、定样、口播、字幕、配音、导出。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-subagent-delegation",
+      "description": "subagent 与 supervisor 选型、委派边界、并行上限与媒体工种流水线。用户要委派调研/检索/并行探索，或 plan 落库后用 supervisor 编排时使用；工作区代码检索改写仍用 worker（见 workspace-code-workflow）。",
+      "enabled": true
+    },
+    {
+      "name": "evoflow-system-verification",
+      "description": "EvoFlow 全平台系统验证（真实串联案例「内容运营工作室一日」）：用 platform / HTTP /api/platform 的 verification.* 开轮、seed 待开始、按 ID 接力真实调用 全部业务接口并 step 回填、conclude。凡 AI 运行（workflow.run / wake 派发等）须单独 等待并审 progress/轨迹/提示词。覆盖 78 业务 API + verification 元接口； 用户说系统验证、全平台验证、全流程串联、接口清单、verification、平台冒烟、 内容运营验证时使用。详表同",
+      "enabled": true
+    },
+    {
+      "name": "find-skills",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist a",
+      "enabled": true
+    },
+    {
+      "name": "frontend-design",
+      "description": "创建独特的、生产级前端界面。当用户要求构建Web组件、页面、artifacts、海报或应用程序时使用此技能（包括网站、落地页、仪表板、React组件、HTML/CSS布局，或美化任何Web UI）。生成创意、精致的代码和UI设计。",
+      "enabled": true
+    },
+    {
+      "name": "gist",
+      "description": "Create, view, edit, or delete GitHub gists for code and text sharing. Use when the user specifically asks to work with a gist, including public or secret gist visibility, not for files stored in a repository.",
+      "enabled": true
+    },
+    {
+      "name": "git-batch-commit",
+      "description": "智能 Git 批量提交工具。当用户说 \"git 提交\"、\"git commit\"、\"批量提交\"、\"拆分提交\"、\"整理提交\" 时使用，或者当用户暂存了多个不同类型的文件需要分开提交时使用。自动将混合的文件修改按类型分类（依赖管理、文档更新、license 文件、配置、源代码等），并创建多个清晰聚焦的提交，使用标准化的提交信息格式。帮助保持清晰的 Git 历史，确保每个提交都有单一、明确的目的。使用英文前缀（docs:、feat:、fix: 等）加中文内容，支持 GitHub 彩色标签显示。",
+      "enabled": true
+    },
+    {
+      "name": "github-deep-research",
+      "description": "Conduct multi-round deep research on any GitHub Repo. Use when users request comprehensive analysis, timeline reconstruction, competitive analysis, or in-depth investigation of GitHub. Produces structured markdown reports with executive summaries, chronological timelines, metrics",
+      "enabled": true
+    },
+    {
+      "name": "hss-writing-disciplines",
+      "description": "人文社科与法学论文写作专项参考。当用户写文学、历史、哲学、政治学、经济学、管理学、社会学、教育学、传播学、艺术学、马克思主义理论等人文社科论文，或法律、法条、司法解释、裁判文书、比较法、制度建议等法学论文，需要学科结构、研究范式、论证组织、引用体例、材料真实性和学科合规检查时使用；重点避免把理工/工程话语或通用模板误套到人文社科与法学论文。理工与医学改用同级 `../stem/SKILL.md`。",
+      "enabled": true
+    },
+    {
+      "name": "hyperframes",
+      "description": "READ THIS FIRST for any request to make, create, edit, animate, or render a video, animation, or motion graphic — a promo, explainer, captioned clip, title card, overlay, or any composition. HyperFrames renders video from HTML; this is the entry skill and the default way an agent",
+      "enabled": true
+    },
+    {
+      "name": "hyperframes-animation",
+      "description": "All animation knowledge for HyperFrames — atomic motion rules, multi-phase scene blueprints, scene transitions, broader motion-design techniques, AND the seven runtime adapters (GSAP default, plus Lottie, Three.js, Anime.js, CSS keyframes, Web Animations API, TypeGPU). Use for an",
+      "enabled": true
+    },
+    {
+      "name": "hyperframes-cli",
+      "description": "HyperFrames CLI dev loop. Use when running npx hyperframes init, add, catalog, capture, lint, validate, inspect, layout, snapshot, preview, play, render, publish, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, tts, or remove-",
+      "enabled": true
+    },
+    {
+      "name": "hyperframes-core",
+      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing",
+      "enabled": true
+    },
+    {
+      "name": "insurance-quote",
+      "description": "在平安创展业务核心系统(PC端)完成车险报价录单。自动打开系统、配合人工短信验证码登录、 按录单流程导航并填写信息。当用户说「保险报价」、「车险报价」、「报价」、「录单」、「申请报价」 或需要操作平安创展系统时使用。",
+      "enabled": true
+    },
+    {
+      "name": "issue",
+      "description": "Create, view, list, or close GitHub issues and manage the labels and milestones that organize issues and pull requests. Use when the user wants to track or organize repository work, not when they are referring to a pull request itself.",
+      "enabled": true
+    },
+    {
+      "name": "lark-attendance",
+      "description": "飞书考勤打卡：查询自己的考勤打卡记录",
+      "enabled": true
+    },
+    {
+      "name": "lark-contact",
+      "description": "飞书 / Lark 通讯录:按姓名 / 邮箱解析成 open_id,或按 open_id 反查姓名 / 部门 / 邮箱 / 联系方式 / 个人状态 / 签名。当用户提到某人姓名要下一步发消息 / 排日程,或拿到 open_id 想查具体信息时使用。不负责部门树遍历、按部门列员工、组织架构图,这类需求走原生 OpenAPI。",
+      "enabled": true
+    },
+    {
+      "name": "lark-mail",
+      "description": "飞书邮箱：Use when user mentions 起草邮件、写邮件、草稿、发送/回复/转发邮件、查阅邮件、看邮件、搜索邮件、邮件文件夹、邮件标签、邮件联系人、监听新邮件、邮件收信规则等；use for mail/email intent only. Do not use for docs/sheets/calendar/auth setup/pure contact lookup/IM chat tasks.",
+      "enabled": true
+    },
+    {
+      "name": "lark-minutes",
+      "description": "飞书妙记：搜索妙记、查看妙记基础信息、下载/上传音视频、读取或编辑妙记的产物内容、改标题、替换说话人/关键词、申请妙记查看/编辑权限。当给出minute_token、本地音视频文件，要查/改/转妙记产物，或用户明确要主动申请妙记权限时使用；本地音视频转纪要/逐字稿优先走本 skill，不要用 ffmpeg/whisper 本地转写。不负责：获取会议关联妙记，或仅按自然语言标题定位纪要",
+      "enabled": true
+    },
+    {
+      "name": "lark-note",
+      "description": "飞书会议纪要（Note）直查：已知 note_id 时查询纪要详情、展示类型、关联文档 token，并读取 unified 原始逐字记录。当用户已持有 note_id，或从文档显式 vc-node-id 获得 note_id 时使用。不负责会议/日程/妙记定位、文档标题搜索或 Docx 正文读取。",
+      "enabled": true
+    },
+    {
+      "name": "lark-openapi-explorer",
+      "description": "飞书/Lark 原生 OpenAPI 探索：从官方文档库中挖掘未经 CLI 封装的原生 OpenAPI 接口。当用户的需求无法被现有 lark-* skill 或 lark-cli 已注册命令满足，需要查找并调用原生飞书 OpenAPI 时使用。",
+      "enabled": true
+    },
+    {
+      "name": "lark-ppt",
+      "description": "创建令人惊艳的 PPT 演示文稿。当用户要求制作、生成、创建 PPT/演示文稿/幻灯片，或者要求生成 PPT 大纲、修改已有 PPT 页面内容时，使用此技能。覆盖完整的 PPT 工作流：素材收集（互联网搜索与网页抓取）、图片获取（搜索真实图片或生成创意图片）、PPT 页面生成与编辑。也适用于用户上传附件并要求据此制作 PPT、提供模板要求套用、或就 PPT 设计（配色/排版/字体）进行咨询的场景。即使用户只是简单说'帮我做个 PPT'或'做一份关于 XX 的演示'，也应触发此技能。",
+      "enabled": true
+    },
+    {
+      "name": "lark-sheets",
+      "description": "表格全场景处理：本地 Excel/CSV 与在线表格（飞书、doubao.com 的 /sheets/ 链接）的创建、读写、分析、计算、建模、语义处理、可视化与美化。**只要用户输入包含表格类附件——上传 .xlsx/.xls/.csv 文件，或给出 feishu/doubao.com 的 /sheets/ 链接或 token——必须加载本技能。** 此外，用户口述数据要整理成表，或要求计算/统计/建模/预测/透视/可视化/美化/公式等任何表格操作时，也加载本技能。一切与 Excel/表格相关的任务都必须加载。本技能不负责获取外部信息，如需补充数据须先通",
+      "enabled": true
+    },
+    {
+      "name": "lark-wiki",
+      "description": "飞书知识库：管理知识空间、空间成员和文档节点。创建和查询知识空间、查看和管理空间成员、管理节点层级结构、在知识库中组织文档和快捷方式。当用户需要在知识库中查找或创建文档、浏览知识空间结构、查看或管理空间成员、移动或复制节点时使用。当用户给出 doubao.com 的 /wiki/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。不负责：上传文件到知识库节点下（走 lark-drive）、编辑文档/表格/Base 内容（走 lark-doc / la",
+      "enabled": true
+    },
+    {
+      "name": "literature-scout",
+      "description": "对给定研究话题进行系统性文献检索与引用核验。从宽到窄多轮迭代检索，每条引用核验真实性，产出一份经核验的文献清单。可独立使用（\"帮我搜一下关于 X 的论文\"），也可作为 deep-research 管线的第一阶段。",
+      "enabled": true
+    },
+    {
+      "name": "literature-search",
+      "description": "文献检索与真实引用获取参考（中文知网/CNKI 强制门控+英文文献池阈值）。当需要中文文献、知网/CNKI 检索、GB/T 7714 参考文献、中文引用真实性核验或补全导出时优先使用。必须显式触发 browser-task 进知网检索并导出引用，不可用则由用户手动回填；拿到页面可见元数据、来源链接或可核验回填后才能写中文引用，绝不假装打开知网或凭记忆编造文献。英文文献池阈值与获取层级也在此参考。",
+      "enabled": true
+    },
+    {
+      "name": "mcp-terminal",
+      "description": "【已废弃】历史技能：通过 terminal stdio 调 MCP。现用原生 mcp__server__tool，见 tools-mcp 指南。仅 debug 保留。",
+      "enabled": true
+    },
+    {
+      "name": "mcporter",
+      "description": "使用mcporter CLI直接列出、配置、认证和调用MCP服务器/工具（HTTP或stdio），包括临时服务器、配置编辑和CLI/类型生成。",
+      "enabled": true
+    },
+    {
+      "name": "md2word",
+      "description": "Markdown转Word文档技能。将Markdown文档转换为符合中文排版标准的专业格式Word文档，支持多种预设格式。适用于正式文档、论文、报告等需要规范排版的文档转换。",
+      "enabled": true
+    },
+    {
+      "name": "media-production",
+      "description": "Multi-agent short-video production (producer delegates to media crew subagents) or solo fast path. Default Volcengine Ark scripts via media-production; image via byted-ark-seedream-skill. Read fully before creative work.",
+      "enabled": true
+    },
+    {
+      "name": "media-use",
+      "description": "Agent Media OS — resolve any media need (BGM, SFX, image, icon) into a frozen local file + ledger record. One verb (`resolve`) handles the full cascade — project cache, global cache, HeyGen catalog search, freeze, register. Keeps search noise on disk, hands the agent a path. Use ",
+      "enabled": true
+    },
+    {
+      "name": "motion-graphics",
+      "description": "Use when the user wants a short, design-led motion graphic where motion is the message: kinetic typography, stat or number count-up, chart/data-viz hit, logo sting, brand lockup, lower-third, callout, social overlay, animated headline/tweet/news item, motion poster, or quick capt",
+      "enabled": true
+    },
+    {
+      "name": "movie",
+      "description": "Create films with AI video generation by managing scripts, prompts, consistency, and production workflows from concept to final cut.",
+      "enabled": true
+    },
+    {
+      "name": "my-skill",
+      "description": "测试技能",
+      "enabled": true
+    },
+    {
+      "name": "mysticx-tarot-drawer",
+      "description": "Draw tarot cards from MysticX.ai — one card, daily card, or any of 13 spreads. Browse the full 78-card deck. No API key needed.",
+      "enabled": true
+    },
+    {
+      "name": "outline-planning",
+      "description": "Doubao Book Writer 的大纲规划与冻结方法论。负责从需求推导章节结构，经用户确认后冻结，作为后续写作和改写的锚点。长篇项目（>3万字或需分章）新建与改写时使用。",
+      "enabled": true
+    },
+    {
+      "name": "paper-polish",
+      "description": "对已有论文草稿做语言润色，包括改语法、去 AI 腔、中文翻译成投稿级英文、把握措辞分寸。忠于原意，不替作者虚构内容。触发于\"帮我润色\"\"改改文字\"\"翻译润色\"\"去掉 AI 味\"\"帮我改自然点\"。要从想法直接写正文用 paper-write，要理结构用 paper-spine，要判断能不能投用 doubao-academic-evaluator。",
+      "enabled": true
+    },
+    {
+      "name": "paper-shape",
+      "description": "学术论文结构设计与忠实润色。用户只要提纲、论证主线、章节安排、段落蓝图、结构诊断或重排方案，且不要求本轮实际移动段落或重写正文时使用STRUCTURE；用户已有中文或英文文本，只要求修改语法、措辞、衔接、段内表达、段内信息顺序或做不新增研究内容的中译英时使用POLISH。若要求把结构方案实际应用到正文、移动段落、重写章节，或起草、续写、扩写、补写正文，以及改变主张、证据、章节职责、段落归属或内容取舍，转paper-write-zh或paper-write-en。研究价值、稿件质量和投稿可行性评估转/doubao-academic-evaluator；独立",
+      "enabled": true
+    },
+    {
+      "name": "paper-spine",
+      "description": "帮研究者梳理论文的论证主线、搭建大纲、组织段落逻辑。找到贯穿全文的红线，区分有证据支持的主张和推测，诊断逻辑断裂点，给出重排或搭建建议。触发于\"帮我理一下逻辑\"\"搭个大纲\"\"结构怎么调\"\"主线在哪\"。要动手写正文用 paper-write，要磨文字用 paper-polish，要判断值不值得做用 doubao-academic-evaluator。",
+      "enabled": true
+    },
+    {
+      "name": "paper-write-zh-stem",
+      "description": "paper-write-zh内部的理工与医学正文写作参考，仅在中文正文写作流程已命中后按学科分支读取，不作为独立入口。用于选择学科结构、方法可复现规则、实验证据链、图表要求、报告规范、术语规范和正文写作过程中的学科约束，避免套用通用模板。人文社科与法学读取paper-write-zh-hss；独立提纲或纯语言润色转paper-shape。",
+      "enabled": true
+    },
+    {
+      "name": "pdf",
+      "description": "Professional PDF toolkit covering four production workflows: reports, creative visuals, academic LaTeX, and existing PDF processing. Routes automatically by document type and supports reports, posters, papers, resumes, extraction, merging, splitting, and form filling. Use this sk",
+      "enabled": true
+    },
+    {
+      "name": "plugin-creator",
+      "description": "Create or update ZCode plugin source and a local test marketplace, then guide the user to add, install, update and try it in the app. Use for new plugins or changes to an existing plugin's capabilities, manifest or local distribution.",
+      "enabled": true
+    },
+    {
+      "name": "podcast-generation",
+      "description": "Use this skill when the user requests to generate, create, or produce podcasts from text content. Converts written content into a two-host conversational podcast audio format with natural dialogue.",
+      "enabled": true
+    },
+    {
+      "name": "pptx",
+      "description": "Use this skill any time a presentation file is the primary input or output. Covers: creating new .pptx decks from scratch or from an outline/document (pptxgenjs / python-pptx); editing and restyling an existing .pptx; reading and extracting text/structure from a deck (markitdown)",
+      "enabled": true
+    },
+    {
+      "name": "pr",
+      "description": "Create, list, check out, review, or merge GitHub pull requests using GitHub CLI. Use when the user wants any pull-request workflow, not when they want to manage issues, releases, or local-only commits.",
+      "enabled": true
+    },
+    {
+      "name": "pr-to-video",
+      "description": "turn a GitHub pull request (a PR URL like github.com/<owner>/<repo>/pull/<N>, an <owner>/<repo>#<N> ref, or 'this PR' in a checked-out repo) into a code-change explainer video, up to ~3 min (sweet spot 30-90s) — changelog, feature reveal, fix, or refactor walkthrough, rendered fr",
+      "enabled": true
+    },
+    {
+      "name": "product-launch-video",
+      "description": "turn a product or marketing URL, pasted script, or brief into a product launch video, including SaaS promos, feature reveals, app launches, company promos, and product marketing videos. Use this skill when the user wants to market, launch, promote, or reveal a product. Do not use",
+      "enabled": true
+    },
+    {
+      "name": "release",
+      "description": "Create a GitHub release and prepare changelog notes for a version tag. Use when the user wants to publish or draft a repository release, not merely create a Git commit, tag, or pull request.",
+      "enabled": true
+    },
+    {
+      "name": "repo",
+      "description": "Clone or fork a GitHub repository with optional local setup, or open repository resources such as files, branches, issues, and settings in the browser. Use when the user wants a new local checkout or the web UI, not a Codespace or an existing pull-request checkout.",
+      "enabled": true
+    },
+    {
+      "name": "research-synthesis",
+      "description": "拿到经核验的文献清单后，按主题聚类、建 MECE taxonomy、逐节综合、交叉对比、检测矛盾、自对抗审查，产出一份结构化的综合分析。是 doubao-academic-researcher 调研管线的第二阶段，负责从\"一堆论文\"到\"一份有判断的综述\"的转化。",
+      "enabled": true
+    },
+    {
+      "name": "secret",
+      "description": "List, set, delete, or synchronize GitHub Actions repository secrets without exposing secret values. Use when the user explicitly wants to manage GitHub secret storage, not ordinary environment files or repository variables.",
+      "enabled": true
+    },
+    {
+      "name": "seed-audio",
+      "description": "用自然语言描述生成目标音频。把一段场景描述（人声对话、环境声、音效、背景音乐等复合音频）一次性生成成音频。当用户描述一个声音场景、要求生成/合成/制作一段音频或声音、给出形如\"角色：台词\"的对话脚本要转成音频、或要按参考音频的音色说话时使用。支持两种模式：纯文本描述生成（T2A）和带参考音频生成（A2A，在描述中引用参考音频指定角色音色）",
+      "enabled": true
+    },
+    {
+      "name": "self-evolution",
+      "description": "执行任务时持续改进技能、经验笔记与智能体配置。修补过时/错误的 SKILL.md、复杂任务后沉淀经验（assets 写 [experience]/craft）、缺能力时新建或调整自定义 Agent/技能。用户提到「优化技能」「保存经验」「上次怎么解决的」「给这个助手加能力」时使用；CLI 细节见 evoflow-admin，读本技能后按需 read skill:self-evolution 全文。",
+      "enabled": true
+    },
+    {
+      "name": "self-improving-agent",
+      "description": "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude ('No, that's wrong...', 'Actually...'), (3) User requests a capability that doesn't exist, (4) An external API or tool f",
+      "enabled": true
+    },
+    {
+      "name": "setup",
+      "description": "Verify GitHub CLI installation and guide authentication for the intended GitHub host and account. Use when gh is missing, authentication is invalid, the user wants to switch accounts or hosts, or another GitHub skill cannot pass preflight.",
+      "enabled": true
+    },
+    {
+      "name": "sheet",
+      "description": "表格全场景（本地 Excel/CSV 与飞书/doubao 在线表格）：创建、读写、分析、计算、建模、语义处理、可视化与美化。若用户上传附件、提供表格链接/token，或要求任何表格操作，必须加载。",
+      "enabled": true
+    },
+    {
+      "name": "sherpa-onnx-tts",
+      "description": "本地文字转语音，使用sherpa-onnx（离线，无需云端）。当需要离线语音合成时使用。",
+      "enabled": true
+    },
+    {
+      "name": "short-video-copywriting",
+      "description": "短视频爆款文案创作技能包。整合薛辉新媒体运营方法论（八大爆款元素+标题公式+16种开篇钩子+四类脚本结构）、埃德蒙文案技巧（情绪钩子+正文技巧+价值升华+结尾技巧）、B端工厂开头公式、内容创作底层哲学（好故事才是最大流量密码），以及完整创作流程和质量验收标准。适用于短视频口播文案、B端工厂文案、个人IP文案等场景。触发词：短视频文案、口播文案、爆款文案、视频脚本文案、钩子、爆款元素。",
+      "enabled": true
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create new skills, edit existing skills, and iterate wording. Use when writing SKILL.md from scratch, improving existing skills, turning repeated workflows into reusable skills, or refining skill descriptions to improve trigger reliability.",
+      "enabled": true
+    },
+    {
+      "name": "skill-lint",
+      "description": "Skill 格式审查工具，基于 SKILL-DEV-GUIDE.md 规范对技能进行合规性审计。本技能应在用户需要审查 skill 格式合规性、检查文档与代码一致性、识别冗余内容、生成技能审计报告时使用。不要用于：代码审查、功能测试、非 skill 项目。",
+      "enabled": true
+    },
+    {
+      "name": "social-media-operator",
+      "description": "自媒体运营全能助手 — 小红书、公众号、抖音、私域流量一站式运营指南。当你需要写爆款文案、规划内容日历、分析数据、制定涨粉策略时使用。",
+      "enabled": true
+    },
+    {
+      "name": "stem-writing-disciplines",
+      "description": "理工与医学学科论文写作专项参考。当用户写工程、计算机、控制、材料、机械、电子、农工、自然科学实验、算法模型，或医学、生物、临床、护理、公共卫生、药学论文，需要学科结构、方法可复现性、实验证据链、图表要求、报告规范、术语规范和学科合规检查时，使用此参考；重点避免把通用论文模板误套到有明确学科规范的理工或医学论文中。人文社科与法学不走本参考，改用同级 `../hss/SKILL.md`。",
+      "enabled": true
+    },
+    {
+      "name": "summarize",
+      "description": "摘要或提取URL、播客和本地文件的文本/转录内容（非常适合\"转录这个YouTube/视频\"请求）。 当需要总结或转录内容时使用。",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-executing-plans",
+      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-finishing-a-development-branch",
+      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-receiving-code-review",
+      "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-subagent-driven-development",
+      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-using-git-worktrees",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-using-superpowers",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "enabled": true
+    },
+    {
+      "name": "superpowers-verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "enabled": true
+    },
+    {
+      "name": "tarot-content",
+      "description": "Generate tarot × astrology content for social media — weekly horoscope scripts, tarot spreads, video scripts, and cover art. Use when asked to \"create tarot content\", \"weekly horoscope\", \"tarot reading script\", \"zodiac video\", \"astrology content calendar\", \"tarot spread design\", ",
+      "enabled": true
+    },
+    {
+      "name": "tarot-reading",
+      "description": "A tarot reading and interpretation tool, part of the fortune-telling-skills suite. Based on the Rider-Waite-Smith system, it supports upright and reversed readings for all 78 cards (Major and Minor Arcana), with spreads including Three-Card, Celtic Cross, Relationship, and more. ",
+      "enabled": true
+    },
+    {
+      "name": "technology-search",
+      "description": "搜索科技博客、开发者论坛和IT媒体（TechCrunch、Hacker News、36氪等）获取软硬件行业动态，含热度排名和中英互译。仅当话题明确涉及编程、软件、硬件、AI或IT基础设施时使用此技能。",
+      "enabled": true
+    },
+    {
+      "name": "vercel-deploy",
+      "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", \"Deploy and give me the link\", or \"Push this live\". No authentication required - returns previ",
+      "enabled": true
+    },
+    {
+      "name": "video-cinematography",
+      "description": "电影感拍摄与镜头运动技能。当用户提到镜头运动、运镜、拍摄技巧、景别、推拉摇移、电影感构图、或需要为视频创作设计分镜脚本时触发本技能。",
+      "enabled": true
+    },
+    {
+      "name": "video-editor",
+      "description": "Video editing operations using ffmpeg. Use when user needs to: (1) Cut/trim video clips, (2) Merge/join multiple videos, (3) Convert video formats, (4) Extract audio from video, (5) Add subtitles or text overlays, (6) Adjust video speed, (7) Resize/crop video dimensions, (8) Appl",
+      "enabled": true
+    },
+    {
+      "name": "video-script-generator",
+      "description": "生成短视频脚本和分镜。输入产品/主题描述、目标受众、时长，输出完整脚本+分镜结构（JSON/YAML）。支持多种模板：痛点-解决、反转剧情、before-after。触发词：视频脚本、短视频文案、分镜、storyboard、video script。",
+      "enabled": true
+    },
+    {
+      "name": "viral-script-writer",
+      "description": "爆款口播视频脚本创作专家。基于50,000+高播放量视频分析总结的方法论， 为用户创作符合\"黄金3秒\"原则的口播脚本。支持抖音、TikTok、YouTube、B站、X.com等多平台适配。 当用户需要写口播稿、短视频脚本、视频文案时使用此skill。",
+      "enabled": true
+    },
+    {
+      "name": "wan-media-generation",
+      "description": "通义万相 / DashScope（wan）生图/改图/生视频。用户指定万相、wan、DashScope、通义，或已配 DASHSCOPE_API_KEY 时使用。 ⏰ 触发：「用万相生图/生视频」「DashScope wan 画图」等。 火山生图请用 byted-ark-seedream-skill；火山短片请用 media-production。",
+      "enabled": true
+    },
+    {
+      "name": "workflow-run",
+      "description": "List, inspect, trigger, watch, or rerun GitHub Actions workflows and runs. Use when the user wants to operate or inspect CI workflows, not when they only want to merge a PR or browse the Actions page.",
+      "enabled": true
+    },
+    {
+      "name": "writing-chapters",
+      "description": "论文章节写作参考。当用户需要写作、改写、续写论文单章或多章内容，或需要摘要、引言、方法、实验、讨论、结论等章节结构、公式表格生成和章节质量审查时，使用此参考；按豆包单代理流程生成对话章节产物、用户确认和状态块，不依赖持久目录或独立分章流程。",
+      "enabled": true
+    },
+    {
+      "name": "writing-core",
+      "description": "中文学术论文核心写作规范。当用户需要论文写作、改写、润色、降 AI 痕迹、自然中文表达、公式表格排版、Markdown 正文排版或交付前语言自检时，使用此参考；重点保留豆包较强的自然写作能力，只用少量高杠杆规则约束模板化、直译腔、空泛拔高、格式粘连、跨章节重复和草稿状态污染。",
+      "enabled": true
+    },
+    {
+      "name": "xlsx",
+      "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file; create a new spreadsheet from scratch or from other data sources; analyze data and output",
+      "enabled": true
+    }
+  ],
+  "mcp_servers": [
+    {
+      "name": "android-agent",
+      "description": "http://127.0.0.1:8002/mcp"
+    },
+    {
+      "name": "contentos",
+      "description": "ContentOS 拆解分析师 MCP：video_decompose(纯拆解落库) / video_save_analysis(归因卡写回) / video_search_decompositions / video_get_decomposition / video_list_decompositions / account_set_profile / account_list"
+    }
+  ],
+  "knowledge_bases": [
+    {
+      "id": "kb_77e358602f904e20aea3c4ba8efaf8f8",
+      "name": "demo-1007·爆款钩子库",
+      "description": "1007 live seed"
+    },
+    {
+      "id": "kb_257ba3c136574e199e6a8805fe7f0643",
+      "name": "EvoFlow Docs",
+      "description": "从 Vault `evoflow-docs` 迁移"
+    },
+    {
+      "id": "kb_builtin_user_guide",
+      "name": "EvoFlow 用户指南",
+      "description": "系统内置 · 随版本自动同步产品文档"
+    },
+    {
+      "id": "kb_92a941b3a770489d853c52f3acb3a09a",
+      "name": "EvoFlow 营销编导知识库",
+      "description": "从 Vault `evoflow-marketing-director` 迁移"
+    },
+    {
+      "id": "kb_bd9c2c3523534b9b838f07b2199479d2",
+      "name": "九月 · Ai漫剧工具包",
+      "description": "飞书镜像：九月 Ai漫剧工具包（漫剧指令/分镜/导演运镜/知识库/导演skill），源 D:\\dev\\github\\feishu_downloads\\九月-Ai漫剧工具包"
+    },
+    {
+      "id": "kb_2bd645c3a87f42a6b914341d78a1159d",
+      "name": "云雀咖啡门店手册",
+      "description": "演示用知识库：云雀咖啡门店运营手册（价格/会员/储值/售后）+ 门店 SOP 与内部红线，共 2 篇，用于验证 AI 员工绑定知识库后的问答可用性"
+    },
+    {
+      "id": "kb_805ee1bf933d43f1a846979b1a0b1873",
+      "name": "便携榨汁杯 · 竞品短视频钩子手法简报",
+      "description": ""
+    },
+    {
+      "id": "kb_c0f68dab1e0d425fa58e1df106748c3e",
+      "name": "冒烟测试库",
+      "description": "重启后导入样例验证"
+    },
+    {
+      "id": "kb_0b9d7f5834de457c8e4fe33ac8d2bd0b",
+      "name": "我的知识库",
+      "description": "AI影视工业化相关文档（从 D:\\dev\\video\\知识库 导入）"
+    },
+    {
+      "id": "kb_e2a8f73a8d9a4fafad6159b251ab1b41",
+      "name": "抖音博主分析报告库",
+      "description": "抖音博主分析器(1005)自动生成的账号分析报告:数据全景/内容分析/钩子分析/账号对比"
+    },
+    {
+      "id": "kb_72da6f1d4b434a6e8295790e39e8fd46",
+      "name": "抖音拆解报告库",
+      "description": "抖音视频拆解报告知识库：爆款钩子、人群定位、黄金句、节奏结构等可复用的自媒体洞察"
+    },
+    {
+      "id": "kb_fed88b59d49641c0b05cf38c8d6c92f0",
+      "name": "智能体员工",
+      "description": "从 Vault `vault-c86e5c` 迁移"
+    },
+    {
+      "id": "kb_28a652439dbf4949a9f9934865e2b992",
+      "name": "智能客服知识库",
+      "description": ""
+    },
+    {
+      "id": "kb_f7244d8794b24d1890e642de0421ecb7",
+      "name": "视频分析",
+      "description": ""
+    },
+    {
+      "id": "kb_c6a7e65293cf45be993cf92abb7670df",
+      "name": "运营知识库",
+      "description": "从 Vault `evoflow-ops-knowledge` 迁移"
+    },
+    {
+      "id": "kb_4d59e0c0c43e4779aa58a3d9984d1062",
+      "name": "选题档案库",
+      "description": "自动选题工作流的历史归档：每轮选题建议（含热点来源与知识库依据）与用户采纳记录落库，供选题策划师查重与趋势回看"
+    }
+  ],
+  "plugins": {
+    "note": "平台无独立 plugins 域；扩展能力走 skills 安装包或 MCP。面板「插件」与技能目录同源。",
+    "items": []
+  },
+  "defaults_on_create": {
+    "capability_pack": "none",
+    "tools": [],
+    "skills": [],
+    "mcp_servers": [],
+    "knowledge_vault_ids": [],
+    "max_allowlist_tools": 12,
+    "tools_inherit_all": "仅当显式 tools:null 且 confirm_inherit_all=true 时继承全部可配置工具（不推荐；员工创建默认禁止）"
+  },
+  "hint": "优先传 capability_pack（research|writer|duty|coding|none），可用 tools_extra 少量追加；自定义再用 tools 白名单（≤12）。禁止把本目录 tools 全表灌进员工；tools:null 需 confirm_inherit_all。",
+  "action": "agents.bindings"
+}

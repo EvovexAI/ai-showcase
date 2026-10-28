@@ -1,0 +1,114 @@
+{
+  "ok": true,
+  "scenario": "s1",
+  "agent_code": "demo-1007-analyst",
+  "goal": "请拆解这条抖音，用三条要点写出开场钩子与可抄结构：https://v.douyin.com/WmUD_EkHqT0/",
+  "dispatch_id": "dry-49505a0f",
+  "log": [
+    {
+      "step": "employees.list",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles",
+          "url": "http://127.0.0.1:8080/api/proactive/roles?status=active",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "roles": [
+            {
+              "agent_code": "demo-1007-analyst",
+              "role_name": "演示拆解师",
+              "status": "active",
+              "knowledge_vault_ids": [
+                "demo-1007-kb"
+              ]
+            }
+          ],
+          "count": 1
+        }
+      }
+    },
+    {
+      "step": "employees.dispatch",
+      "agent_code": "demo-1007-analyst",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "POST",
+          "path": "/api/proactive/roles/demo-1007-analyst/dispatch",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-1007-analyst/dispatch",
+          "body": {
+            "goal": "请拆解这条抖音，用三条要点写出开场钩子与可抄结构：https://v.douyin.com/WmUD_EkHqT0/",
+            "description": "1007·S1 自媒体派工",
+            "priority": "normal",
+            "source": "demo-1007"
+          },
+          "dry_run": true
+        },
+        "mock": {
+          "ok": true,
+          "accepted": true,
+          "round_id": "dry-49505a0f",
+          "goal": "请拆解这条抖音，用三条要点写出开场钩子与可抄结构：https://v.douyin.com/WmUD_EkHqT0/"
+        }
+      }
+    },
+    {
+      "step": "employees.busy",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst/busy",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-1007-analyst/busy",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "busy": false,
+          "agent_code": "demo-1007-analyst"
+        }
+      }
+    },
+    {
+      "step": "employees.work_board",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/proactive/roles/demo-1007-analyst/work-board",
+          "url": "http://127.0.0.1:8080/api/proactive/roles/demo-1007-analyst/work-board?limit=20",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "tasks": [
+            {
+              "task_id": "dry-task-1",
+              "name": "演示任务",
+              "status": "done",
+              "description": "dry-run 工作台样例"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "dispatch_ok": true,
+    "busy_readable": true
+  },
+  "config": {
+    "base_url": "http://127.0.0.1:8080",
+    "dry_run": true,
+    "has_api_key": false
+  },
+  "note": "dry-run preview only — NOT accepted as live connectivity"
+}

@@ -1,0 +1,18 @@
+# 视频分析 · 抖音爆款拆解工作台 — Python 依赖
+# 安装（国内镜像）:
+#   python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+
+# 下载与转写
+yt-dlp>=2024.10.0          # 视频下载降级通道
+faster-whisper>=1.0.0      # 口播转写（首次运行自动下载模型）
+
+# 音频/视觉分析
+librosa>=0.10.0            # 语速/音色分析
+numpy>=1.24
+pillow>=10.0               # 关键帧启发式分类
+
+# 镜头切换检测（仅 --keyframe-mode scene 时需要，可留）
+scenedetect[opencv]>=0.6.4
+
+# 服务端
+# （标准库 http.server，无额外依赖）

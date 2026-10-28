@@ -1,0 +1,21 @@
+# 依赖与构建产物
+node_modules/
+.next/
+dist/
+.turbo/
+
+# Python 运行产物
+__pycache__/
+*.pyc
+
+# 运行期本地数据（各项目按需保留的 dev.db 样例除外）
+.chrome-profile/
+data/_server.log
+*.log
+
+# EvoFlow 本地索引
+.evoflow/code_index/
+
+# 系统文件
+Thumbs.db
+.DS_Store

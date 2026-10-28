@@ -1,0 +1,126 @@
+{
+  "ok": true,
+  "scenario": "s3",
+  "app_id": "demo-1007-app",
+  "run_id": "dry-run-95e762bb",
+  "parameters": {
+    "product": "便携榨汁杯",
+    "selling_points": "无线便携、30 秒出汁、可洗刀头",
+    "audience": "上班族 / 健身党"
+  },
+  "final_status": "completed",
+  "log": [
+    {
+      "step": "apps.get",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/apps/demo-1007-app",
+          "url": "http://127.0.0.1:8080/api/apps/demo-1007-app",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "id": "demo-1007-app",
+          "name": "演示·商品短视频脚本",
+          "status": "published",
+          "execution_mode": "workflow",
+          "parameters": [
+            {
+              "name": "product",
+              "label": "商品",
+              "required": true
+            },
+            {
+              "name": "selling_points",
+              "label": "卖点",
+              "required": false
+            },
+            {
+              "name": "audience",
+              "label": "人群",
+              "required": false
+            },
+            {
+              "name": "topic",
+              "label": "主题",
+              "required": false
+            },
+            {
+              "name": "brief",
+              "label": "调研简报",
+              "required": false
+            }
+          ],
+          "steps": [
+            {
+              "name": "卖点提炼",
+              "goal": "提炼 3 个核心卖点"
+            },
+            {
+              "name": "口播稿",
+              "goal": "写 30 秒口播"
+            },
+            {
+              "name": "分镜",
+              "goal": "拆 4–6 镜"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": "apps.run",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "POST",
+          "path": "/api/apps/demo-1007-app/run",
+          "url": "http://127.0.0.1:8080/api/apps/demo-1007-app/run",
+          "body": {
+            "parameters": {
+              "product": "便携榨汁杯",
+              "selling_points": "无线便携、30 秒出汁、可洗刀头",
+              "audience": "上班族 / 健身党"
+            },
+            "run_kind": "debug",
+            "trigger_kind": "manual"
+          },
+          "dry_run": true
+        },
+        "mock": {
+          "run_id": "dry-run-95e762bb",
+          "status": "running"
+        }
+      }
+    },
+    {
+      "step": "apps.run_status",
+      "run_id": "dry-run-95e762bb",
+      "result": {
+        "ok": true,
+        "dry_run": true,
+        "trace": {
+          "method": "GET",
+          "path": "/api/apps/runs/dry-run-95e762bb",
+          "url": "http://127.0.0.1:8080/api/apps/runs/dry-run-95e762bb",
+          "body": null,
+          "dry_run": true
+        },
+        "mock": {
+          "run_id": "dry-run-95e762bb",
+          "status": "completed",
+          "summary": "dry-run：卖点→口播→分镜已模拟完成"
+        }
+      }
+    }
+  ],
+  "acceptance": {
+    "published": true,
+    "has_run_id": true,
+    "status_readable": true
+  }
+}

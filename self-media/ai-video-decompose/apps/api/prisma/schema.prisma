@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model VideoDecomposition {
+  id              String   @id @default(cuid())
+  awemeId         String?
+  title           String
+  videoPath       String
+  reportJson      String   // JSON stored as text
+  durationSeconds Float?
+  sceneCount      Int      @default(0)
+  keyframePaths   String   @default("[]") // JSON array stored as text
+  contentId       String?
+  
+  // 新增：视频内容分析字段
+  contentSummary  String?  // 这篇视频主要讲的是什么？
+  targetAudience  String?  // 目标人群
+  hooks           String?  // 钩子（用逗号分隔的数组）
+  keyPoints       String?  // 重点
+  emotions        String?  // 情绪（用逗号分隔的数组）
+  userGain        String?  // 观众能获取到什么东西
+  engagementStrategy String? // 怎么吸引观众停留
+  contentType     String?  // 作品类型方向
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([awemeId])
+  @@index([contentId, createdAt])
+}
